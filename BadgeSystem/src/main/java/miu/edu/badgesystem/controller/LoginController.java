@@ -18,7 +18,7 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO requestDTO){
-         String s=authenticateService.loginUser(requestDTO);
+        String s=authenticateService.loginUser(requestDTO);
         System.out.println(s);
         System.out.println(requestDTO.getUsername());
         System.out.println(requestDTO.getPassword());
