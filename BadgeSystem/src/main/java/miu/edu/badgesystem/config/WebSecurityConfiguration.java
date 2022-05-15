@@ -1,6 +1,5 @@
 package miu.edu.badgesystem.config;
 
-import miu.edu.badgesystem.security.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,30 +23,36 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtFilter jwtFilter;
-
-    @Bean
-    AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(new BCryptPasswordEncoder());
-
-        return provider;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
             http.csrf().disable()
-                    .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers(HttpMethod.POST,"/login").hasAuthority("USER")
+                    .antMatchers(HttpMethod.POST,"/login").permitAll()
                     .anyRequest()
                     .authenticated()
                     .and()
                     .httpBasic();
 
+    }
+
+    // configure AuthenticationManager so that it knows from where to load
+    // user for matching credentials
+    // Use BCryptPasswordEncoder
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 
