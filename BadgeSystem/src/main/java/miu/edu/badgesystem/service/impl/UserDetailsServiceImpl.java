@@ -1,6 +1,5 @@
 package miu.edu.badgesystem.service.impl;
 
-import miu.edu.badgesystem.model.CustomUserDetails;
 import miu.edu.badgesystem.model.User;
 import miu.edu.badgesystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
