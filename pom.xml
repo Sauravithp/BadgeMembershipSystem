@@ -13,7 +13,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>BadgeAndMembershipSystem</name>
 	<description>Demo project for Spring Boot</description>
-	<packaging>pom</packaging>
 
 	<dependencies>
 		<dependency>
@@ -22,9 +21,6 @@
 			<version>5.2.3.RELEASE</version>
 		</dependency>
 	</dependencies>
-	<modules>
-		<module>BadgeSystem</module>
-		<module>Entity</module>
-	</modules>
+
 
 </project>
