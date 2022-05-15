@@ -27,6 +27,8 @@ public class JwtFilter implements Filter {
         } else {
             String header = httpRequest.getHeader("Authorization");
             try {
+                //header
+                //decrypt the jwt
                 header.contains("test");
                 chain.doFilter(request, response);
             } catch (Exception e) {

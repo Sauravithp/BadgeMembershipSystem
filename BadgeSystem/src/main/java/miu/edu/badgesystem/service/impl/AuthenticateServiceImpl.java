@@ -20,6 +20,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(requestDTO.getUsername(), requestDTO.getPassword()));
 
+            // return jwt token
             return "hello";
     }
 }
