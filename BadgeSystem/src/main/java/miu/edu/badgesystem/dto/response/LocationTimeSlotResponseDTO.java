@@ -5,10 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
-public class LocationResponseDTO {
+public class LocationTimeSlotResponseDTO {
 
     @NotNull
     private Long id;
@@ -17,14 +19,15 @@ public class LocationResponseDTO {
     private String name;
 
     @NotNull
-    private String description;
+    private String startTime;
 
     @NotNull
-    private String capacity;
+    private String endTime;
+
+    @NotNull
+    private LocalDate date;
 
     @NotNull
     private Character status;
-
-    private LocationDateResponseDTO locationDate;
 
 }
