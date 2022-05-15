@@ -7,12 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Persistence" />
         <module name="Entity" />
+        <module name="BadgeSystem" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="BadgeMembershipSystem" target="1.8" />
+      <module name="BadgeSystem" target="11" />
       <module name="Enity" target="11" />
       <module name="Entity" target="11" />
       <module name="Persistence" target="11" />
@@ -20,6 +21,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="BadgeSystem" options="-parameters" />
       <module name="Enity" options="-parameters" />
       <module name="Entity" options="-parameters" />
       <module name="Persistence" options="-parameters" />

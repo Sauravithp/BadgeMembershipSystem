@@ -4,8 +4,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/Persistence/pom.xml" />
         <option value="$PROJECT_DIR$/Entity/pom.xml" />
+        <option value="$PROJECT_DIR$/BadgeSystem/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

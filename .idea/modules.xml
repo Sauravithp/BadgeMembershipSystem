@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml" filepath="$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BadgeSystem/BadgeSystem.iml" filepath="$PROJECT_DIR$/BadgeSystem/BadgeSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/Entity/Entity.iml" filepath="$PROJECT_DIR$/Entity/Entity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Persistence/Persistence.iml" filepath="$PROJECT_DIR$/Persistence/Persistence.iml" />
     </modules>
   </component>
 </project>

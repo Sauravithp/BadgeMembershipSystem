@@ -23,8 +23,8 @@
 		</dependency>
 	</dependencies>
 	<modules>
+		<module>BadgeSystem</module>
 		<module>Entity</module>
-
 	</modules>
 
 </project>
