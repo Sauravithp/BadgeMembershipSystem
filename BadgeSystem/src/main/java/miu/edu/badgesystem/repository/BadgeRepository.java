@@ -1,4 +1,4 @@
-package miu.edu.badgesystem.controller;
+package miu.edu.badgesystem.repository;
 
 import miu.edu.badgesystem.model.Badge;
 import org.springframework.data.jpa.repository.JpaRepository;

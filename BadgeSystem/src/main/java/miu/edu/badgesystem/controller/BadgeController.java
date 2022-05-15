@@ -1,6 +1,7 @@
 package miu.edu.badgesystem.controller;
 
 import miu.edu.badgesystem.model.Badge;
+import miu.edu.badgesystem.repository.BadgeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

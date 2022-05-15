@@ -1,5 +1,6 @@
 package miu.edu.badgesystem.config;
 
+import miu.edu.badgesystem.security.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JwtFilter jwtFilter;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
             http.csrf().disable()
+                    .addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers(HttpMethod.POST,"/login").permitAll()
