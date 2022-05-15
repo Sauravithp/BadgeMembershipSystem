@@ -1,10 +1,10 @@
-package miu.edu.entity.model;
+package miu.edu.badgesystem.model;
 
-import miu.edu.entity.audit.Auditable;
-import miu.edu.entity.listener.BadgeEntityListener;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import miu.edu.badgesystem.audit.Auditable;
+import miu.edu.badgesystem.listener.BadgeEntityListener;
 
 import javax.persistence.*;
 

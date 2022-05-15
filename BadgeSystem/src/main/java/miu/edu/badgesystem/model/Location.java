@@ -1,4 +1,4 @@
-package miu.edu.entity.model;
+package miu.edu.badgesystem.model;
 
 import javax.persistence.*;
 
