@@ -1,9 +1,13 @@
 package miu.edu.badgesystem.model;
 
+import lombok.Data;
+import miu.edu.badgesystem.audit.Auditable;
+
 import javax.persistence.*;
 
 @Entity
-public class Location {
+@Data
+public class Location extends Auditable<Location> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,12 +16,11 @@ public class Location {
     @Column(name = "name")
     private String name;
 
-
     @Column(name = "description")
     private String description;
 
-    @Column(name = "count")
-    private Integer count;
+    @Column(name = "capacity")
+    private Integer capacity;
 
     @Column
     private Character status;
@@ -25,8 +28,4 @@ public class Location {
     @Column
     @Enumerated(EnumType.STRING)
     private LocationType locationType;
-
-    @OneToOne
-    @JoinColumn(name = "location_date_id")
-    private LocationDate locationDate;
 }
