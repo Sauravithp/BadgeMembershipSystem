@@ -4,10 +4,18 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Enity/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/Persistence/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/BadgeSystem/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

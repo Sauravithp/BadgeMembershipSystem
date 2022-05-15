@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml" filepath="$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/Enity/Enity.iml" filepath="$PROJECT_DIR$/Enity/Enity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Persistence/Persistence.iml" filepath="$PROJECT_DIR$/Persistence/Persistence.iml" />
     </modules>
   </component>
 </project>
