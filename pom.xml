@@ -23,7 +23,7 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>Enity</module>
+		<module>Entity</module>
 
 	</modules>
 

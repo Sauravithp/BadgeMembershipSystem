@@ -3,15 +3,14 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/Enity/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/Persistence/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/BadgeSystem/pom.xml" />
-        <option value="$PROJECT_DIR$/Entity/pom.xml" />
       </set>
     </option>
   </component>
