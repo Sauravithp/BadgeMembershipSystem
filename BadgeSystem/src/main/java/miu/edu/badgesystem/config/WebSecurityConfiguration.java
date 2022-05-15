@@ -39,7 +39,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
             http.csrf().disable()
-                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                    .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers(HttpMethod.POST,"/login").hasAuthority("USER")

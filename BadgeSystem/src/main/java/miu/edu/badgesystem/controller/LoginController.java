@@ -12,7 +12,6 @@ public class LoginController {
 
     @PostMapping
     public void login(@RequestBody LoginRequestDTO loginRequestDTO){
-
         System.out.println(loginRequestDTO.getUsername());
         System.out.println(loginRequestDTO.getPassword());
     }
