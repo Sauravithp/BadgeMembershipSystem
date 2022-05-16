@@ -5,10 +5,12 @@ import miu.edu.badgesystem.model.LocationClosed;
 import miu.edu.badgesystem.service.LocationClosedService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class LocationClosedServiceImpl implements LocationClosedService {
 
     @Override
