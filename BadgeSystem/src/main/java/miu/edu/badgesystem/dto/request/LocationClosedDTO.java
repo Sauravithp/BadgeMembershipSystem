@@ -14,10 +14,8 @@ import java.util.List;
 @Builder
 public class LocationClosedDTO {
 
-    @NotNull
     private List<String> weekDays;;
 
-    @NotNull
     private List<LocalDate> date;
 
 }
