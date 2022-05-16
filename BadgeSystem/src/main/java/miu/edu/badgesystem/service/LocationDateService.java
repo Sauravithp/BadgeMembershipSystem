@@ -13,5 +13,7 @@ public interface LocationDateService {
 
     String delete(Long id);
 
+    LocationDateResponseDTO getLocationDateById(Long id);
+
 
 }

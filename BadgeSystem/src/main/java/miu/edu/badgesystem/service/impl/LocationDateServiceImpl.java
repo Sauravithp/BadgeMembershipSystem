@@ -65,5 +65,10 @@ public class LocationDateServiceImpl implements LocationDateService {
         return "deleted";
     }
 
+    @Override
+    public LocationDateResponseDTO getLocationDateById(Long id) {
+        return null;
+    }
+
 
 }
