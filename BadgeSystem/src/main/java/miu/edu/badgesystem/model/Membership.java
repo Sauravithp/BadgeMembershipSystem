@@ -1,17 +1,15 @@
 package miu.edu.badgesystem.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Membership {
 
     @Id
@@ -19,12 +17,10 @@ public class Membership {
     private Long id;
 
     @Column(name = "start_date")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column
     private Character status;
@@ -32,4 +28,8 @@ public class Membership {
     @OneToOne
     @JoinColumn(name = "location_id")
     private Location location;
+
+    @ManyToOne
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
 }

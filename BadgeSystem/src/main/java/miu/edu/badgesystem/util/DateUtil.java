@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -266,4 +267,17 @@ public class DateUtil {
 
 return localDate.getDayOfWeek().toString();
     }
+
+    public static LocalDate getFirstDayOfMonth(){
+
+        YearMonth month = YearMonth.now();
+        return  month.atDay(1);
+    }
+    public static LocalDate getEndDayOfMonth(){
+
+        YearMonth month = YearMonth.now();
+        return  month.atEndOfMonth();
+    }
+
+
 }
