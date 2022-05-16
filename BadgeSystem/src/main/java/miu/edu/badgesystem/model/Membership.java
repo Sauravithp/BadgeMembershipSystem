@@ -28,4 +28,8 @@ public class Membership {
     @OneToOne
     @JoinColumn(name = "location_id")
     private Location location;
+
+    @ManyToOne
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
 }

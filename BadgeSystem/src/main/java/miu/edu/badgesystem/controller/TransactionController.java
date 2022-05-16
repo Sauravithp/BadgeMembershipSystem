@@ -2,10 +2,10 @@ package miu.edu.badgesystem.controller;
 
 
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
-import miu.edu.badgesystem.dto.response.TransactionDTO;
+import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.model.Transaction;
 import miu.edu.badgesystem.service.TransactionService;
-import org.modelmapper.ModelMapper;
+import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,35 +17,33 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
-    @Autowired
-    private ModelMapper mapper;
 
     @PostMapping
-    private ResponseEntity<TransactionDTO> save(@RequestBody TransactionRequestDTO transactionDto) {
+    private ResponseEntity<TransactionResponseDTO> save(@RequestBody TransactionRequestDTO transactionDto) {
 
-        Transaction savedTransaction = transactionService.saveTransaction(transactionDto);
+        TransactionResponseDTO savedTransaction = transactionService.saveTransaction(transactionDto);
         System.out.println(savedTransaction);
-        return ResponseEntity.ok(mapper.map(savedTransaction, TransactionDTO.class));
+        return ResponseEntity.ok(savedTransaction);
     }
 
 
     @GetMapping
-    private ResponseEntity<TransactionDTO> getTransactions() {
+    private ResponseEntity<TransactionResponseDTO> getAllTransactions() {
         List<Transaction> transactions = transactionService.getAllTransaction();
-        return ResponseEntity.ok(mapper.map(transactions, TransactionDTO.class));
+        return ResponseEntity.ok(ModelMapperUtils.map(transactions, TransactionResponseDTO.class));
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<TransactionDTO> getTransactionByID(@PathVariable("id") Long id) {
+    private ResponseEntity<TransactionResponseDTO> getTransactionByID(@PathVariable("id") Long id) {
         Transaction transaction = transactionService.getTransaction(id);
-        return ResponseEntity.ok(mapper.map(transaction, TransactionDTO.class));
+        return ResponseEntity.ok(ModelMapperUtils.map(transaction, TransactionResponseDTO.class));
     }
 
-    @DeleteMapping("/{id}")
-    private ResponseEntity<TransactionDTO> deleteById(@PathVariable("id") Long id) {
-//        transactionService.deleteTransaction(id);
-        return ResponseEntity.ok(mapper.map(id, TransactionDTO.class));
-    }
+//    @DeleteMapping("/{id}")
+//    private ResponseEntity<TransactionDTO> deleteById(@PathVariable("id") Long id) {
+////        transactionService.deleteTransaction(id);
+//        return ResponseEntity.ok(mapper.map(id, TransactionDTO.class));
+//    }
 
 
 }

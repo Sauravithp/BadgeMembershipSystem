@@ -2,6 +2,8 @@ package miu.edu.badgesystem.service.impl;
 
 
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
+import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
+import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.Membership;
@@ -11,6 +13,7 @@ import miu.edu.badgesystem.repository.MembershipRepository;
 import miu.edu.badgesystem.repository.TransactionRepository;
 import miu.edu.badgesystem.service.TransactionService;
 import miu.edu.badgesystem.util.DateUtil;
+import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +24,6 @@ import java.util.List;
 
 @Service
 @Transactional
-
 public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
@@ -30,24 +32,56 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private MembershipRepository membershipRepository;
 
+    @Autowired
+    private PlanRepository planRepository;
+
     @Override
-    public Transaction saveTransaction(TransactionRequestDTO transaction) {
-        Membership membership= membershipRepository.getById(transaction.getMembershipId());
-        if(ObjectUtils.isEmpty(membership)){
+    public TransactionResponseDTO saveTransaction(TransactionRequestDTO transaction) {
+        Membership membership = membershipRepository.getById(transaction.getMembershipId());
+        Location location = locationRepository.getLocationByID(transaction.getLocationId());
+        if (ObjectUtils.isEmpty(membership)) {
             throw new NoContentFoundException("membership Not found");
         }
-        Location location = locationRepository.getLocationByID(transaction.getLocationId());
-        if(ObjectUtils.isEmpty(location)){
+
+        if (ObjectUtils.isEmpty(location)) {
             throw new NoContentFoundException("location Not found");
         }
-        LocalDate startDate= DateUtil.getFirstDayOfMonth();
-        LocalDate endDate = DateUtil.getEndDayOfMonth();
+        //checking if count is exceeded for the member
+        if (membership.getPlan().getIsLimited()) {
+            LocalDate startDate = DateUtil.getFirstDayOfMonth();
+            LocalDate endDate = DateUtil.getEndDayOfMonth();
+            Integer transactionCount = transactionRepository.getTransactionCountByMembershipAndLocationId(transaction.getLocationId(), transaction.getMembershipId(), startDate, endDate);
+            Integer count = membership.getPlan().getCount();
+            if (transactionCount == count) {
+                throw new BadRequestException("sorry transaction for this month has exceeded");
+            }
+        }
+        Integer occupiedSeatCount =  transactionRepository.getOccupiedSeat(transaction.getLocationId());
+        if(occupiedSeatCount>=location.getCapacity()){
 
-        Long transactionCount= transactionRepository.getTransactionCountByMembershipAndLocationId(transaction.getLocationId(),
-                transaction.getMembershipId(),startDate,endDate);
+            throw new BadRequestException("Sorry its Fully Occupied right now");
+        }
+        //checking if location is inactive
+
+//        if (location.getStatus() == 'N') {
+//
+//            throw new BadRequestException("Location is not available");
+//        }
 
 
-        return null;
+        //saving the transactions
+        Transaction transaction1 = new Transaction();
+        transaction1.setLocation(location);
+        transaction1.setMembership(membership);
+        transaction1.setStatus('Y');
+        transaction1.setDate(LocalDate.now());
+
+        transactionRepository.save(transaction1);
+
+        TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction1, TransactionResponseDTO.class);
+
+
+        return transactionResponseDTO;
     }
 
     @Override
