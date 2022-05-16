@@ -1,10 +1,19 @@
 package miu.edu.badgesystem.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LocationDate {
 
     @Id
@@ -32,12 +41,16 @@ public class LocationDate {
     @Column
     private Boolean hasTimeSlot;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private LocationType locationType;
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     @OneToMany
     @JoinColumn(name = "location_date_id")
     private List<LocationClosed> locationClosed;
+
+    @OneToMany
+    @JoinColumn(name = "location_date_id")
+    private List<LocationTimeSlot> locationTimeSlots;
 
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Location extends Auditable<Location> {
+public class Location extends Auditable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,6 @@ public class Location extends Auditable<Location> {
     @Column
     @Enumerated(EnumType.STRING)
     private LocationType locationType;
+
+
 }

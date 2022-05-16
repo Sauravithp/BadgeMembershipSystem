@@ -26,6 +26,6 @@ public class LocationRequestDTO {
     @NotNull
     private LocationType locationType;
 
-    private LocationDateRequestDTO requestDTO;
+    private LocationDateRequestDTO locationDateRequestDTO;
 
 }

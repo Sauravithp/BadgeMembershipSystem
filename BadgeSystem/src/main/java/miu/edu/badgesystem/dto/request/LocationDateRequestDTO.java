@@ -32,4 +32,7 @@ public class LocationDateRequestDTO {
     private Character status;
 
     private List<LocationTimeSlotDTO> timeSlots;
+
+    private List<LocationClosedDTO> closedDTO;
+
 }

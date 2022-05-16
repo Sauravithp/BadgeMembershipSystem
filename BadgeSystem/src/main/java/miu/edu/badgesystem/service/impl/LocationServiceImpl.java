@@ -2,10 +2,13 @@ package miu.edu.badgesystem.service.impl;
 
 import com.sun.jdi.request.DuplicateRequestException;
 import miu.edu.badgesystem.dto.request.LocationRequestDTO;
+import miu.edu.badgesystem.dto.response.LocationDateResponseDTO;
 import miu.edu.badgesystem.dto.response.LocationResponseDTO;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
+import miu.edu.badgesystem.model.LocationDate;
 import miu.edu.badgesystem.repository.LocationRepository;
+import miu.edu.badgesystem.service.LocationDateService;
 import miu.edu.badgesystem.service.LocationService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,9 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    private LocationDateService locationDateService;
+
 
     @Override
     public LocationResponseDTO save(LocationRequestDTO requestDTO) {
@@ -31,9 +37,12 @@ public class LocationServiceImpl implements LocationService {
         }
         Location locationToSave= ModelMapperUtils.map(requestDTO,Location.class);
         locationToSave.setStatus('Y');
-        LocationResponseDTO savedLocation=ModelMapperUtils.map(locationRepository.save(locationToSave),
+        Location savedLocation=locationRepository.save(locationToSave);
+        LocationDateResponseDTO locationDate=locationDateService.save(requestDTO.getLocationDateRequestDTO(),savedLocation);
+        LocationResponseDTO finalResponse=ModelMapperUtils.map(savedLocation,
                 LocationResponseDTO.class);
-        return savedLocation;
+        finalResponse.setLocationDate(locationDate);
+        return finalResponse;
     }
 
     @Override
