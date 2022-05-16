@@ -69,8 +69,17 @@ public class LocationDateServiceImpl implements LocationDateService {
     public LocationDateResponseDTO getLocationDateById(Long id) {
         LocationDate locationDate=locationDateRepository.getLocationDateByLocationId(id);
         LocationDateResponseDTO locationDateResponseDTO = LocationDateUtil.getLocationDateResponseDTO(locationDate);
-
         return locationDateResponseDTO;
+    }
+
+    @Override
+    public LocationDateResponseDTO updateLocationDate(Long id, LocationDateRequestDTO locationDateRequestDTO) {
+        LocationDate locationDate=locationDateRepository.getLocationDateById(id);
+        locationDate.setStatus(locationDateRequestDTO.getStatus());
+        locationDate.setEndDate(locationDateRequestDTO.getEndDate());
+        locationDate.setStartDate(locationDate.getStartDate());
+        locationDateRepository.save(locationDate);
+        return ModelMapperUtils.map(locationDate,LocationDateResponseDTO.class);
     }
 
 

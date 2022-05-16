@@ -43,7 +43,7 @@ public class LocationDateResponseDTO {
     private List<LocationTimeSlotResponseDTO> timeSlots;
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private LocationClosedResponseDTO locationClosed;
+    private List<LocationClosedResponseDTO> locationClosed;
 
 
 

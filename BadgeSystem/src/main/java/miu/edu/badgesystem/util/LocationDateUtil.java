@@ -7,7 +7,6 @@ import miu.edu.badgesystem.model.LocationClosed;
 import miu.edu.badgesystem.model.LocationDate;
 import miu.edu.badgesystem.model.LocationTimeSlot;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,19 +28,21 @@ public class LocationDateUtil {
         return locationDateResponseDTO;
     }
 
-    public static LocationClosedResponseDTO getLocationClosedResponseDTO(LocationDate locationDate) {
+    public static List<LocationClosedResponseDTO> getLocationClosedResponseDTO(LocationDate locationDate) {
 
         if(!locationDate.getHasLocationClosedDate()) {
             return null;
         }else{
             List<LocationClosed> locationClosed = locationDate.getLocationClosed();
-            List<LocalDate> locationDates = new ArrayList<>();
+            List<LocationClosedResponseDTO> locationDates = new ArrayList<>();
 
             locationClosed.forEach(closed -> {
-                locationDates.add(closed.getDate());
+                LocationClosedResponseDTO locationClosedResponseDTO=ModelMapperUtils
+                        .map(closed,LocationClosedResponseDTO.class);
+                locationDates.add(locationClosedResponseDTO);
             });
 
-            return LocationClosedResponseDTO.builder().date(locationDates).build();
+            return locationDates;
         }
 
     }

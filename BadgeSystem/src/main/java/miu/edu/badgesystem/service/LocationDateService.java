@@ -16,4 +16,5 @@ public interface LocationDateService {
     LocationDateResponseDTO getLocationDateById(Long id);
 
 
+    LocationDateResponseDTO updateLocationDate(Long id, LocationDateRequestDTO locationDateRequestDTO);
 }

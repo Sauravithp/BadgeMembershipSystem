@@ -13,6 +13,10 @@ import java.util.List;
 @Builder
 public class LocationClosedResponseDTO {
 
-    private List<LocalDate> date;
+    private LocalDate date;
+
+    private Long id;
+
+    private Character status;
 
 }
