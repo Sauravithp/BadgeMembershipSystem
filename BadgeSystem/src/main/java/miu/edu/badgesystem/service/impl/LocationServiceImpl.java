@@ -35,7 +35,8 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationResponseDTO save(LocationRequestDTO requestDTO) {
-        Location location = locationRepository.getLocationByName(requestDTO.getName());
+        Location location = locationRepository.getLocationByName(requestDTO.getName(),
+                requestDTO.getLocationType());
         if (Objects.nonNull(location)) {
             throw new DataDuplicationException("Location with name:" + requestDTO.getName() + " already exists");
         }
