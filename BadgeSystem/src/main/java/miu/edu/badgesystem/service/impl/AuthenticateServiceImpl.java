@@ -21,18 +21,22 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     @Override
     public String loginUser(LoginRequestDTO requestDTO) {
 
-        Keycloak keycloak = kcProvider.newKeycloakBuilderWithPasswordCredentials(
-                requestDTO.getUsername(),
-                requestDTO.getPassword()
-        ).build();
-        AccessTokenResponse accessTokenResponse = null;
-        try {
-            accessTokenResponse = keycloak.tokenManager().getAccessToken();
-            return accessTokenResponse.getToken();
-        } catch (BadRequestException ex) {
-            System.out.println("invalid account. User probably hasn't verified email.");
-            return null;
-        }
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(requestDTO.getUsername(), requestDTO.getPassword()));
+
+            Keycloak keycloak = kcProvider.newKeycloakBuilderWithPasswordCredentials(
+                    requestDTO.getUsername(),
+                    requestDTO.getPassword()
+            ).build();
+            AccessTokenResponse accessTokenResponse = null;
+            try {
+                accessTokenResponse = keycloak.tokenManager().getAccessToken();
+                return accessTokenResponse.getToken();
+            } catch (BadRequestException ex) {
+                System.out.println("invalid account. User probably hasn't verified email.");
+                return null;
+            }
+
 
     }
 }
