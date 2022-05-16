@@ -4,7 +4,6 @@ import miu.edu.badgesystem.dto.request.RoleRequestDTO;
 import miu.edu.badgesystem.dto.response.RoleResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
-import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.RoleService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -28,15 +26,15 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleResponseDTO findById(Long roleId) {
-        Role role = roleRepository.findById(roleId).orElseThrow(() -> {
-            throw new NoContentFoundException("No content with " + roleId + "found");
+        Role role = roleRepository.getActiveRoleByID(roleId).orElseThrow(() -> {
+            throw new NoContentFoundException("No Content  found");
         });
         return ModelMapperUtils.map(role, RoleResponseDTO.class);
     }
 
     @Override
     public List<RoleResponseDTO> getAllRoles() {
-        List<Role> roles = roleRepository.findAll();
+        List<Role> roles = roleRepository.getActiveAllRoles();
         if (roles.isEmpty()) {
             throw new NoContentFoundException("Role(s) is empty, No data found");
         }

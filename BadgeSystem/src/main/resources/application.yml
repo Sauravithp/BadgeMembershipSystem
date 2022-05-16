@@ -6,9 +6,8 @@ spring:
   application:
     name: entity-service
   datasource:
-    url: jdbc:mysql://localhost:3306/badgesystem
+    url: jdbc:mysql://localhost:3306/Practice
     username: root
-    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10
