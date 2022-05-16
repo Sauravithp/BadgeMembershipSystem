@@ -8,6 +8,7 @@ import miu.edu.badgesystem.service.MemberService;
 import miu.edu.badgesystem.util.ModelMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -30,14 +31,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    // TODO: 5/16/22
     public List<MemberResponseDTO> findAll() {
         List<Member> members = memberRepository.findAll();
+        //members if its empty you need to send an exception
         return members.stream().map(role-> ModelMapperUtil.map(role, MemberResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
+    // TODO: 5/16/22
     public MemberResponseDTO save(MemberRequestDTO memberDTO) {
         Member member = ModelMapperUtil.map(memberDTO, Member.class);
+        //Check for duplicate data
         return ModelMapperUtil.map(memberRepository.save(member), MemberResponseDTO.class);
     }
 
@@ -45,7 +50,8 @@ public class MemberServiceImpl implements MemberService {
     public void delete(Long memberId) {
         //TODO
         Member foundMember = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Role with id " + memberId + " NOT FOUND"));
-        memberRepository.delete(foundMember);
+        foundMember.setStatus('D');
+        memberRepository.save(foundMember);
     }
 
     @Override

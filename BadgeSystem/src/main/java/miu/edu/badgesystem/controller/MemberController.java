@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RequestMapping("/members")
 @RestController
+@RequestMapping("/members")
 public class MemberController {
 
     @Autowired
