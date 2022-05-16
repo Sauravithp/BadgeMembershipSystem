@@ -27,7 +27,4 @@ public class Role {
     @Column
     private Character status;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "role_id")
-    private List<MemberRoles> memberRoles;
 }

@@ -40,7 +40,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberResponseDTO findById(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> { throw new NoContentFoundException("No content with " + memberId + "found");});
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> {
+            throw new NoContentFoundException("No content with " + memberId + "found");
+        });
         return ModelMapperUtils.map(member, MemberResponseDTO.class);
     }
 
@@ -48,10 +50,10 @@ public class MemberServiceImpl implements MemberService {
     // TODO: 5/16/22
     public List<MemberResponseDTO> findAll() {
         List<Member> members = memberRepository.findAll();
-        if(members.isEmpty()) {
+        if (members.isEmpty()) {
             throw new NoContentFoundException("Member(s) is empty, No data found");
         }
-        return members.stream().map(role-> ModelMapperUtils.map(role, MemberResponseDTO.class)).collect(Collectors.toList());
+        return members.stream().map(role -> ModelMapperUtils.map(role, MemberResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -65,11 +67,11 @@ public class MemberServiceImpl implements MemberService {
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
         memberRepository.save(memberToSave);
-        List<MembershipResponseDTO> membershipResponseDTOS=membershipService.save(memberToSave,memberDTO.getMemberships());
+        List<MembershipResponseDTO> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
 //        memberToSave.setMemberships(memberDTO.getMemberships());
-      //  memberToSave.setMemberRoles(memberDTO.getMemberRoles());
+        //  memberToSave.setMemberRoles(memberDTO.getMemberRoles());
 //        memberToSave.setBadges(memberDTO.getBadges());
-        MemberResponseDTO responseDTO=ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
+        MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
         responseDTO.setMemberships(membershipResponseDTOS);
         return responseDTO;
     }
@@ -77,7 +79,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void delete(Long memberId) {
         //TODO
-        Member foundMember = memberRepository.findById(memberId).orElseThrow(() -> {throw new NoContentFoundException("No Content Found");});
+        Member foundMember = memberRepository.findById(memberId).orElseThrow(() -> {
+            throw new NoContentFoundException("No Content Found");
+        });
         foundMember.setStatus('D');
         memberRepository.save(foundMember);
     }
@@ -86,15 +90,18 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponseDTO update(MemberRequestDTO memberDTO, Long id) {
         Member member = ModelMapperUtils.map(memberDTO, Member.class);
         Member foundMember = memberRepository.findById(id)
-                .map(m -> {m.setFirstName(member.getFirstName());
+                .map(m -> {
+                    m.setFirstName(member.getFirstName());
                     m.setLastName(member.getLastName());
                     m.setStatus(member.getStatus());
                     m.setEmailAddress(member.getEmailAddress());
                     m.setMemberships(member.getMemberships());
                     m.setBadges(member.getBadges());
-                    m.setMemberRoles(member.getMemberRoles());
+                 //   m.setMemberRoles(member.getMemberRoles());
                     return memberRepository.save(m);
-                }).orElseThrow(() -> { throw new NoContentFoundException("No Content with the" + id + "found");});
+                }).orElseThrow(() -> {
+                    throw new NoContentFoundException("No Content with the" + id + "found");
+                });
 
         return ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
     }

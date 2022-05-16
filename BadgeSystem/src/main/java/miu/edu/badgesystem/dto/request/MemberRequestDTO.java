@@ -31,5 +31,8 @@ public class MemberRequestDTO {
     @NotEmpty
     private List<MembershipRequestDTO> memberships;
 
+    @NotEmpty
+    private List<RoleRequestDTO> roles;
+
 
 }

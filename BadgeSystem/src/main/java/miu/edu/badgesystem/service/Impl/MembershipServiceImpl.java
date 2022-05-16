@@ -3,13 +3,12 @@ package miu.edu.badgesystem.service.Impl;
 import miu.edu.badgesystem.dto.request.MembershipRequestDTO;
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.exception.NoContentFoundException;
-import miu.edu.badgesystem.model.Location;
-import miu.edu.badgesystem.model.Member;
-import miu.edu.badgesystem.model.Membership;
-import miu.edu.badgesystem.model.Plan;
+import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.LocationRepository;
+import miu.edu.badgesystem.repository.MemberRolesRepository;
 import miu.edu.badgesystem.repository.MembershipRepository;
 import miu.edu.badgesystem.repository.PlanRepository;
+import miu.edu.badgesystem.service.MemberRolesService;
 import miu.edu.badgesystem.service.MembershipService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,26 +33,34 @@ public class MembershipServiceImpl implements MembershipService {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    private MemberRolesService memberRolesService;
 
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
-        Membership membership = membershipRepository.findById(membershipId).orElseThrow(() -> new NoSuchElementException("Membership with id " + membershipId + " NOT FOUND"));
+        Membership membership = membershipRepository.findById(membershipId).orElseThrow(() -> {throw new NoContentFoundException("Membership with id " + membershipId + " NOT FOUND");});
         return ModelMapperUtils.map(membership, MembershipResponseDTO.class);
     }
 
     @Override
     public List<MembershipResponseDTO> findAll() {
         List<Membership> memberships = membershipRepository.findAll();
-        return memberships.stream().map(role-> ModelMapperUtils.map(role, MembershipResponseDTO.class)).collect(Collectors.toList());
+        if(memberships.isEmpty()) {
+            throw new NoContentFoundException("Member(s) is empty, No data found");
+        }
+        return memberships.stream().map(role -> ModelMapperUtils.map(role, MembershipResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public List<MembershipResponseDTO> save(Member member,List<MembershipRequestDTO> memberShips) {
-        List<Membership> toBeSaved=new ArrayList<>();
-        memberShips.forEach(memberShip->{
-            Plan plan=getPlanById(memberShip.getPlan());
-            Location location=getLocationById(memberShip.getLocation());
-            toBeSaved.add(mapToMemberShip(memberShip,location,plan));
+    public List<MembershipResponseDTO> save(Member member, List<MembershipRequestDTO> memberShips) {
+        List<Membership> toBeSaved = new ArrayList<>();
+        memberShips.forEach(memberShip -> {
+            Plan plan = getPlanById(memberShip.getPlan());
+            //TODO TO BE TESTED!!
+            List<MemberRoles> m = memberRolesService.save(member, plan.getRoles()) ;
+
+            Location location = getLocationById(memberShip.getLocation());
+            toBeSaved.add(mapToMemberShip(memberShip, location, plan));
 
         });
         membershipRepository.saveAll(toBeSaved);
@@ -64,34 +71,43 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public void delete(Long membershipId) {
         //TODO
-        Membership foundMembership = membershipRepository.findById(membershipId).orElseThrow(() -> new NoSuchElementException("Membership with id " + membershipId + " NOT FOUND"));
-        membershipRepository.delete(foundMembership);
+        Membership foundMembership = membershipRepository.findById(membershipId).orElseThrow(() ->
+        {throw new NoContentFoundException("Membership with id " + membershipId + " NOT FOUND");});
+        foundMembership.setStatus('D');
+        membershipRepository.save(foundMembership);
     }
 
     @Override
     public MembershipResponseDTO update(MembershipRequestDTO membershipDTO, Long id) {
         Membership membership = ModelMapperUtils.map(membershipDTO, Membership.class);
         Membership foundMembership = membershipRepository.findById(id)
-                .map(ms -> {ms.setStartDate(membership.getStartDate());
+                .map(ms -> {
+                    ms.setStartDate(membership.getStartDate());
                     ms.setEndDate(membership.getEndDate());
                     ms.setStatus(membership.getStatus());
                     ms.setLocation(membership.getLocation());
                     return membershipRepository.save(ms);
-                }).orElseThrow(() -> new NoSuchElementException("Membership with this id " + id + " not found"));
+                }).orElseThrow(() -> {
+                    throw new NoContentFoundException("No Content with the" + id + "found");
+                });
 
         return ModelMapperUtils.map(foundMembership, MembershipResponseDTO.class);
     }
 
-    private Plan getPlanById(Long id){
-       return planRepository.getActivePlanById(id).orElseThrow(()->{throw new NoContentFoundException("Sorry, Plan is not active");});
+    private Plan getPlanById(Long id) {
+        return planRepository.getActivePlanById(id).orElseThrow(() -> {
+            throw new NoContentFoundException("Sorry, Plan is not active");
+        });
     }
 
-    private Location getLocationById(Long id){
-        return locationRepository.getActivePlanById(id).orElseThrow(()->{throw new NoContentFoundException("Sorry, Location is not active");});
+    private Location getLocationById(Long id) {
+        return locationRepository.getActivePlanById(id).orElseThrow(() -> {
+            throw new NoContentFoundException("Sorry, Location is not active");
+        });
     }
 
-    public Membership mapToMemberShip(MembershipRequestDTO requestDTO,Location location,Plan plan){
-        Membership membership=new Membership();
+    public Membership mapToMemberShip(MembershipRequestDTO requestDTO, Location location, Plan plan) {
+        Membership membership = new Membership();
         membership.setEndDate(requestDTO.getEndDate());
         membership.setStartDate(requestDTO.getStartDate());
         membership.setStatus('Y');
@@ -100,8 +116,8 @@ public class MembershipServiceImpl implements MembershipService {
         return membership;
     }
 
-    public MembershipResponseDTO mapToMemberShip(Membership membership){
-        MembershipResponseDTO responseDTO=new MembershipResponseDTO();
+    public MembershipResponseDTO mapToMemberShip(Membership membership) {
+        MembershipResponseDTO responseDTO = new MembershipResponseDTO();
         responseDTO.setEndDate(membership.getEndDate());
         responseDTO.setStartDate(membership.getStartDate());
         responseDTO.setStatus(membership.getStatus());
@@ -110,14 +126,16 @@ public class MembershipServiceImpl implements MembershipService {
         return responseDTO;
     }
 
-    public List<MembershipResponseDTO> mapMemberShipResponseList(List<Membership> memberships){
-        List<MembershipResponseDTO> membershipResponseDTOS=new ArrayList<>();
+    public List<MembershipResponseDTO> mapMemberShipResponseList(List<Membership> memberships) {
+        List<MembershipResponseDTO> membershipResponseDTOS = new ArrayList<>();
 
         memberships.forEach(membership -> {
             membershipResponseDTOS.add(mapToMemberShip(membership));
         });
 
         return membershipResponseDTOS;
-     }
+    }
+
+
 }
 
