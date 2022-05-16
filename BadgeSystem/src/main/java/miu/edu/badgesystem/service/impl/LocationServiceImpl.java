@@ -31,15 +31,15 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationResponseDTO save(LocationRequestDTO requestDTO) {
-        Location location=locationRepository.getLocationByName(requestDTO.getName());
-        if(Objects.nonNull(location)){
-            throw new DuplicateRequestException("Location with name:" +requestDTO.getName()+"already exists");
+        Location location = locationRepository.getLocationByName(requestDTO.getName());
+        if (Objects.nonNull(location)) {
+            throw new DuplicateRequestException("Location with name:" + requestDTO.getName() + "already exists");
         }
-        Location locationToSave= ModelMapperUtils.map(requestDTO,Location.class);
+        Location locationToSave = ModelMapperUtils.map(requestDTO, Location.class);
         locationToSave.setStatus('Y');
-        Location savedLocation=locationRepository.save(locationToSave);
-        LocationDateResponseDTO locationDate=locationDateService.save(requestDTO.getLocationDateRequestDTO(),savedLocation);
-        LocationResponseDTO finalResponse=ModelMapperUtils.map(savedLocation,
+        Location savedLocation = locationRepository.save(locationToSave);
+        LocationDateResponseDTO locationDate = locationDateService.save(requestDTO.getLocationDateRequestDTO(), savedLocation);
+        LocationResponseDTO finalResponse = ModelMapperUtils.map(savedLocation,
                 LocationResponseDTO.class);
         finalResponse.setLocationDate(locationDate);
         return finalResponse;
@@ -47,30 +47,30 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationResponseDTO update(Long id, LocationRequestDTO updateRequestDTO) {
-        Location location=locationRepository.getLocationByName(updateRequestDTO.getName());
-        if(Objects.isNull(location)){
-            throw new NoContentFoundException("Location with name:" +updateRequestDTO.getName()+" not found");
+        Location location = locationRepository.getLocationByName(updateRequestDTO.getName());
+        if (Objects.isNull(location)) {
+            throw new NoContentFoundException("Location with name:" + updateRequestDTO.getName() + " not found");
         }
         location.setName(updateRequestDTO.getName());
         location.setDescription(updateRequestDTO.getDescription());
         location.setCapacity(updateRequestDTO.getCapacity());
         location.setStatus(updateRequestDTO.getStatus());
         location.setLocationType(updateRequestDTO.getLocationType());
-        LocationResponseDTO savedLocation=ModelMapperUtils.map(locationRepository.save(location),
+        LocationResponseDTO savedLocation = ModelMapperUtils.map(locationRepository.save(location),
                 LocationResponseDTO.class);
         return savedLocation;
     }
 
     @Override
     public List<LocationResponseDTO> getAllLocation() {
-        List<Location> location=locationRepository.getAllLocation();
-        List<LocationResponseDTO> responseDTOS=new ArrayList<>();
-        try{
-            location.forEach(loc->{
-                responseDTOS.add(ModelMapperUtils.map(loc,LocationResponseDTO.class));
+        List<Location> location = locationRepository.getAllLocation();
+        List<LocationResponseDTO> responseDTOS = new ArrayList<>();
+        try {
+            location.forEach(loc -> {
+                responseDTOS.add(ModelMapperUtils.map(loc, LocationResponseDTO.class));
             });
-        }catch (Exception ex){
-            throw new NoContentFoundException("Location(s) is empty","No data found in Location");
+        } catch (Exception ex) {
+            throw new NoContentFoundException("Location(s) is empty", "No data found in Location");
         }
 
         return responseDTOS;
@@ -78,17 +78,17 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationResponseDTO getLocationById(Long id) {
-        Location location=locationRepository.getById(id);
-        if(Objects.isNull(location)){
+        Location location = locationRepository.getById(id);
+        if (Objects.isNull(location)) {
             throw new NoContentFoundException("No location found");
         }
-        return ModelMapperUtils.map(location,LocationResponseDTO.class);
+        return ModelMapperUtils.map(location, LocationResponseDTO.class);
     }
 
     @Override
     public void delete(Long id) {
-        Location location=locationRepository.getById(id);
-        if(Objects.isNull(location)){
+        Location location = locationRepository.getById(id);
+        if (Objects.isNull(location)) {
             throw new NoContentFoundException("No location found");
         }
         location.setStatus('D');
