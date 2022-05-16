@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface LocationRepository extends JpaRepository<Location,Long> {
 
+    @Query("SELECT l FROM Location l WHERE l.id=:id AND l.status<>'D'")
+    Location getLocationByID(@Param("id") Long id);
+
     @Query("SELECT l FROM Location l WHERE l.name=:name AND l.status<>'D'")
     Location getLocationByName(@Param("name") String name);
 

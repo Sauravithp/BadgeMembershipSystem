@@ -6,6 +6,7 @@ import miu.edu.badgesystem.dto.request.LocationUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.LocationDateResponseDTO;
 import miu.edu.badgesystem.dto.response.LocationResponseDTO;
 import miu.edu.badgesystem.dto.response.LocationUpdateResponseDTO;
+import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.LocationDate;
@@ -36,7 +37,7 @@ public class LocationServiceImpl implements LocationService {
     public LocationResponseDTO save(LocationRequestDTO requestDTO) {
         Location location = locationRepository.getLocationByName(requestDTO.getName());
         if (Objects.nonNull(location)) {
-            throw new DuplicateRequestException("Location with name:" + requestDTO.getName() + "already exists");
+            throw new DataDuplicationException("Location with name:" + requestDTO.getName() + " already exists");
         }
         Location locationToSave = ModelMapperUtils.map(requestDTO, Location.class);
         locationToSave.setStatus('Y');
@@ -86,7 +87,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationResponseDTO getLocationById(Long id) {
-        Location location = locationRepository.getById(id);
+        Location location = locationRepository.getLocationByID(id);
         if (Objects.isNull(location)) {
             throw new NoContentFoundException("No location found");
         }
@@ -99,7 +100,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void delete(Long id) {
-        Location location = locationRepository.getById(id);
+        Location location = locationRepository.getLocationByID(id);
         if (Objects.isNull(location)) {
             throw new NoContentFoundException("No location found");
         }
