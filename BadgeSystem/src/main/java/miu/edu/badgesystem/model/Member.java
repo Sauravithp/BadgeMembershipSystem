@@ -33,8 +33,10 @@ public class Member extends Auditable<Long> {
     @Column(name = "status")
     private Character status;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "member_id")
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "member_membership",
+            joinColumns = {@JoinColumn(name = "member_id")},
+            inverseJoinColumns ={@JoinColumn(name = "member_ship_id")} )
     private List<Membership> memberships;
 
     @OneToMany(cascade = CascadeType.PERSIST)

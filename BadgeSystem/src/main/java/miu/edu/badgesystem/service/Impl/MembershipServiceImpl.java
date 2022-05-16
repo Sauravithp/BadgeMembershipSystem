@@ -52,20 +52,18 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public List<MembershipResponseDTO> save(Member member, List<MembershipRequestDTO> memberShips) {
+    public List<Membership> save(Member member, List<MembershipRequestDTO> memberShips) {
         List<Membership> toBeSaved = new ArrayList<>();
         memberShips.forEach(memberShip -> {
             Plan plan = getPlanById(memberShip.getPlan());
             //TODO TO BE TESTED!!
-            List<MemberRoles> m = memberRolesService.save(member, plan.getRoles()) ;
-
+//            List<MemberRoles> m = memberRolesService.save(member, plan.getRoles()) ;
             Location location = getLocationById(memberShip.getLocation());
             toBeSaved.add(mapToMemberShip(memberShip, location, plan));
 
         });
-        membershipRepository.saveAll(toBeSaved);
 
-        return mapMemberShipResponseList(toBeSaved);
+        return toBeSaved;
     }
 
     @Override

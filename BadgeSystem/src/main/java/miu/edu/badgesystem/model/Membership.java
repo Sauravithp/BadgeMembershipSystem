@@ -29,7 +29,7 @@ public class Membership {
     @Column
     private Character status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 

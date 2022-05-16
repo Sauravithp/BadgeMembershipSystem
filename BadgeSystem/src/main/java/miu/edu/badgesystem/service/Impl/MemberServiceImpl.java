@@ -66,13 +66,11 @@ public class MemberServiceImpl implements MemberService {
 
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
-        memberRepository.save(memberToSave);
-        List<MembershipResponseDTO> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
-//        memberToSave.setMemberships(memberDTO.getMemberships());
-        //  memberToSave.setMemberRoles(memberDTO.getMemberRoles());
+        List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());;
 //        memberToSave.setBadges(memberDTO.getBadges());
+        memberToSave.setMemberships(membershipResponseDTOS);
+        memberRepository.save(memberToSave);
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
-        responseDTO.setMemberships(membershipResponseDTOS);
         return responseDTO;
     }
 
