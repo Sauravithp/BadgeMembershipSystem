@@ -1,20 +1,25 @@
+
+server:
+  port: 8081
+
 spring:
   application:
-    name: BadgeSystem
+    name: entity-service
   datasource:
-    url: jdbc:mysql://localhost:3306/badgesystem
+    url: jdbc:mysql://localhost:3306/Practice
     username: root
-    password: root
+    password:
     driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximumPoolSize: 10
   jpa:
     show-sql: true
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-server:
-  port: 8080
+        hbm2ddl:
+          auto: update
