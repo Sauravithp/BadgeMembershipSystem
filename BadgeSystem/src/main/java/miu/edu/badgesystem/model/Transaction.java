@@ -1,8 +1,9 @@
 package miu.edu.badgesystem.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import miu.edu.badgesystem.audit.Auditable;
+import miu.edu.badgesystem.listener.BadgeEntityListener;
+import miu.edu.badgesystem.listener.TransactionEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,8 +11,11 @@ import java.time.LocalDate;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Transaction {
+@Getter
+@Setter
+@ToString
+@EntityListeners(TransactionEntityListener.class)
+public class Transaction extends Auditable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -15,8 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
-    @Autowired
-    private TransactionService transactionService;
+
+    private final TransactionService transactionService;
+
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @PostMapping
     private ResponseEntity<TransactionResponseDTO> save(@RequestBody TransactionRequestDTO transactionDto) {

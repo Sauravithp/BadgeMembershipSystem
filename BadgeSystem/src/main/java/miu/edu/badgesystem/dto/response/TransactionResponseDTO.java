@@ -11,10 +11,6 @@ public class TransactionResponseDTO {
     private Long id;
     private LocalDate date;
 
-    private Membership membership;
-
-    private Location location;
-
     private Character status;
 
 }

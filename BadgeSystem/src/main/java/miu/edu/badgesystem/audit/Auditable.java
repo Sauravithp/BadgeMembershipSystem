@@ -26,14 +26,12 @@ public abstract class Auditable<U> {
     protected U createdBy;
 
     @CreatedDate
-    @Temporal(TIMESTAMP)
     protected LocalDate createdDate;
 
     @LastModifiedBy
     protected U lastModifiedBy;
 
     @LastModifiedDate
-    @Temporal(TIMESTAMP)
     protected LocalDate lastModifiedDate;
 
 }

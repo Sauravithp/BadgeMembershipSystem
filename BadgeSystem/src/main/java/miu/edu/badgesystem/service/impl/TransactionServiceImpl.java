@@ -10,6 +10,7 @@ import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Transaction;
 import miu.edu.badgesystem.repository.LocationRepository;
 import miu.edu.badgesystem.repository.MembershipRepository;
+import miu.edu.badgesystem.repository.PlanRepository;
 import miu.edu.badgesystem.repository.TransactionRepository;
 import miu.edu.badgesystem.service.TransactionService;
 import miu.edu.badgesystem.util.DateUtil;
@@ -25,15 +26,22 @@ import java.util.List;
 @Service
 @Transactional
 public class TransactionServiceImpl implements TransactionService {
-    @Autowired
-    private TransactionRepository transactionRepository;
-    @Autowired
-    private LocationRepository locationRepository;
-    @Autowired
-    private MembershipRepository membershipRepository;
 
-    @Autowired
-    private PlanRepository planRepository;
+    private final TransactionRepository transactionRepository;
+
+    private final LocationRepository locationRepository;
+
+    private final MembershipRepository membershipRepository;
+
+
+    public TransactionServiceImpl(TransactionRepository transactionRepository,
+                                  LocationRepository locationRepository,
+                                  MembershipRepository membershipRepository) {
+        this.transactionRepository = transactionRepository;
+        this.locationRepository = locationRepository;
+        this.membershipRepository = membershipRepository;
+
+    }
 
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO transaction) {
@@ -46,11 +54,13 @@ public class TransactionServiceImpl implements TransactionService {
         if (ObjectUtils.isEmpty(location)) {
             throw new NoContentFoundException("location Not found");
         }
-        //checking if count is exceeded for the member
+//        checking if count is exceeded for the member
         if (membership.getPlan().getIsLimited()) {
             LocalDate startDate = DateUtil.getFirstDayOfMonth();
             LocalDate endDate = DateUtil.getEndDayOfMonth();
-            Integer transactionCount = transactionRepository.getTransactionCountByMembershipAndLocationId(transaction.getLocationId(), transaction.getMembershipId(), startDate, endDate);
+           Integer transactionCount = transactionRepository.getTransactionCountByMembershipAndLocationId(
+                   transaction.getLocationId(),
+                   transaction.getMembershipId(), startDate, endDate);
             Integer count = membership.getPlan().getCount();
             if (transactionCount == count) {
                 throw new BadRequestException("sorry transaction for this month has exceeded");
@@ -61,13 +71,6 @@ public class TransactionServiceImpl implements TransactionService {
 
             throw new BadRequestException("Sorry its Fully Occupied right now");
         }
-        //checking if location is inactive
-
-//        if (location.getStatus() == 'N') {
-//
-//            throw new BadRequestException("Location is not available");
-//        }
-
 
         //saving the transactions
         Transaction transaction1 = new Transaction();
