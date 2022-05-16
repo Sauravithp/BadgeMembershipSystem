@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import miu.edu.badgesystem.config.Action;
-import miu.edu.badgesystem.model.Badge;
+import miu.edu.badgesystem.model.Location;
+import miu.edu.badgesystem.model.LocationClosed;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,19 +21,19 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Setter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class BadgeHistory {
+public class LocationClosedHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "badge_id",foreignKey = @ForeignKey(name = "FK_badge_history_badge"))
-    private Badge badge;
+    @JoinColumn(name = "location_closed_id")
+    private LocationClosed locationClosed;
 
-    @Column(name = "badge_content")
+    @Column(name = "location_closed_content")
     @Lob
-    private String badgeContent;
+    private String locationClosedContent;
 
     @CreatedBy
     private Long modifiedBy;
@@ -44,9 +45,9 @@ public class BadgeHistory {
     @Enumerated(STRING)
     private Action action;
 
-    public BadgeHistory(Badge badge, Action action) {
-        this.badge = badge;
-        this.badgeContent = badge.toString();
+    public LocationClosedHistory(LocationClosed locationClosed, Action action) {
+        this.locationClosed = locationClosed;
+        this.locationClosedContent = locationClosed.toString();
         this.action = action;
     }
 }

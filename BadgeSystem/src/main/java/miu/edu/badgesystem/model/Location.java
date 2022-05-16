@@ -1,9 +1,21 @@
 package miu.edu.badgesystem.model;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import miu.edu.badgesystem.audit.Auditable;
+import miu.edu.badgesystem.listener.BadgeEntityListener;
+import miu.edu.badgesystem.listener.LocationEntityListener;
+
 import javax.persistence.*;
 
 @Entity
-public class Location {
+@EntityListeners(LocationEntityListener.class)
+@Getter
+@Setter
+@ToString
+public class Location extends Auditable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,12 +24,11 @@ public class Location {
     @Column(name = "name")
     private String name;
 
-
     @Column(name = "description")
     private String description;
 
-    @Column(name = "count")
-    private Integer count;
+    @Column(name = "capacity")
+    private Integer capacity;
 
     @Column
     private Character status;
@@ -26,7 +37,5 @@ public class Location {
     @Enumerated(EnumType.STRING)
     private LocationType locationType;
 
-    @OneToOne
-    @JoinColumn(name = "location_date_id")
-    private LocationDate locationDate;
+
 }
