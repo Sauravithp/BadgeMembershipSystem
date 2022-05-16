@@ -1,6 +1,7 @@
 package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
+import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
 import miu.edu.badgesystem.dto.request.MembershipRequestDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
@@ -85,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberResponseDTO update(MemberRequestDTO memberDTO, Long id) {
+    public MemberResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id) {
         Member member = ModelMapperUtils.map(memberDTO, Member.class);
         Member foundMember = memberRepository.findById(id)
                 .map(m -> {
@@ -93,12 +94,9 @@ public class MemberServiceImpl implements MemberService {
                     m.setLastName(member.getLastName());
                     m.setStatus(member.getStatus());
                     m.setEmailAddress(member.getEmailAddress());
-                    m.setMemberships(member.getMemberships());
-                    m.setBadges(member.getBadges());
-                 //   m.setMemberRoles(member.getMemberRoles());
                     return memberRepository.save(m);
                 }).orElseThrow(() -> {
-                    throw new NoContentFoundException("No Content with the" + id + "found");
+                    throw new NoContentFoundException("No Content found");
                 });
 
         return ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
