@@ -1,8 +1,16 @@
 package miu.edu.badgesystem.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Table(name = "transaction_table")
 public class Transaction {
 
     @Id

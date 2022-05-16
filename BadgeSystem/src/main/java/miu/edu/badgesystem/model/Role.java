@@ -1,8 +1,17 @@
 package miu.edu.badgesystem.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Table(name = "role_table")
 public class Role {
 
     @Id
@@ -17,4 +26,8 @@ public class Role {
 
     @Column
     private Character status;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "role_id")
+    private List<MemberRoles> memberRoles;
 }
