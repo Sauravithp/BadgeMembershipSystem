@@ -29,10 +29,13 @@ public class LocationDateRequestDTO {
     private Boolean hasTimeSlot;
 
     @NotNull
+    private Boolean hasClosedDate;
+
+    @NotNull
     private Character status;
 
     private List<LocationTimeSlotDTO> timeSlots;
 
-    private List<LocationClosedDTO> closedDTO;
+    private LocationClosedDTO closedDTO;
 
 }

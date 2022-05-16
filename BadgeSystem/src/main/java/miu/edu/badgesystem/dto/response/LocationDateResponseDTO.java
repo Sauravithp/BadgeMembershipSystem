@@ -1,5 +1,6 @@
 package miu.edu.badgesystem.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.*;
 import miu.edu.badgesystem.dto.request.LocationTimeSlotDTO;
@@ -33,11 +34,16 @@ public class LocationDateResponseDTO {
     private Boolean hasTimeSlot;
 
     @NotNull
+    private Boolean hasClosedDate;
+
+    @NotNull
     private Character status;
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private List<LocationTimeSlotResponseDTO> timeSlots;
 
-    private List<LocationClosedResponseDTO> locationClosed;
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    private LocationClosedResponseDTO locationClosed;
 
 
 
