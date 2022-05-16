@@ -4,7 +4,7 @@ import miu.edu.badgesystem.dto.request.LoginRequestDTO;
 import miu.edu.badgesystem.service.AuthenticateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +15,7 @@ public class LoginController {
     @Autowired
     private AuthenticateService authenticateService;
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<String> login(@RequestBody LoginRequestDTO requestDTO){
         String s=authenticateService.loginUser(requestDTO);
         System.out.println(s);
