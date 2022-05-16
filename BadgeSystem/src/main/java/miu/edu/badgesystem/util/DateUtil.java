@@ -261,4 +261,9 @@ public class DateUtil {
         }
         return date;
     }
+
+    public static String getDayName(LocalDate localDate){
+
+return localDate.getDayOfWeek().toString();
+    }
 }

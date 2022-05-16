@@ -1,22 +1,18 @@
 package miu.edu.badgesystem.dto.response;
 
 import com.sun.istack.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class LocationTimeSlotResponseDTO {
 
     @NotNull
     private Long id;
-
-    @NotNull
-    private String name;
 
     @NotNull
     private String startTime;

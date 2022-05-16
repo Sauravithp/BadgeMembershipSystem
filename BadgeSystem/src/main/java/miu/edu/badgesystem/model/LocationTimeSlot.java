@@ -1,9 +1,18 @@
 package miu.edu.badgesystem.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LocationTimeSlot {
 
     @Id
@@ -16,7 +25,6 @@ public class LocationTimeSlot {
 
     @Column(name = "start_time")
     private String startTime;
-
 
     @Column(name = "end_time")
     private String endTime;

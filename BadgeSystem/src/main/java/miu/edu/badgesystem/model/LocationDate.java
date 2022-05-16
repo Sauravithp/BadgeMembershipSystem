@@ -52,7 +52,7 @@ public class LocationDate {
     @JoinColumn(name = "location_date_id")
     private List<LocationClosed> locationClosed;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "location_date_id")
     private List<LocationTimeSlot> locationTimeSlots;
 

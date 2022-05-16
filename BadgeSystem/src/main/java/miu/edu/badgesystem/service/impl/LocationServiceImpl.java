@@ -6,14 +6,12 @@ import miu.edu.badgesystem.dto.response.LocationDateResponseDTO;
 import miu.edu.badgesystem.dto.response.LocationResponseDTO;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
-import miu.edu.badgesystem.model.LocationDate;
 import miu.edu.badgesystem.repository.LocationRepository;
 import miu.edu.badgesystem.service.LocationDateService;
 import miu.edu.badgesystem.service.LocationService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
