@@ -29,12 +29,7 @@ public class MemberRequestDTO {
     private Character status;
 
     @NotEmpty
-    private List<Membership> memberships;
+    private List<MembershipRequestDTO> memberships;
 
-    @NotEmpty
-    private List<Long> rolesId;
-
-    @NotEmpty
-    private List<Badge> badges;
 
 }

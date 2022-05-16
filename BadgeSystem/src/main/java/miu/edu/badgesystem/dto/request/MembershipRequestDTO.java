@@ -8,6 +8,7 @@ import miu.edu.badgesystem.model.Plan;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,8 +21,11 @@ public class MembershipRequestDTO {
     private Date endDate;
     @NotNull
     private Character status;
+
     @NotNull
-    private Location location;
+    private Long location;
+
     @NotNull
-    private Plan plan;
+    private Long plan;
+
 }

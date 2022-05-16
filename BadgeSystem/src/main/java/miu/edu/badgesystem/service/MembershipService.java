@@ -2,6 +2,7 @@ package miu.edu.badgesystem.service;
 
 import miu.edu.badgesystem.dto.request.MembershipRequestDTO;
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
+import miu.edu.badgesystem.model.Member;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface MembershipService {
 
     List<MembershipResponseDTO> findAll();
 
-    MembershipResponseDTO save(MembershipRequestDTO membershipDTO);
+    List<MembershipResponseDTO> save(Member member,List<MembershipRequestDTO> membershipDTO);
 
     void delete(Long membershipId);
 

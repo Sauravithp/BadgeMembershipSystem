@@ -47,7 +47,6 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.3.19" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.6.3" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.6.3" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-crypto:5.6.3" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:5.6.3" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.36" />
           <element id="library" level="project" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" />
@@ -84,6 +83,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.3.19" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aspects:5.3.19" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.28" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-crypto:5.6.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
