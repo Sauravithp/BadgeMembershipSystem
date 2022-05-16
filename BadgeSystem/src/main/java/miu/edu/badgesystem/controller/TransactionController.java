@@ -5,6 +5,7 @@ import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.model.Transaction;
 import miu.edu.badgesystem.service.TransactionService;
+import miu.edu.badgesystem.util.ListMapper;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,8 @@ import java.util.List;
 public class TransactionController {
 
     private final TransactionService transactionService;
-
+    @Autowired
+     private ListMapper<Transaction,TransactionResponseDTO> listMapper;
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
@@ -32,9 +34,9 @@ public class TransactionController {
 
 
     @GetMapping
-    private ResponseEntity<TransactionResponseDTO> getAllTransactions() {
+    private  ResponseEntity <?> getAllTransactions() {
         List<Transaction> transactions = transactionService.getAllTransaction();
-        return ResponseEntity.ok(ModelMapperUtils.map(transactions, TransactionResponseDTO.class));
+        return  ResponseEntity.ok(listMapper.mapList(transactions,new TransactionResponseDTO()));
     }
 
     @GetMapping("/{id}")

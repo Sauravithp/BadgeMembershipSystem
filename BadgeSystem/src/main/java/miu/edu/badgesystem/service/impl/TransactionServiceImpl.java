@@ -94,7 +94,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> getAllTransaction() {
-
         return transactionRepository.findAll();
 
     }
