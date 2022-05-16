@@ -2,8 +2,10 @@ package miu.edu.badgesystem.service.impl;
 
 import com.sun.jdi.request.DuplicateRequestException;
 import miu.edu.badgesystem.dto.request.LocationRequestDTO;
+import miu.edu.badgesystem.dto.request.LocationUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.LocationDateResponseDTO;
 import miu.edu.badgesystem.dto.response.LocationResponseDTO;
+import miu.edu.badgesystem.dto.response.LocationUpdateResponseDTO;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.LocationDate;
@@ -48,8 +50,8 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public LocationResponseDTO update(Long id, LocationRequestDTO updateRequestDTO) {
-        Location location = locationRepository.getLocationByName(updateRequestDTO.getName());
+    public LocationUpdateResponseDTO update(Long id, LocationUpdateRequestDTO updateRequestDTO) {
+        Location location = locationRepository.getById(id);
         if (Objects.isNull(location)) {
             throw new NoContentFoundException("Location with name:" + updateRequestDTO.getName() + " not found");
         }
@@ -58,8 +60,8 @@ public class LocationServiceImpl implements LocationService {
         location.setCapacity(updateRequestDTO.getCapacity());
         location.setStatus(updateRequestDTO.getStatus());
         location.setLocationType(updateRequestDTO.getLocationType());
-        LocationResponseDTO savedLocation = ModelMapperUtils.map(locationRepository.save(location),
-                LocationResponseDTO.class);
+        LocationUpdateResponseDTO savedLocation = ModelMapperUtils.map(locationRepository.save(location),
+                LocationUpdateResponseDTO.class);
         return savedLocation;
     }
 

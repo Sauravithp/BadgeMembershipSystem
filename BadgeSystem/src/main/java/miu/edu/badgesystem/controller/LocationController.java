@@ -1,6 +1,7 @@
 package miu.edu.badgesystem.controller;
 
 import miu.edu.badgesystem.dto.request.LocationRequestDTO;
+import miu.edu.badgesystem.dto.request.LocationUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.LocationResponseDTO;
 import miu.edu.badgesystem.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class LocationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id,
-                                    @RequestBody @Validated LocationRequestDTO requestDTO){
+                                    @RequestBody @Validated LocationUpdateRequestDTO requestDTO){
         return ResponseEntity.ok(locationService.update(id,requestDTO));
     }
 
