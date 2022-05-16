@@ -12,6 +12,7 @@ import miu.edu.badgesystem.repository.LocationDateRepository;
 import miu.edu.badgesystem.service.LocationClosedService;
 import miu.edu.badgesystem.service.LocationDateService;
 import miu.edu.badgesystem.service.LocationTimeSlotService;
+import miu.edu.badgesystem.util.LocationDateUtil;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,66 +47,11 @@ public class LocationDateServiceImpl implements LocationDateService {
             toBeSavedLocationDate.setLocationClosed(locationClosedList);
         }
         locationDateRepository.save(toBeSavedLocationDate);
-        LocationDateResponseDTO locationDateResponseDTO = getLocationDateResponseDTO(toBeSavedLocationDate);
+        LocationDateResponseDTO locationDateResponseDTO = LocationDateUtil.getLocationDateResponseDTO(toBeSavedLocationDate);
 
         return locationDateResponseDTO;
 
     }
 
-    private LocationDateResponseDTO getLocationDateResponseDTO(LocationDate locationDate) {
 
-        LocationDateResponseDTO locationDateResponseDTO = new LocationDateResponseDTO();
-        locationDateResponseDTO.setEndDate(locationDate.getEndDate());
-        locationDateResponseDTO.setStartDate(locationDate.getStartDate());
-        locationDateResponseDTO.setStatus(locationDate.getStatus());
-        locationDateResponseDTO.setEndTime(locationDate.getEndTime());
-        locationDateResponseDTO.setStartTime(locationDate.getStartTime());
-        locationDateResponseDTO.setHasTimeSlot(locationDate.getHasTimeSlot());
-        locationDateResponseDTO.setHasClosedDate(locationDate.getHasLocationClosedDate());
-        locationDateResponseDTO.setId(locationDate.getId());
-        locationDateResponseDTO.setLocationClosed(getLocationClosedResponseDTO(locationDate));
-        locationDateResponseDTO.setTimeSlots(getTimeSlotResponse(locationDate));
-        return locationDateResponseDTO;
-    }
-
-    private LocationClosedResponseDTO getLocationClosedResponseDTO(LocationDate locationDate) {
-
-        if(!locationDate.getHasLocationClosedDate()) {
-            return null;
-        }else{
-            List<LocationClosed> locationClosed = locationDate.getLocationClosed();
-            List<LocalDate> locationDates = new ArrayList<>();
-
-            locationClosed.forEach(closed -> {
-                locationDates.add(closed.getDate());
-            });
-
-            return LocationClosedResponseDTO.builder().date(locationDates).build();
-        }
-
-    }
-
-    private List<LocationTimeSlotResponseDTO> getTimeSlotResponse(LocationDate locationDate) {
-
-        if(!locationDate.getHasTimeSlot()) {
-            return null;
-        }else{
-            List<LocationTimeSlot> locationClosed = locationDate.getLocationTimeSlots();
-            List<LocationTimeSlotResponseDTO> timeSlotResponse = new ArrayList<>();
-
-            locationClosed.forEach(closed -> {
-                LocationTimeSlotResponseDTO responseDTO=new LocationTimeSlotResponseDTO();
-                responseDTO.setId(closed.getId());
-                responseDTO.setDate(closed.getDate());
-                responseDTO.setEndTime(closed.getEndTime());
-                responseDTO.setStartTime(closed.getStartTime());
-                responseDTO.setStatus(closed.getStatus());
-                timeSlotResponse.add(responseDTO);
-            });
-            return timeSlotResponse;
-
-        }
-
-
-    }
 }
