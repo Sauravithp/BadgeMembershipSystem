@@ -1,6 +1,7 @@
 package miu.edu.badgesystem.controller;
 
 import miu.edu.badgesystem.dto.request.PlanRequestDTO;
+import miu.edu.badgesystem.dto.request.PlanUpdateRequestDTO;
 import miu.edu.badgesystem.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class PlanController {
     private PlanService planService;
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody @Valid PlanRequestDTO planDTO) {
+    public ResponseEntity<?> save(@RequestBody PlanRequestDTO planDTO) {
         return new ResponseEntity(planService.save(planDTO), HttpStatus.CREATED);
     }
 
@@ -34,7 +35,7 @@ public class PlanController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid PlanRequestDTO planDTO) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid PlanUpdateRequestDTO planDTO) {
         return new ResponseEntity<>(planService.update(planDTO, id), HttpStatus.OK);
     }
 
