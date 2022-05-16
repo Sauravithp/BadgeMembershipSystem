@@ -1,17 +1,17 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="BadgeSystem:war exploded">
-    <output-path>$PROJECT_DIR$/BadgeSystem/target/BadgeSystem-0.0.1-SNAPSHOT</output-path>
+  <artifact type="exploded-war" name="BadgeMembershipSystem:war exploded">
+    <output-path>$PROJECT_DIR$/target/BadgeSystem-0.0.1-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>BadgeSystem</module>
+        <module>BadgeMembershipSystem</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="BadgeSystem" />
+          <element id="module-output" name="BadgeMembershipSystem" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:2.6.7" />
@@ -83,9 +83,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/BadgeSystem/target/BadgeSystem-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/BadgeSystem-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="BadgeSystem/web/Web" />
+      <element id="javaee-facet-resources" facet="BadgeMembershipSystem/web/Web" />
     </root>
   </artifact>
 </component>
