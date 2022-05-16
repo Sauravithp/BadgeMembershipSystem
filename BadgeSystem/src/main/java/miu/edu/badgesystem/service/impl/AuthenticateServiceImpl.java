@@ -1,4 +1,4 @@
-package miu.edu.badgesystem.service.impl;
+package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.LoginRequestDTO;
 import miu.edu.badgesystem.service.AuthenticateService;

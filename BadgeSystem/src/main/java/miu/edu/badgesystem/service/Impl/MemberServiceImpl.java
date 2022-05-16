@@ -2,8 +2,12 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
+import miu.edu.badgesystem.exception.DataDuplicationException;
+import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Member;
+import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.repository.MemberRepository;
+import miu.edu.badgesystem.repository.MembershipRepository;
 import miu.edu.badgesystem.service.MemberService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.util.ObjectUtils;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,10 +28,13 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private MembershipRepository membershipRepository;
+
 
     @Override
     public MemberResponseDTO findById(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Role with id " + memberId + " NOT FOUND"));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> { throw new NoContentFoundException("No content with " + memberId + "found");});
         return ModelMapperUtils.map(member, MemberResponseDTO.class);
     }
 
@@ -34,22 +42,32 @@ public class MemberServiceImpl implements MemberService {
     // TODO: 5/16/22
     public List<MemberResponseDTO> findAll() {
         List<Member> members = memberRepository.findAll();
-        //members if its empty you need to send an exception
+        if(members.isEmpty()) {
+            throw new NoContentFoundException("Member(s) is empty, No data found");
+        }
         return members.stream().map(role-> ModelMapperUtils.map(role, MemberResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     // TODO: 5/16/22
     public MemberResponseDTO save(MemberRequestDTO memberDTO) {
-        Member member = ModelMapperUtils.map(memberDTO, Member.class);
-        //Check for duplicate data
-        return ModelMapperUtils.map(memberRepository.save(member), MemberResponseDTO.class);
+        Member member = memberRepository.getMemberByName(memberDTO.getEmailAddress());
+        if (Objects.nonNull(member)) {
+            throw new DataDuplicationException("Member with email address" + memberDTO.getEmailAddress() + "already exists");
+        }
+        Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
+        memberToSave.setMemberships(memberDTO.getMemberships());
+      //  memberToSave.setMemberRoles(memberDTO.getMemberRoles());
+        memberToSave.setBadges(memberDTO.getBadges());
+        memberToSave.setStatus('Y');
+
+        return ModelMapperUtils.map(memberRepository.save(memberToSave), MemberResponseDTO.class);
     }
 
     @Override
     public void delete(Long memberId) {
         //TODO
-        Member foundMember = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Role with id " + memberId + " NOT FOUND"));
+        Member foundMember = memberRepository.findById(memberId).orElseThrow(() -> {throw new NoContentFoundException("No Content Found");});
         foundMember.setStatus('D');
         memberRepository.save(foundMember);
     }
@@ -66,7 +84,7 @@ public class MemberServiceImpl implements MemberService {
                     m.setBadges(member.getBadges());
                     m.setMemberRoles(member.getMemberRoles());
                     return memberRepository.save(m);
-                }).orElseThrow(() -> new NoSuchElementException("Role with this id " + id + " not found"));
+                }).orElseThrow(() -> { throw new NoContentFoundException("No Content with the" + id + "found");});
 
         return ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
     }

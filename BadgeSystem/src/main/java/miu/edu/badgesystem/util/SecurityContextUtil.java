@@ -1,6 +1,6 @@
 package miu.edu.badgesystem.util;//package miu.edu.badgesystem.util;
 
-import miu.edu.badgesystem.service.impl.CustomUserDetails;
+import miu.edu.badgesystem.service.Impl.CustomUserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SecurityContextUtil {
