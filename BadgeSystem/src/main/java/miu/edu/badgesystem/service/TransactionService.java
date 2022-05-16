@@ -1,0 +1,15 @@
+package miu.edu.badgesystem.service;
+
+
+import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
+import miu.edu.badgesystem.model.Transaction;
+
+import java.util.List;
+
+public interface TransactionService {
+    Transaction saveTransaction(TransactionRequestDTO transaction);
+    Transaction getTransaction(Long id);
+    List<Transaction> getAllTransaction();
+//    void deleteTransaction(Long id);
+
+}

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
+import java.time.LocalDate;
 import java.util.Date;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -26,14 +27,14 @@ public abstract class Auditable<U> {
 
     @CreatedDate
     @Temporal(TIMESTAMP)
-    protected Date createdDate;
+    protected LocalDate createdDate;
 
     @LastModifiedBy
     protected U lastModifiedBy;
 
     @LastModifiedDate
     @Temporal(TIMESTAMP)
-    protected Date lastModifiedDate;
+    protected LocalDate lastModifiedDate;
 
 }
 
