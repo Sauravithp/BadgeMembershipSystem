@@ -5,7 +5,7 @@ import miu.edu.badgesystem.dto.response.RoleResponseDTO;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.RoleService;
-import miu.edu.badgesystem.util.ModelMapperUtil;
+import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +25,19 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleResponseDTO findById(Long roleId) {
         Role role = roleRepository.findById(roleId).orElseThrow(() -> new NoSuchElementException("Role with id " + roleId + " NOT FOUND"));
-        return ModelMapperUtil.map(role, RoleResponseDTO.class);
+        return ModelMapperUtils.map(role, RoleResponseDTO.class);
     }
 
     @Override
     public List<RoleResponseDTO> getAllRoles() {
         List<Role> roles = roleRepository.findAll();
-        return roles.stream().map(role-> ModelMapperUtil.map(role, RoleResponseDTO.class)).collect(Collectors.toList());
+        return roles.stream().map(role-> ModelMapperUtils.map(role, RoleResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public RoleResponseDTO save(RoleRequestDTO roleDTO) {
-        Role role = ModelMapperUtil.map(roleDTO, Role.class);
-        return ModelMapperUtil.map(roleRepository.save(role), RoleResponseDTO.class);
+        Role role = ModelMapperUtils.map(roleDTO, Role.class);
+        return ModelMapperUtils.map(roleRepository.save(role), RoleResponseDTO.class);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleResponseDTO update(RoleRequestDTO roleDTO, Long id) {
-        Role role = ModelMapperUtil.map(roleDTO, Role.class);
+        Role role = ModelMapperUtils.map(roleDTO, Role.class);
         Role foundRole = roleRepository.findById(id)
                 .map(r -> {r.setName(role.getName());
                             r.setDescription(role.getDescription());
@@ -58,6 +58,6 @@ public class RoleServiceImpl implements RoleService {
                             return roleRepository.save(r);
                 }).orElseThrow(() -> new NoSuchElementException("Role with this id " + id + " not found"));
 
-        return ModelMapperUtil.map(foundRole, RoleResponseDTO.class);
+        return ModelMapperUtils.map(foundRole, RoleResponseDTO.class);
     }
 }

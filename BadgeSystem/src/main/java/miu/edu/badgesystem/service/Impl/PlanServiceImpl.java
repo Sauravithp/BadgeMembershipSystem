@@ -5,7 +5,7 @@ import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.model.Plan;
 import miu.edu.badgesystem.repository.PlanRepository;
 import miu.edu.badgesystem.service.PlanService;
-import miu.edu.badgesystem.util.ModelMapperUtil;
+import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +25,19 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanResponseDTO findById(Long planId) {
         Plan plan = planRepository.findById(planId).orElseThrow(() -> new NoSuchElementException("Plan with id " + planId + " NOT FOUND"));
-        return ModelMapperUtil.map(plan, PlanResponseDTO.class);
+        return ModelMapperUtils.map(plan, PlanResponseDTO.class);
     }
 
     @Override
     public List<PlanResponseDTO> findAll() {
         List<Plan> plans = planRepository.findAll();
-        return plans.stream().map(role-> ModelMapperUtil.map(role, PlanResponseDTO.class)).collect(Collectors.toList());
+        return plans.stream().map(role-> ModelMapperUtils.map(role, PlanResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public PlanResponseDTO save(PlanRequestDTO planDTO) {
-        Plan plan = ModelMapperUtil.map(planDTO, Plan.class);
-        return ModelMapperUtil.map(planRepository.save(plan), PlanResponseDTO.class);
+        Plan plan = ModelMapperUtils.map(planDTO, Plan.class);
+        return ModelMapperUtils.map(planRepository.save(plan), PlanResponseDTO.class);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanResponseDTO update(PlanRequestDTO planDTO, Long id) {
-        Plan plan = ModelMapperUtil.map(planDTO, Plan.class);
+        Plan plan = ModelMapperUtils.map(planDTO, Plan.class);
         Plan foundPlan = planRepository.findById(id)
                 .map(p -> {p.setName(plan.getName());
                     p.setDescription(plan.getDescription());
@@ -60,7 +60,7 @@ public class PlanServiceImpl implements PlanService {
                     return planRepository.save(p);
                 }).orElseThrow(() -> new NoSuchElementException("Plan with this id " + id + " not found"));
 
-        return ModelMapperUtil.map(foundPlan, PlanResponseDTO.class);
+        return ModelMapperUtils.map(foundPlan, PlanResponseDTO.class);
     }
 }
 

@@ -5,7 +5,7 @@ import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.repository.MembershipRepository;
 import miu.edu.badgesystem.service.MembershipService;
-import miu.edu.badgesystem.util.ModelMapperUtil;
+import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +25,19 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
         Membership membership = membershipRepository.findById(membershipId).orElseThrow(() -> new NoSuchElementException("Membership with id " + membershipId + " NOT FOUND"));
-        return ModelMapperUtil.map(membership, MembershipResponseDTO.class);
+        return ModelMapperUtils.map(membership, MembershipResponseDTO.class);
     }
 
     @Override
     public List<MembershipResponseDTO> findAll() {
         List<Membership> memberships = membershipRepository.findAll();
-        return memberships.stream().map(role-> ModelMapperUtil.map(role, MembershipResponseDTO.class)).collect(Collectors.toList());
+        return memberships.stream().map(role-> ModelMapperUtils.map(role, MembershipResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public MembershipResponseDTO save(MembershipRequestDTO roleDTO) {
-        Membership membership = ModelMapperUtil.map(roleDTO, Membership.class);
-        return ModelMapperUtil.map(membershipRepository.save(membership), MembershipResponseDTO.class);
+        Membership membership = ModelMapperUtils.map(roleDTO, Membership.class);
+        return ModelMapperUtils.map(membershipRepository.save(membership), MembershipResponseDTO.class);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public MembershipResponseDTO update(MembershipRequestDTO membershipDTO, Long id) {
-        Membership membership = ModelMapperUtil.map(membershipDTO, Membership.class);
+        Membership membership = ModelMapperUtils.map(membershipDTO, Membership.class);
         Membership foundMembership = membershipRepository.findById(id)
                 .map(ms -> {ms.setStartDate(membership.getStartDate());
                     ms.setEndDate(membership.getEndDate());
@@ -58,7 +58,7 @@ public class MembershipServiceImpl implements MembershipService {
                     return membershipRepository.save(ms);
                 }).orElseThrow(() -> new NoSuchElementException("Membership with this id " + id + " not found"));
 
-        return ModelMapperUtil.map(foundMembership, MembershipResponseDTO.class);
+        return ModelMapperUtils.map(foundMembership, MembershipResponseDTO.class);
     }
 }
 
