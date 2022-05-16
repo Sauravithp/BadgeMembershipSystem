@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import miu.edu.badgesystem.config.Action;
 import miu.edu.badgesystem.model.Badge;
+import miu.edu.badgesystem.model.Location;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,19 +21,19 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Setter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class BadgeHistory {
+public class LocationHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "badge_id",foreignKey = @ForeignKey(name = "FK_badge_history_badge"))
-    private Badge badge;
+    @JoinColumn(name = "location_id")
+    private Location location;
 
-    @Column(name = "badge_content")
+    @Column(name = "location_content")
     @Lob
-    private String badgeContent;
+    private String locationContent;
 
     @CreatedBy
     private Long modifiedBy;
@@ -44,9 +45,9 @@ public class BadgeHistory {
     @Enumerated(STRING)
     private Action action;
 
-    public BadgeHistory(Badge badge, Action action) {
-        this.badge = badge;
-        this.badgeContent = badge.toString();
+    public LocationHistory(Location location, Action action) {
+        this.location = location;
+        this.locationContent = location.toString();
         this.action = action;
     }
 }
