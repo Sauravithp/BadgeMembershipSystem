@@ -28,7 +28,7 @@ public class LocationHistory {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "location_id",foreignKey = @ForeignKey(name = "FK_location_history_location"))
+    @JoinColumn(name = "location_id")
     private Location location;
 
     @Column(name = "location_content")
