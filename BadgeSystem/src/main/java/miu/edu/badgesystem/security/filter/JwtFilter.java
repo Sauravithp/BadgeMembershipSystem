@@ -1,16 +1,17 @@
 package miu.edu.badgesystem.security.filter;
 
+import com.nimbusds.jwt.SignedJWT;
 import lombok.SneakyThrows;
 import miu.edu.badgesystem.exception.ExceptionResponse;
 import miu.edu.badgesystem.util.ObjectMapperUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 
 @Component
@@ -28,14 +29,28 @@ public class JwtFilter implements Filter {
             String header = httpRequest.getHeader("Authorization");
             try {
                 //header
+                String token=header.substring(6);
+                String headerJson = parseJWTHeader(token);
                 //decrypt the jwt
-                header.contains("test");
+                headerJson.contains("JWT");
                 chain.doFilter(request, response);
             } catch (Exception e) {
                 setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response, e);
                 e.printStackTrace();
             }
         }
+    }
+
+    @SneakyThrows
+    private String parseJWTHeader(String accessToken) {
+        String header;
+        try {
+            var decodedJWT = SignedJWT.parse(accessToken);
+             header = decodedJWT.getHeader().toString();
+        } catch (ParseException e) {
+            throw new Exception("Invalid token!");
+        }
+        return header;
     }
 
     public void setErrorResponse(HttpStatus status, HttpServletResponse response, Throwable ex) {
