@@ -1,9 +1,16 @@
 package miu.edu.badgesystem.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Plan {
 
     @Id
@@ -22,7 +29,7 @@ public class Plan {
     @Column(name = "is_limited")
     private Boolean isLimited;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Plan_id")
     private List<Role> roles;
 

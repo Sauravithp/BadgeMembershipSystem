@@ -7,13 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Entity" />
         <module name="BadgeMembershipSystem" />
+        <module name="Entity" />
         <module name="BadgeSystem" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="BadgeMembershipSystem" target="1.8" />
+      <module name="BadgeMembershipSystem" target="11" />
       <module name="BadgeSystem" target="11" />
       <module name="Enity" target="11" />
       <module name="Entity" target="11" />
