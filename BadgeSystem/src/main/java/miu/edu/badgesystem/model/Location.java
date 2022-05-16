@@ -1,12 +1,20 @@
 package miu.edu.badgesystem.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import miu.edu.badgesystem.audit.Auditable;
+import miu.edu.badgesystem.listener.BadgeEntityListener;
+import miu.edu.badgesystem.listener.LocationEntityListener;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@EntityListeners(LocationEntityListener.class)
+@Getter
+@Setter
+@ToString
 public class Location extends Auditable<Long> {
 
     @Id
