@@ -11,4 +11,7 @@ import java.util.List;
 
 @Repository
 public interface LocationDateRepository extends JpaRepository<LocationDate,Long> {
+
+    @Query("SELECT l FROM LocationDate l WHERE l.location.id=:id")
+    LocationDate getLocationDateByLocationId(@Param("id") Long id);
 }

@@ -48,11 +48,11 @@ public class LocationDate {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_date_id")
     private List<LocationClosed> locationClosed;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_date_id")
     private List<LocationTimeSlot> locationTimeSlots;
 

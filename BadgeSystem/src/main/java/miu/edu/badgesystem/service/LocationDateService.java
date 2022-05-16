@@ -11,5 +11,7 @@ public interface LocationDateService {
 
     LocationDateResponseDTO save(LocationDateRequestDTO requestDTO, Location location);
 
+    String delete(Long id);
+
 
 }

@@ -6,6 +6,7 @@ import miu.edu.badgesystem.dto.response.LocationDateResponseDTO;
 import miu.edu.badgesystem.dto.response.LocationResponseDTO;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
+import miu.edu.badgesystem.model.LocationDate;
 import miu.edu.badgesystem.repository.LocationRepository;
 import miu.edu.badgesystem.service.LocationDateService;
 import miu.edu.badgesystem.service.LocationService;
@@ -90,6 +91,7 @@ public class LocationServiceImpl implements LocationService {
             throw new NoContentFoundException("No location found");
         }
         location.setStatus('D');
+        locationDateService.delete(id);
         locationRepository.save(location);
     }
 }

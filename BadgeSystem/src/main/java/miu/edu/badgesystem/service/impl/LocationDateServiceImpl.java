@@ -53,5 +53,15 @@ public class LocationDateServiceImpl implements LocationDateService {
 
     }
 
+    @Override
+    public String delete(Long id) {
+        LocationDate locationDate=locationDateRepository.getLocationDateByLocationId(id);
+        locationDate.setStatus('D');
+        locationDate.getLocationClosed().forEach(locationClose -> locationClose.setStatus('D') );
+        locationDate.getLocationTimeSlots().forEach(locationTimeSlot -> locationTimeSlot.setStatus('D') );
+        locationDateRepository.save(locationDate);
+        return "deleted";
+    }
+
 
 }
