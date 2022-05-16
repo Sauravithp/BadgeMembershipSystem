@@ -39,7 +39,8 @@ public class LocationServiceImpl implements LocationService {
         Location locationToSave = ModelMapperUtils.map(requestDTO, Location.class);
         locationToSave.setStatus('Y');
         Location savedLocation = locationRepository.save(locationToSave);
-        LocationDateResponseDTO locationDate = locationDateService.save(requestDTO.getLocationDateRequestDTO(), savedLocation);
+        LocationDateResponseDTO locationDate = locationDateService.save(requestDTO.getLocationDateRequestDTO(),
+                savedLocation);
         LocationResponseDTO finalResponse = ModelMapperUtils.map(savedLocation,
                 LocationResponseDTO.class);
         finalResponse.setLocationDate(locationDate);
@@ -66,13 +67,17 @@ public class LocationServiceImpl implements LocationService {
     public List<LocationResponseDTO> getAllLocation() {
         List<Location> location = locationRepository.getAllLocation();
         List<LocationResponseDTO> responseDTOS = new ArrayList<>();
-        try {
-            location.forEach(loc -> {
-                responseDTOS.add(ModelMapperUtils.map(loc, LocationResponseDTO.class));
-            });
-        } catch (Exception ex) {
+        if(location.isEmpty()) {
             throw new NoContentFoundException("Location(s) is empty", "No data found in Location");
+
         }
+        location.forEach(loc -> {
+            LocationResponseDTO locationResponseDTO=ModelMapperUtils.map(loc, LocationResponseDTO.class);
+            LocationDateResponseDTO responseDTO=locationDateService.getLocationDateById(locationResponseDTO.getId());
+            locationResponseDTO.setLocationDate(responseDTO);
+            responseDTOS.add(locationResponseDTO);
+            });
+
 
         return responseDTOS;
     }
@@ -83,7 +88,11 @@ public class LocationServiceImpl implements LocationService {
         if (Objects.isNull(location)) {
             throw new NoContentFoundException("No location found");
         }
-        return ModelMapperUtils.map(location, LocationResponseDTO.class);
+        LocationDateResponseDTO locationDate = locationDateService.getLocationDateById(id);
+        LocationResponseDTO finalResponse = ModelMapperUtils.map(location,
+                LocationResponseDTO.class);
+        finalResponse.setLocationDate(locationDate);
+        return finalResponse;
     }
 
     @Override

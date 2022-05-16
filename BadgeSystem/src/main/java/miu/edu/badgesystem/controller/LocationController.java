@@ -1,11 +1,14 @@
 package miu.edu.badgesystem.controller;
 
 import miu.edu.badgesystem.dto.request.LocationRequestDTO;
+import miu.edu.badgesystem.dto.response.LocationResponseDTO;
 import miu.edu.badgesystem.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/locations")
@@ -32,7 +35,8 @@ public class LocationController {
 
     @GetMapping
     public ResponseEntity<?> getAllLocation(){
-        return ResponseEntity.ok(locationService.getAllLocation());
+        List<LocationResponseDTO> locationResponseDTO=locationService.getAllLocation();
+        return ResponseEntity.ok(locationResponseDTO);
     }
 
     @DeleteMapping("/{id}")

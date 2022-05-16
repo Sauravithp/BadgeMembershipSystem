@@ -67,7 +67,10 @@ public class LocationDateServiceImpl implements LocationDateService {
 
     @Override
     public LocationDateResponseDTO getLocationDateById(Long id) {
-        return null;
+        LocationDate locationDate=locationDateRepository.getLocationDateByLocationId(id);
+        LocationDateResponseDTO locationDateResponseDTO = LocationDateUtil.getLocationDateResponseDTO(locationDate);
+
+        return locationDateResponseDTO;
     }
 
 
