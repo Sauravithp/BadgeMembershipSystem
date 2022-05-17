@@ -50,4 +50,11 @@ public class MemberController {
     public ResponseEntity<?> createBadgeForAMember(@RequestBody BadgeRequestDTO badgeDto, @PathVariable Long id) {
         return new ResponseEntity<>(memberService.createBadgeForAMember(badgeDto, id), HttpStatus.OK);
     }
+
+    @GetMapping("/memberships/{badgeNumber}")
+    public ResponseEntity<?> getMembershipByBadgeNumber(@PathVariable String badgeNumber) {
+        return new ResponseEntity<>(
+                memberService.getMembershipsByBadgeNumber(badgeNumber),
+                HttpStatus.OK);
+    }
 }
