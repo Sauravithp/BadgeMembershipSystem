@@ -3,24 +3,15 @@ package miu.edu.badgesystem.service.Impl;
 import miu.edu.badgesystem.dto.request.BadgeRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
-import miu.edu.badgesystem.dto.response.BadgeResponseDTO;
-import miu.edu.badgesystem.dto.response.MemberResponseDTO;
-import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
+import miu.edu.badgesystem.dto.response.*;
 import miu.edu.badgesystem.exception.BadRequestException;
-import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
-import miu.edu.badgesystem.dto.response.PlanResponseDTO;
-import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Badge;
 import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Role;
-import miu.edu.badgesystem.repository.BadgeRepository;
-import miu.edu.badgesystem.repository.MemberRepository;
-import miu.edu.badgesystem.repository.MembershipInfoRepository;
-import miu.edu.badgesystem.repository.PlanRoleInfoRepository;
-import miu.edu.badgesystem.repository.RoleRepository;
+import miu.edu.badgesystem.repository.*;
 import miu.edu.badgesystem.service.MemberRolesService;
 import miu.edu.badgesystem.service.MemberService;
 import miu.edu.badgesystem.service.MembershipInfoService;
@@ -31,10 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,12 +85,14 @@ public class MemberServiceImpl implements MemberService {
 
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
+        Badge badge=createBadgeFirstTime();
+        memberToSave.setBadges(Arrays.asList(badge));
         memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
-        ;
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
 //        memberToSave.setBadges(memberDTO.getBadges());
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
+        responseDTO.setBadgeNumber(badge.getBadgeNumber());
         return responseDTO;
     }
 
@@ -201,5 +191,15 @@ public class MemberServiceImpl implements MemberService {
     public List<TransactionResponseDTO> findMemberTransactions(Long id) {
         return null;
     }
+
+    @Override
+    public Badge createBadgeFirstTime() {
+        Badge badge =new Badge();
+        badge.setStatus('Y');
+        badge.setBadgeNumber(UUID.randomUUID().toString());
+        return badge;
+    }
+
+
 
 }

@@ -3,7 +3,6 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
-import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.*;
@@ -66,7 +65,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {
         BigInteger membershipId = badgeRepository.getMemberShip(requestDTO.getLocationId(), requestDTO.getBadgeNumber());
-        if (membershipId == BigInteger.ZERO) {
+        if (membershipId != BigInteger.ZERO) {
             Membership membership = membershipRepository.getActiveMembershipByID(Long.parseLong(membershipId.toString()))
                     .orElseThrow(() -> {
                         throw new NoContentFoundException("Membership NOT Active");

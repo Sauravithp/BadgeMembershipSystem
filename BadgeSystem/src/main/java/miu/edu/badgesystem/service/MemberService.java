@@ -3,15 +3,9 @@ package miu.edu.badgesystem.service;
 import miu.edu.badgesystem.dto.request.BadgeRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
-import miu.edu.badgesystem.dto.response.BadgeResponseDTO;
-import miu.edu.badgesystem.dto.response.MemberResponseDTO;
+import miu.edu.badgesystem.dto.response.*;
 import miu.edu.badgesystem.model.Badge;
 import miu.edu.badgesystem.model.Membership;
-
-import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
-import miu.edu.badgesystem.dto.response.PlanResponseDTO;
-import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
-
 
 import java.util.List;
 
@@ -33,6 +27,8 @@ public interface MemberService {
     List<MembershipResponseDTO> findMemberMemberships(Long id);
 
     List<TransactionResponseDTO> findMemberTransactions(Long id);
+
+    Badge createBadgeFirstTime();
 
     BadgeResponseDTO createBadgeForAMember(BadgeRequestDTO dto, Long memberId);
 
