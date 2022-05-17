@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
     @Query(" Select count(t.id) from Transaction t where t.membership.id=:membershipId AND " +
-            "t.location.id=:locationId AND t.createdDate BETWEEN :startDate AND :endDate")
+            "t.location.id=:locationId AND t.createdDate BETWEEN :startDate AND :endDate AND t.status='Y'")
     Integer getTransactionCountByMembershipAndLocationId(@Param("locationId") Long locationId,
                                                          @Param("membershipId") Long membershipId,
                                                          @Param("startDate") LocalDate startDate,

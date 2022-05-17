@@ -18,6 +18,7 @@ import org.springframework.util.ObjectUtils;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,46 +58,57 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {
-        BigInteger memberId=badgeRepository.getMemberShip( requestDTO.getLocationId(),requestDTO.getBadgeNumber());
-        Membership membership = membershipRepository.getById(Long.parseLong(memberId.toString()));
-        Location location = getLocationById(requestDTO.getLocationId());
-        checkIfPlanCountExceeds(requestDTO, membership);
-        checkIfLocationCapacityIsFull(requestDTO,location);
-        checkIfAvailableDateAndTime(location);
-        Transaction transaction = TransactionUtils.mapToTransaction(location,membership);
-        transactionRepository.save(transaction);
-        TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);
-        return transactionResponseDTO;
+        BigInteger membershipId=badgeRepository.getMemberShip( requestDTO.getLocationId(),requestDTO.getBadgeNumber());
+        if(membershipId==BigInteger.ZERO){
+            Membership membership = membershipRepository.getActiveMembershipByID(Long.parseLong(membershipId.toString()))
+                    .orElseThrow(() -> {throw new NoContentFoundException("Membership NOT Active");});
+            Location location = getLocationById(requestDTO.getLocationId());
+            Character status='Y';
+            status=checkIfPlanCountExceeds(requestDTO, membership);
+            status=checkIfLocationCapacityIsFull(requestDTO,location);
+            status=checkIfAvailableDateAndTime(location);
+            Transaction transaction = TransactionUtils.mapToTransaction(location,membership,status);
+            transactionRepository.save(transaction);
+            TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);
+            return transactionResponseDTO;
+        }
+        throw new NoContentFoundException("Membership Not Found");
     }
 
-    private void checkIfAvailableDateAndTime(Location location) {
+    private Character checkIfAvailableDateAndTime(Location location) {
         LocationDate locationDate=locationDateRepository.getLocationDateByLocationId(location.getId());
-        checkClosedDate(locationDate);
-        checkIfLocationIsAvailable(locationDate);
+        Character status='Y';
+        status=checkClosedDate(locationDate);
+        status=checkIfLocationIsAvailable(locationDate);
+        return status;
     }
 
-    private void checkIfLocationIsAvailable(LocationDate locationDate) {
+    private Character checkIfLocationIsAvailable(LocationDate locationDate) {
         Integer count=locationDateRepository.checkIfLocationDateIsAvailable(locationDate.getId());
         if(count==0){
-            throw new BadRequestException("Sorry,Location is not available");
+            return 'N';
         }
+        return 'Y';
     }
 
-    public void checkClosedDate(LocationDate locationDate){
+    public Character checkClosedDate(LocationDate locationDate){
+        AtomicReference<Character> status= new AtomicReference<>('Y');
         if(locationDate.getHasLocationClosedDate()){
             List<LocationClosed> locationClosedDates=locationDate.getLocationClosed();
             locationClosedDates.forEach(date->{
                 boolean isEqual = LocalDate.now().
                         isEqual(date.getDate());
                 if(isEqual){
-                    throw new BadRequestException("Sorry,Location is closed");
+                    status.set('N');
                 }
             });
         }
+        return status.get();
     }
 
 
-    private void checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
+    private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
+        Character status='Y';
         PlanRoleInfo planRoleInfo=planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
                 getId()).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
@@ -109,17 +121,20 @@ public class TransactionServiceImpl implements TransactionService {
                     membership.getId(), startDate, endDate);
             Integer count = planRoleInfo.getPlan().getCount();
             if (transactionCount == count) {
-                throw new BadRequestException("sorry transaction for this month has exceeded");
+                status='N';
             }
         }
+        return status;
     }
 
-    private void checkIfLocationCapacityIsFull(TransactionRequestDTO requestDTO,Location location) {
+    private Character checkIfLocationCapacityIsFull(TransactionRequestDTO requestDTO,Location location) {
         Integer occupiedSeatCount = transactionRepository.getOccupiedSeat(requestDTO.getLocationId());
         if (occupiedSeatCount >= location.getCapacity()) {
 
-            throw new BadRequestException("Sorry its Fully Occupied right now");
+          return 'N';
         }
+
+        return 'Y';
     }
 
     private Location getLocationById(Long id){
