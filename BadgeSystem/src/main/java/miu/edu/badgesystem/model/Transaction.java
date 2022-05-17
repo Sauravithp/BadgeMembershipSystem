@@ -4,6 +4,7 @@ import lombok.*;
 import miu.edu.badgesystem.audit.Auditable;
 import miu.edu.badgesystem.listener.BadgeEntityListener;
 import miu.edu.badgesystem.listener.TransactionEntityListener;
+import miu.edu.badgesystem.model.enums.TransactionStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,5 +34,9 @@ public class Transaction extends Auditable<Long> {
 
     @Column
     private Character status;
+
+    @Column(name = "transaction_status")
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus transactionStatus;
 
 }

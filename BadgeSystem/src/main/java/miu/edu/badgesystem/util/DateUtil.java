@@ -279,5 +279,11 @@ return localDate.getDayOfWeek().toString();
         return  month.atEndOfMonth();
     }
 
+    public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+
 
 }

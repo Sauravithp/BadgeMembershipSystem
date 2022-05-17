@@ -14,9 +14,9 @@ import java.time.LocalDate;
 @Setter
 public class TransactionRequestDTO {
 
-    private LocalDate date;
 
-    private Long membershipId;
+
+    private String badgeNumber;
 
     private Long locationId;
 

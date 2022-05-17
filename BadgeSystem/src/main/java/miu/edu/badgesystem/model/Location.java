@@ -1,12 +1,11 @@
 package miu.edu.badgesystem.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import miu.edu.badgesystem.audit.Auditable;
-import miu.edu.badgesystem.listener.BadgeEntityListener;
 import miu.edu.badgesystem.listener.LocationEntityListener;
+import miu.edu.badgesystem.model.enums.LocationType;
 
 import javax.persistence.*;
 

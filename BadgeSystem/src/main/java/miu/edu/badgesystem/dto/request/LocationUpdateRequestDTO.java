@@ -2,7 +2,7 @@ package miu.edu.badgesystem.dto.request;
 
 import com.sun.istack.NotNull;
 import lombok.*;
-import miu.edu.badgesystem.model.LocationType;
+import miu.edu.badgesystem.model.enums.LocationType;
 
 @Getter
 @Setter

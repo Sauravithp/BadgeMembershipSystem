@@ -4,7 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import miu.edu.badgesystem.model.LocationType;
+import miu.edu.badgesystem.model.enums.LocationType;
 
 @Getter
 @Setter

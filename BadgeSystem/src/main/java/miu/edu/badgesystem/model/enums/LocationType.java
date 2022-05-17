@@ -1,4 +1,4 @@
-package miu.edu.badgesystem.model;
+package miu.edu.badgesystem.model.enums;
 
 public enum LocationType {
     DINNING_HALL,
