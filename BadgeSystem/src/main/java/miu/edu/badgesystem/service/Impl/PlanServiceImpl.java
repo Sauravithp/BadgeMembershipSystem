@@ -35,7 +35,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanResponseDTO findById(Long planId) {
-        Plan plan = planRepository.findById(planId).orElseThrow(() -> {
+        Plan plan = planRepository.getActivePlanById(planId).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
         return ModelMapperUtils.map(plan, PlanResponseDTO.class);
@@ -82,7 +82,7 @@ return roles;
     @Override
     public void delete(Long planId) {
         //TODO
-        Plan foundPlan = planRepository.findById(planId).orElseThrow(() -> {
+        Plan foundPlan = planRepository.getActivePlanById(planId).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
         foundPlan.setStatus('D');
@@ -92,6 +92,12 @@ return roles;
     @Override
     public PlanResponseDTO update(PlanUpdateRequestDTO planDTO, Long id) {
         Plan plan = ModelMapperUtils.map(planDTO, Plan.class);
+        Plan alreadyPlan = planRepository.getUpdatePlanByName(plan.getName(), id);
+
+        if (Objects.nonNull(alreadyPlan)) {
+            throw new DataDuplicationException("Plan with name" + alreadyPlan.getName() + "already exists");
+        }
+
         Plan foundPlan = planRepository.findById(id)
                 .map(p -> {
                     p.setName(plan.getName());

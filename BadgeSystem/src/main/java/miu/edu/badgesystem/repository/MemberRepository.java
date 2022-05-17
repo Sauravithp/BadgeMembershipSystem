@@ -21,4 +21,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("SELECT m FROM Member m WHERE  m.status='Y'")
     List<Member> getActiveAllMembers();
+
+
+    @Query("SELECT m FROM Member m WHERE m.id<>:id AND m.emailAddress=:emailAddress AND m.status='Y'")
+    Member getUpdateMemberByName(@Param("emailAddress") String emailAddress, @Param("id") Long id);
+
 }

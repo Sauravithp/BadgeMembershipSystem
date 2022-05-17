@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class Badge  extends Auditable<Long> {
+public class Badge extends Auditable<Long>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,6 +4,7 @@ import miu.edu.badgesystem.dto.request.RoleRequestDTO;
 import miu.edu.badgesystem.dto.response.RoleResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
+import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.RoleService;
@@ -55,7 +56,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void delete(Long roleId) {
         //TODO
-        Role foundRole = roleRepository.findById(roleId).orElseThrow(() -> {
+        Role foundRole = roleRepository.getActiveRoleByID(roleId).orElseThrow(() -> {
             throw new NoContentFoundException("No Content Found");
         });
         foundRole.setStatus('D');
@@ -65,6 +66,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleResponseDTO update(RoleRequestDTO roleDTO, Long id) {
         Role role = ModelMapperUtils.map(roleDTO, Role.class);
+        Role alreadyRole = roleRepository.getUpdateRoleByName(roleDTO.getName(), id);
+
+        if (Objects.nonNull(alreadyRole)) {
+            throw new DataDuplicationException("Role with name" + alreadyRole.getName() + "already exists");
+        }
         Role foundRole = roleRepository.findById(id)
                 .map(r -> {
                     r.setName(role.getName());

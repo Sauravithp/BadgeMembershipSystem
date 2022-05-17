@@ -89,6 +89,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id) {
         Member member = ModelMapperUtils.map(memberDTO, Member.class);
+        Member alreadyMember = memberRepository.getUpdateMemberByName(member.getEmailAddress(),id);
+
+        if (Objects.nonNull(alreadyMember)) {
+            throw new DataDuplicationException("Member with email address" + alreadyMember.getEmailAddress() + "already exists");
+        }
+
         Member foundMember = memberRepository.findById(id)
                 .map(m -> {
                     m.setFirstName(member.getFirstName());

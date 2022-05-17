@@ -46,7 +46,7 @@ public class MembershipServiceImpl implements MembershipService {
     public List<MembershipResponseDTO> findAll() {
         List<Membership> memberships = membershipRepository.getActiveAllMemberships();
         if(memberships.isEmpty()) {
-            throw new NoContentFoundException("Member(s) is empty, No data found");
+            throw new NoContentFoundException("Membership(s) is empty, No data found");
         }
         return memberships.stream().map(membership -> ModelMapperUtils.map(membership, MembershipResponseDTO.class)).collect(Collectors.toList());
     }
@@ -57,7 +57,7 @@ public class MembershipServiceImpl implements MembershipService {
         memberShips.forEach(memberShip -> {
             Plan plan = getPlanById(memberShip.getPlan());
             //TODO TO BE TESTED!!
-//            List<MemberRoles> m = memberRolesService.save(member, plan.getRoles()) ;
+//          List<MemberRoles> m = memberRolesService.save(member, plan.getRoles()) ;
             Location location = getLocationById(memberShip.getLocation());
             toBeSaved.add(mapToMemberShip(memberShip, location, plan));
 
@@ -68,7 +68,6 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public void delete(Long membershipId) {
-        //TODO
         Membership foundMembership = membershipRepository.findById(membershipId).orElseThrow(() ->
         {throw new NoContentFoundException("Membership NOT FOUND");});
         foundMembership.setStatus('D');
