@@ -58,8 +58,14 @@ public class TransactionServiceImpl implements TransactionService {
     private void checkIfAvailableDateAndTime(Location location) {
         LocationDate locationDate=locationDateRepository.getLocationDateByLocationId(location.getId());
         checkClosedDate(locationDate);
+        checkIfLocationIsAvailable(locationDate);
+    }
 
-
+    private void checkIfLocationIsAvailable(LocationDate locationDate) {
+        Integer count=locationDateRepository.checkIfLocationDateIsAvailable(locationDate.getId());
+        if(count==0){
+            throw new BadRequestException("Sorry,Location is not available");
+        }
     }
 
     public void checkClosedDate(LocationDate locationDate){
