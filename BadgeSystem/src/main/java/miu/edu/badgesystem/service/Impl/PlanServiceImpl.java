@@ -36,7 +36,7 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanResponseDTO findById(Long planId) {
         Plan plan = planRepository.findById(planId).orElseThrow(() -> {
-            throw new NoContentFoundException("Plan id with" + planId + "not found");
+            throw new NoContentFoundException("No content found");
         });
         return ModelMapperUtils.map(plan, PlanResponseDTO.class);
     }
@@ -54,7 +54,7 @@ public class PlanServiceImpl implements PlanService {
     public PlanResponseDTO save(PlanRequestDTO planDTO) {
         Plan plan = planRepository.getPlanByName(planDTO.getName());
         if (Objects.nonNull(plan)) {
-            throw new DataDuplicationException("Member with name" + planDTO.getName() + "already exists");
+            throw new DataDuplicationException("Plan with name" + planDTO.getName() + "already exists");
         }
         List<Role> roles = getRolesByID(planDTO.getRolesId());
         Plan planToSave =  new Plan();
@@ -71,7 +71,7 @@ public class PlanServiceImpl implements PlanService {
         List<Role> roles = new ArrayList<>();
         rolesId.forEach(role -> {
             Role toBeSaved = roleRepository.getActiveRoleByID(role).orElseThrow(() -> {
-                throw new NoContentFoundException("No Content  found");
+                throw new NoContentFoundException("No Content found");
             });
 
             roles.add(toBeSaved);
@@ -83,7 +83,7 @@ return roles;
     public void delete(Long planId) {
         //TODO
         Plan foundPlan = planRepository.findById(planId).orElseThrow(() -> {
-            throw new NoContentFoundException("Plan  not found");
+            throw new NoContentFoundException("No content found");
         });
         foundPlan.setStatus('D');
         planRepository.save(foundPlan);
@@ -92,6 +92,12 @@ return roles;
     @Override
     public PlanResponseDTO update(PlanUpdateRequestDTO planDTO, Long id) {
         Plan plan = ModelMapperUtils.map(planDTO, Plan.class);
+        Plan alreadyPlan = planRepository.getUpdatePlanByName(plan.getName(), id);
+
+        if (Objects.nonNull(alreadyPlan)) {
+            throw new DataDuplicationException("Plan with name" + alreadyPlan.getName() + "already exists");
+        }
+
         Plan foundPlan = planRepository.findById(id)
                 .map(p -> {
                     p.setName(plan.getName());

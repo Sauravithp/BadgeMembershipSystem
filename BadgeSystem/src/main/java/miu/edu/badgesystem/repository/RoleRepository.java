@@ -15,6 +15,9 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query("SELECT r FROM Role r WHERE r.name=:name AND r.status='Y'")
     Role getRoleByName(@Param("name") String name);
 
+    @Query("SELECT r FROM Role r WHERE r.id<>:id AND r.name=:name AND r.status='Y'")
+    Role getUpdateRoleByName(@Param("name") String name, @Param("id") Long id);
+
     @Query("SELECT r FROM Role r WHERE r.id=:id AND r.status='Y'")
     Optional<Role> getActiveRoleByID(@Param("id") Long id);
 

@@ -38,14 +38,16 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
-        Membership membership = membershipRepository.findById(membershipId).orElseThrow(() -> {throw new NoContentFoundException("Membership with id " + membershipId + " NOT FOUND");});
+        Membership membership = membershipRepository.findById(membershipId).orElseThrow(() -> {
+            throw new NoContentFoundException("No content found");
+        });
         return ModelMapperUtils.map(membership, MembershipResponseDTO.class);
     }
 
     @Override
     public List<MembershipResponseDTO> findAll() {
         List<Membership> memberships = membershipRepository.findAll();
-        if(memberships.isEmpty()) {
+        if (memberships.isEmpty()) {
             throw new NoContentFoundException("Member(s) is empty, No data found");
         }
         return memberships.stream().map(role -> ModelMapperUtils.map(role, MembershipResponseDTO.class)).collect(Collectors.toList());
@@ -57,7 +59,7 @@ public class MembershipServiceImpl implements MembershipService {
         memberShips.forEach(memberShip -> {
             Plan plan = getPlanById(memberShip.getPlan());
             //TODO TO BE TESTED!!
-//            List<MemberRoles> m = memberRolesService.save(member, plan.getRoles()) ;
+//          List<MemberRoles> m = memberRolesService.save(member, plan.getRoles()) ;
             Location location = getLocationById(memberShip.getLocation());
             toBeSaved.add(mapToMemberShip(memberShip, location, plan));
 
@@ -68,9 +70,10 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public void delete(Long membershipId) {
-        //TODO
         Membership foundMembership = membershipRepository.findById(membershipId).orElseThrow(() ->
-        {throw new NoContentFoundException("Membership with id " + membershipId + " NOT FOUND");});
+        {
+            throw new NoContentFoundException("No content found");
+        });
         foundMembership.setStatus('D');
         membershipRepository.save(foundMembership);
     }
@@ -86,7 +89,7 @@ public class MembershipServiceImpl implements MembershipService {
                     ms.setLocation(membership.getLocation());
                     return membershipRepository.save(ms);
                 }).orElseThrow(() -> {
-                    throw new NoContentFoundException("No Content with the" + id + "found");
+                    throw new NoContentFoundException("No Content found");
                 });
 
         return ModelMapperUtils.map(foundMembership, MembershipResponseDTO.class);
