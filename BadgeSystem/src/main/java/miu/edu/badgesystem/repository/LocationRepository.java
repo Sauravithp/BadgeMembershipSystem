@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location,Long> {
@@ -20,4 +21,7 @@ public interface LocationRepository extends JpaRepository<Location,Long> {
 
     @Query("SELECT l FROM Location l WHERE l.status<>'D'")
     List<Location> getAllLocation();
+
+    @Query("SELECT l FROM Location l WHERE l.id=:id AND l.status='Y'")
+    Optional<Location> getActivePlanById(@Param("id") Long id);
 }

@@ -1,4 +1,4 @@
-package miu.edu.badgesystem.service.impl;
+package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.model.User;
 import org.springframework.security.core.GrantedAuthority;

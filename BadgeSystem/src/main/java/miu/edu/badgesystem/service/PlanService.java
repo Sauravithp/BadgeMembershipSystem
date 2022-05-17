@@ -2,6 +2,7 @@ package miu.edu.badgesystem.service;
 
 
 import miu.edu.badgesystem.dto.request.PlanRequestDTO;
+import miu.edu.badgesystem.dto.request.PlanUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface PlanService {
 
     void delete(Long planId);
 
-    PlanResponseDTO update(PlanRequestDTO planDTO, Long id);
+    PlanResponseDTO update(PlanUpdateRequestDTO planDTO, Long id);
 }

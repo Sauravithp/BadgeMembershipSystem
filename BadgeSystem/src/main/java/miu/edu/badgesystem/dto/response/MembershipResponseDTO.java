@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import miu.edu.badgesystem.model.Location;
+import miu.edu.badgesystem.model.Plan;
 
 import java.util.Date;
 
@@ -22,4 +23,6 @@ public class MembershipResponseDTO {
     private Character status;
 
     private Location location;
+
+    private Plan plan;
 }

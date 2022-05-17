@@ -1,4 +1,4 @@
-package miu.edu.badgesystem.service.impl;
+package miu.edu.badgesystem.service.Impl;
 
 import com.sun.jdi.request.DuplicateRequestException;
 import miu.edu.badgesystem.dto.request.LocationRequestDTO;

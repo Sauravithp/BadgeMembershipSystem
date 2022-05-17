@@ -28,6 +28,7 @@
           <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.29" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-json:2.6.7" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.2.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2" />
@@ -46,7 +47,6 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.3.19" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.6.3" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.6.3" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-crypto:5.6.3" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:5.6.3" />
           <element id="library" level="project" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" />
           <element id="library" level="project" name="Maven: jakarta.activation:jakarta.activation-api:1.2.2" />
