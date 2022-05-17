@@ -16,11 +16,11 @@ public class LoginController {
     private AuthenticateService authenticateService;
 
     @PostMapping
-    public ResponseEntity<String> login(@RequestBody LoginRequestDTO requestDTO){
-        String s=authenticateService.loginUser(requestDTO);
-        System.out.println(s);
+    public ResponseEntity<String> login(@RequestBody LoginRequestDTO requestDTO) {
+        String token = authenticateService.loginUser(requestDTO);
+        System.out.println(token);
         System.out.println(requestDTO.getUsername());
         System.out.println(requestDTO.getPassword());
-        return ResponseEntity.ok(s);
+        return ResponseEntity.ok(token);
     }
 }
