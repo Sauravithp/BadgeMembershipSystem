@@ -1,17 +1,22 @@
 package miu.edu.badgesystem.service.Impl;
 
+import miu.edu.badgesystem.dto.request.BadgeRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
+import miu.edu.badgesystem.dto.response.BadgeResponseDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
-
+import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
+import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
+import miu.edu.badgesystem.model.Badge;
 import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Role;
+import miu.edu.badgesystem.repository.BadgeRepository;
 import miu.edu.badgesystem.repository.MemberRepository;
 import miu.edu.badgesystem.repository.MembershipInfoRepository;
 import miu.edu.badgesystem.repository.PlanRoleInfoRepository;
@@ -20,6 +25,7 @@ import miu.edu.badgesystem.service.MemberRolesService;
 import miu.edu.badgesystem.service.MemberService;
 import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.MembershipService;
+import miu.edu.badgesystem.util.ListMapper;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +33,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -39,11 +46,16 @@ public class MemberServiceImpl implements MemberService {
     private MemberRepository memberRepository;
 
     @Autowired
+    private BadgeRepository badgeRepository;
+
+    @Autowired
     private MembershipService membershipService;
 
     @Autowired
     private MembershipInfoService membershipInfoService;
 
+    @Autowired
+    ListMapper<Membership, MembershipResponseDTO> membershipListMapper;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -127,6 +139,39 @@ public class MemberServiceImpl implements MemberService {
         return ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
     }
 
+    @Override
+    public BadgeResponseDTO createBadgeForAMember(BadgeRequestDTO dto, Long memberId) {
+        Badge badge = ModelMapperUtils.map(dto, Badge.class);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member with id " + memberId + " NOT FOUND"));
+        List<Badge> badges = member.getBadges();
+        if(badges.stream().anyMatch(badge1 -> badge1.getBadgeNumber().equals(dto.getBadgeNumber()))){
+            throw new BadRequestException("badgeNumber is already exist");
+        }
+        badges.forEach(oneBadge -> {
+            if(oneBadge.getStatus() == 'Y'){
+                oneBadge.setStatus('N');
+            }
+        });
+        badges.add(badge);
+        member.setBadges(badges);
+        member =memberRepository.saveAndFlush(member);
+        Badge updatedBadge = member.getBadges().stream().
+                filter(b -> b.getStatus() == 'Y')
+                .findFirst().orElseThrow(
+                        () -> new NoSuchElementException("Badge with status Y NOT FOUND")
+                );
+        return ModelMapperUtils.map(updatedBadge, BadgeResponseDTO.class);
+    }
+
+    @Override
+    public List<Membership> getMembershipsByBadgeNumber(String badgeNumber){
+        return memberRepository.getMembershipsByBadge(badgeNumber);
+    }
+
+    @Override
+    public List<Badge> getBadgesByMemberId(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(()-> new BadRequestException("Member is not found")).getBadges();
+    }
 
     @Override
     public List<PlanResponseDTO> findMemberPlans(Long id) {
@@ -156,6 +201,5 @@ public class MemberServiceImpl implements MemberService {
     public List<TransactionResponseDTO> findMemberTransactions(Long id) {
         return null;
     }
-
 
 }

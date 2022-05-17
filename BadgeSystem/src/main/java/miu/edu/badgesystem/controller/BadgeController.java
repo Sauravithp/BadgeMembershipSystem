@@ -1,8 +1,8 @@
 package miu.edu.badgesystem.controller;
 
-import miu.edu.badgesystem.model.Badge;
-import miu.edu.badgesystem.repository.BadgeRepository;
+import miu.edu.badgesystem.service.BadgeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +11,24 @@ import org.springframework.web.bind.annotation.*;
 public class BadgeController {
 
     @Autowired
-    private BadgeRepository badgeRepository;
+    private BadgeService badgeService;
 
-    @PostMapping
-    public ResponseEntity<?> save(){
-        Badge badge=new Badge();
-        badge.setStatus('Y');
-        badgeRepository.save(badge);
-        return ResponseEntity.ok(badge);
+    @GetMapping
+    public ResponseEntity<?> findAll() {
+        return new ResponseEntity<>(badgeService.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(
+                badgeService.findById(id),
+                HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        badgeService.deleteBadge(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
