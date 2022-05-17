@@ -1,6 +1,5 @@
 package miu.edu.badgesystem.service.Impl;
 
-import com.sun.jdi.request.DuplicateRequestException;
 import miu.edu.badgesystem.dto.request.LocationRequestDTO;
 import miu.edu.badgesystem.dto.request.LocationUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.LocationDateResponseDTO;
@@ -9,7 +8,6 @@ import miu.edu.badgesystem.dto.response.LocationUpdateResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
-import miu.edu.badgesystem.model.LocationDate;
 import miu.edu.badgesystem.repository.LocationRepository;
 import miu.edu.badgesystem.service.LocationDateService;
 import miu.edu.badgesystem.service.LocationService;
@@ -81,7 +79,6 @@ public class LocationServiceImpl implements LocationService {
             locationResponseDTO.setLocationDate(responseDTO);
             responseDTOS.add(locationResponseDTO);
             });
-
 
         return responseDTOS;
     }

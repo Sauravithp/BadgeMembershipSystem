@@ -2,6 +2,12 @@
 server:
   port: 8081
 
+keycloak:
+  auth-server-url: http://localhost:8180/auth
+  realm: SpringBootKeycloak
+  resource: login-app
+  public-client: true
+
 spring:
   application:
     name: entity-service

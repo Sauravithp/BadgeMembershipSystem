@@ -1,5 +1,6 @@
 package miu.edu.badgesystem.controller;
 
+import miu.edu.badgesystem.dto.request.BadgeRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
 import miu.edu.badgesystem.service.MemberService;
@@ -43,5 +44,10 @@ public class MemberController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         memberService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> createBadgeForAMember(@RequestBody BadgeRequestDTO badgeDto, @PathVariable Long id) {
+        return new ResponseEntity<>(memberService.createBadgeForAMember(badgeDto, id), HttpStatus.OK);
     }
 }
