@@ -6,9 +6,8 @@ spring:
   application:
     name: entity-service
   datasource:
-    url: jdbc:mysql://localhost:3306/Practice
+    url: jdbc:mysql://localhost:3306/practice
     username: root
-    password: S@chin8pe@ce
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10

@@ -3,6 +3,7 @@ package miu.edu.badgesystem.controller;
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
 import miu.edu.badgesystem.service.MemberService;
+import miu.edu.badgesystem.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid MemberRequestDTO memberDTO) {
@@ -43,5 +47,27 @@ public class MemberController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         memberService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @GetMapping("/{id}/plans")
+    public ResponseEntity<?> findMemberPlans(@PathVariable Long id) {
+        return new ResponseEntity<>(
+                memberService.findMemberPlans(id),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/memberships")
+    public ResponseEntity<?> findMemberMemberships(@PathVariable Long id) {
+        return new ResponseEntity<>(
+                memberService.findMemberMemberships(id),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/transactions")
+    public ResponseEntity<?> findMemberTransactions(@PathVariable Long id) {
+        return new ResponseEntity<>(
+                 transactionService.getTransactionByMembershipId(id),
+                HttpStatus.OK);
     }
 }
