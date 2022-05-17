@@ -25,10 +25,6 @@ public class MemberResponseDTO {
 
     private Character status;
 
-    private List<Membership> memberships;
-
-    private List<MemberRoles> memberRoles;
-
-    private List<Badge> badges;
+    private String badgeNumber;
 
 }

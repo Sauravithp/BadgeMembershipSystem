@@ -7,6 +7,7 @@ import miu.edu.badgesystem.model.Badge;
 import miu.edu.badgesystem.model.MemberRoles;
 import miu.edu.badgesystem.model.Membership;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -14,8 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberRequestDTO {
-
-    private Long id;
 
     @NotNull
     private String firstName;
@@ -29,12 +28,11 @@ public class MemberRequestDTO {
     @NotNull
     private Character status;
 
-    private List<Membership> memberships;
+    @NotEmpty
+    private List<MembershipRequestDTO> memberships;
 
-  //  @NotEmpty
-    private List<MemberRoles> memberRoles;
+//    @NotEmpty
+//    private List<RoleRequestDTO> roles;
 
-   // @NotEmpty
-    private List<Badge> badges;
 
 }

@@ -22,6 +22,7 @@ public class Transaction extends Auditable<Long> {
     private Long id;
 
     private LocalDate date;
+
     @ManyToOne
     @JoinColumn(name = "membership_id")
     private Membership membership;

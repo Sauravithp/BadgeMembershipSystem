@@ -1,19 +1,17 @@
 package miu.edu.badgesystem.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import miu.edu.badgesystem.model.Role;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlanRequestDTO {
-
-    private Long id;
 
     @NotNull
     private String name;
@@ -27,9 +25,7 @@ public class PlanRequestDTO {
     @NotNull
     private Boolean isLimited;
 
-    @NotNull
-    private List<Role> roles;
+    private List<Long> rolesId;
 
-    @NotNull
     private Character status;
 }

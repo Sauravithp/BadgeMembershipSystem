@@ -1,15 +1,18 @@
 package miu.edu.badgesystem.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleRequestDTO {
+public class PlanUpdateRequestDTO {
 
     @NotNull
     private String name;
@@ -18,6 +21,10 @@ public class RoleRequestDTO {
     private String description;
 
     @NotNull
-    private Character status;
+    private Integer count;
 
+    @NotNull
+    private Boolean isLimited;
+
+    private Character status;
 }

@@ -15,10 +15,7 @@ public class MembershipController {
     @Autowired
     private MembershipService membershipService;
 
-    @PostMapping
-    public ResponseEntity<?> save(@RequestBody @Valid MembershipRequestDTO membershipDTO) {
-        return new ResponseEntity(membershipService.save(membershipDTO), HttpStatus.CREATED);
-    }
+
 
     @GetMapping
     public ResponseEntity<?> findAll() {

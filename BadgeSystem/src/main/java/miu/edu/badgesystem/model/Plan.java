@@ -28,10 +28,6 @@ public class Plan {
     @Column(name = "is_limited")
     private Boolean isLimited;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Plan_id")
-    private List<Role> roles;
-
     @Column(name = "status")
     private Character status;
 }

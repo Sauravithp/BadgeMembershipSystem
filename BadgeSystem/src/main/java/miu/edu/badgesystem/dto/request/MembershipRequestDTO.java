@@ -4,23 +4,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import miu.edu.badgesystem.model.Location;
+import miu.edu.badgesystem.model.Plan;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MembershipRequestDTO {
 
-    private Long id;
-
     @NotNull
-    private Date startDate;
+    private LocalDate startDate;
     @NotNull
-    private Date endDate;
+    private LocalDate endDate;
     @NotNull
     private Character status;
-    // @NotNull
-    private Location location;
+
+    @NotNull
+    private Long location;
+
+    @NotNull
+    private Long plan;
+
+    @NotNull
+    private Long role;
+
 }
