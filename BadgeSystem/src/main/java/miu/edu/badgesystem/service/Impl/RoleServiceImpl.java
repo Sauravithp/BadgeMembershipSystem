@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleResponseDTO findById(Long roleId) {
         Role role = roleRepository.getActiveRoleByID(roleId).orElseThrow(() -> {
-            throw new NoContentFoundException("No Content  found");
+            throw new NoContentFoundException("No Content found");
         });
         return ModelMapperUtils.map(role, RoleResponseDTO.class);
     }
@@ -45,7 +45,7 @@ public class RoleServiceImpl implements RoleService {
     public RoleResponseDTO save(RoleRequestDTO roleDTO) {
         Role role = roleRepository.getRoleByName(roleDTO.getName());
         if (Objects.nonNull(role)) {
-            throw new DataDuplicationException("Member with name" + roleDTO.getName() + "already exists");
+            throw new DataDuplicationException("role with name" + roleDTO.getName() + "already exists");
         }
         Role roleToSave = ModelMapperUtils.map(roleDTO, Role.class);
         roleToSave.setStatus('Y');
@@ -73,7 +73,7 @@ public class RoleServiceImpl implements RoleService {
              //       r.setMemberRoles(role.getMemberRoles());
                     return roleRepository.save(r);
                 }).orElseThrow(() -> {
-                    throw new NoContentFoundException("No Role with" + id + "found");
+                    throw new NoContentFoundException("No Role found");
                 });
 
         return ModelMapperUtils.map(foundRole, RoleResponseDTO.class);

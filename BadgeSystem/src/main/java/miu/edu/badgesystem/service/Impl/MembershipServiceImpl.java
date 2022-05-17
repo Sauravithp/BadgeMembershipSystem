@@ -38,17 +38,17 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
-        Membership membership = membershipRepository.findById(membershipId).orElseThrow(() -> {throw new NoContentFoundException("Membership with id " + membershipId + " NOT FOUND");});
+        Membership membership = membershipRepository.getActiveMembershipByID(membershipId).orElseThrow(() -> {throw new NoContentFoundException("Membership NOT FOUND");});
         return ModelMapperUtils.map(membership, MembershipResponseDTO.class);
     }
 
     @Override
     public List<MembershipResponseDTO> findAll() {
-        List<Membership> memberships = membershipRepository.findAll();
+        List<Membership> memberships = membershipRepository.getActiveAllMemberships();
         if(memberships.isEmpty()) {
             throw new NoContentFoundException("Member(s) is empty, No data found");
         }
-        return memberships.stream().map(role -> ModelMapperUtils.map(role, MembershipResponseDTO.class)).collect(Collectors.toList());
+        return memberships.stream().map(membership -> ModelMapperUtils.map(membership, MembershipResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class MembershipServiceImpl implements MembershipService {
     public void delete(Long membershipId) {
         //TODO
         Membership foundMembership = membershipRepository.findById(membershipId).orElseThrow(() ->
-        {throw new NoContentFoundException("Membership with id " + membershipId + " NOT FOUND");});
+        {throw new NoContentFoundException("Membership NOT FOUND");});
         foundMembership.setStatus('D');
         membershipRepository.save(foundMembership);
     }
@@ -86,7 +86,7 @@ public class MembershipServiceImpl implements MembershipService {
                     ms.setLocation(membership.getLocation());
                     return membershipRepository.save(ms);
                 }).orElseThrow(() -> {
-                    throw new NoContentFoundException("No Content with the" + id + "found");
+                    throw new NoContentFoundException("No Content found");
                 });
 
         return ModelMapperUtils.map(foundMembership, MembershipResponseDTO.class);
@@ -99,7 +99,7 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     private Location getLocationById(Long id) {
-        return locationRepository.getActivePlanById(id).orElseThrow(() -> {
+        return locationRepository.getActiveLocationById(id).orElseThrow(() -> {
             throw new NoContentFoundException("Sorry, Location is not active");
         });
     }
@@ -114,7 +114,7 @@ public class MembershipServiceImpl implements MembershipService {
         return membership;
     }
 
-    public MembershipResponseDTO mapToMemberShip(Membership membership) {
+    public MembershipResponseDTO mapToMemberShipDTO(Membership membership) {
         MembershipResponseDTO responseDTO = new MembershipResponseDTO();
         responseDTO.setEndDate(membership.getEndDate());
         responseDTO.setStartDate(membership.getStartDate());
@@ -128,7 +128,7 @@ public class MembershipServiceImpl implements MembershipService {
         List<MembershipResponseDTO> membershipResponseDTOS = new ArrayList<>();
 
         memberships.forEach(membership -> {
-            membershipResponseDTOS.add(mapToMemberShip(membership));
+            membershipResponseDTOS.add(mapToMemberShipDTO(membership));
         });
 
         return membershipResponseDTOS;

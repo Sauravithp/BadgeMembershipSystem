@@ -41,8 +41,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberResponseDTO findById(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> {
-            throw new NoContentFoundException("No content with " + memberId + "found");
+        Member member = memberRepository.getActiveMemberByID(memberId).orElseThrow(() -> {
+            throw new NoContentFoundException("No content found");
         });
         return ModelMapperUtils.map(member, MemberResponseDTO.class);
     }
@@ -50,24 +50,25 @@ public class MemberServiceImpl implements MemberService {
     @Override
     // TODO: 5/16/22
     public List<MemberResponseDTO> findAll() {
-        List<Member> members = memberRepository.findAll();
+        List<Member> members = memberRepository.getActiveAllMembers();
         if (members.isEmpty()) {
             throw new NoContentFoundException("Member(s) is empty, No data found");
         }
-        return members.stream().map(role -> ModelMapperUtils.map(role, MemberResponseDTO.class)).collect(Collectors.toList());
+        return members.stream().map(member -> ModelMapperUtils.map(member, MemberResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     // TODO: 5/16/22
     public MemberResponseDTO save(MemberRequestDTO memberDTO) {
-        Member member = memberRepository.getMemberByName(memberDTO.getEmailAddress());
+        Member member = memberRepository.getMemberByEmailAddress(memberDTO.getEmailAddress());
         if (Objects.nonNull(member)) {
             throw new DataDuplicationException("Member with email address" + memberDTO.getEmailAddress() + "already exists");
         }
 
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
-        List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());;
+        List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
+        ;
 //        memberToSave.setBadges(memberDTO.getBadges());
         memberToSave.setMemberships(membershipResponseDTOS);
         memberRepository.save(memberToSave);

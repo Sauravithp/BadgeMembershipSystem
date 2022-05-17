@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import miu.edu.badgesystem.audit.Auditable;
 import miu.edu.badgesystem.listener.BadgeEntityListener;
+import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
 

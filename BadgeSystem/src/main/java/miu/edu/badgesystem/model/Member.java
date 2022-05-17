@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import miu.edu.badgesystem.audit.Auditable;
 import miu.edu.badgesystem.listener.BadgeEntityListener;
 import miu.edu.badgesystem.listener.MemberEntityListener;
+import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
 import java.util.List;

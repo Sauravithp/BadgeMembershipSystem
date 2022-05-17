@@ -36,25 +36,25 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanResponseDTO findById(Long planId) {
         Plan plan = planRepository.findById(planId).orElseThrow(() -> {
-            throw new NoContentFoundException("Plan id with" + planId + "not found");
+            throw new NoContentFoundException("Plan not found");
         });
         return ModelMapperUtils.map(plan, PlanResponseDTO.class);
     }
 
     @Override
     public List<PlanResponseDTO> findAll() {
-        List<Plan> plans = planRepository.findAll();
+        List<Plan> plans = planRepository.getActiveAllPlans();
         if (plans.isEmpty()) {
             throw new NoContentFoundException("Plan(s) is empty, No data found");
         }
-        return plans.stream().map(role -> ModelMapperUtils.map(role, PlanResponseDTO.class)).collect(Collectors.toList());
+        return plans.stream().map(plan -> ModelMapperUtils.map(plan, PlanResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public PlanResponseDTO save(PlanRequestDTO planDTO) {
         Plan plan = planRepository.getPlanByName(planDTO.getName());
         if (Objects.nonNull(plan)) {
-            throw new DataDuplicationException("Member with name" + planDTO.getName() + "already exists");
+            throw new DataDuplicationException("Plan with name" + planDTO.getName() + "already exists");
         }
         List<Role> roles = getRolesByID(planDTO.getRolesId());
         Plan planToSave =  new Plan();
@@ -71,7 +71,7 @@ public class PlanServiceImpl implements PlanService {
         List<Role> roles = new ArrayList<>();
         rolesId.forEach(role -> {
             Role toBeSaved = roleRepository.getActiveRoleByID(role).orElseThrow(() -> {
-                throw new NoContentFoundException("No Content  found");
+                throw new NoContentFoundException("No Content found");
             });
 
             roles.add(toBeSaved);
@@ -83,7 +83,7 @@ return roles;
     public void delete(Long planId) {
         //TODO
         Plan foundPlan = planRepository.findById(planId).orElseThrow(() -> {
-            throw new NoContentFoundException("Plan  not found");
+            throw new NoContentFoundException("Plan not found");
         });
         foundPlan.setStatus('D');
         planRepository.save(foundPlan);
