@@ -1,8 +1,9 @@
-package miu.edu.badgesystem.service.Impl;
+package miu.edu.badgesystem.service.impl;
 
 import miu.edu.badgesystem.Validator.LoginValidator;
 import miu.edu.badgesystem.config.KeycloakProvider;
 import miu.edu.badgesystem.dto.request.LoginRequestDTO;
+import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.repository.UserRepository;
 import miu.edu.badgesystem.service.AuthenticateService;
 import org.keycloak.admin.client.Keycloak;
@@ -25,22 +26,25 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
     @Override
     public String loginUser(LoginRequestDTO requestDTO) {
-        var user = userRepository.getUser(requestDTO.getUsername());
+        var user = userRepository.getUser(requestDTO.getUsername()).orElseThrow(()->{
+            throw new NoContentFoundException("User is not found");
+        });
         String token = null;
         if(LoginValidator.checkPassword(requestDTO.getPassword(), user.getPassword())){
             token = getJwtToken(requestDTO);
+        }else {
+            throw new NoContentFoundException("User is not found");
         }
         return token;
     }
 
     private String getJwtToken(LoginRequestDTO requestDTO) {
-        Keycloak keycloak = kcProvider.newKeycloakBuilderWithPasswordCredentials(
-                requestDTO.getUsername(),
-                requestDTO.getPassword()
-        ).build();
-        AccessTokenResponse accessTokenResponse = null;
         try {
-            accessTokenResponse = keycloak.tokenManager().getAccessToken();
+            Keycloak keycloak = kcProvider.newKeycloakBuilderWithPasswordCredentials(
+                    requestDTO.getUsername(),
+                    requestDTO.getPassword()
+            ).build();
+            AccessTokenResponse accessTokenResponse = keycloak.tokenManager().getAccessToken();
             return accessTokenResponse.getToken();
         } catch (BadRequestException ex) {
             System.out.println("invalid account. User probably hasn't verified username.");
