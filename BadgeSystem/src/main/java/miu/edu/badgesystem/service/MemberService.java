@@ -4,6 +4,7 @@ import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
 
+import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 
@@ -25,7 +26,7 @@ public interface MemberService {
 
     List<PlanResponseDTO> findMemberPlans(Long id);
 
-    List<MemberResponseDTO> findMemberMemberships(Long id);
+    List<MembershipResponseDTO> findMemberMemberships(Long id);
 
     List<TransactionResponseDTO> findMemberTransactions(Long id);
 

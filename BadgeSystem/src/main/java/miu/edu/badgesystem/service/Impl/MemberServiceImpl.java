@@ -4,14 +4,17 @@ import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
 
+import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
+import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.MemberRepository;
 import miu.edu.badgesystem.repository.MembershipInfoRepository;
+import miu.edu.badgesystem.repository.PlanRoleInfoRepository;
 import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.MemberRolesService;
 import miu.edu.badgesystem.service.MemberService;
@@ -50,6 +53,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MembershipInfoRepository membershipInfoRepository;
+
+    @Autowired
+    private PlanRoleInfoRepository planRoleInfoRepository;
 
     @Override
     public MemberResponseDTO findById(Long memberId) {
@@ -125,16 +131,24 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<PlanResponseDTO> findMemberPlans(Long id) {
         List<Membership> memberships = membershipInfoRepository.getMembershipByMemberId(id);
-        List<PlanResponseDTO> plans = new ArrayList<>();
-        memberships.forEach(m -> plans.add(ModelMapperUtils.map(m.getPlanRoleInfo().getPlan(), PlanResponseDTO.class)));
-        return plans;
+        List<PlanResponseDTO> plansResponseDTO = new ArrayList<>();
+
+        memberships.forEach(m -> {
+            List<Role> roles = planRoleInfoRepository.getActiveRoleInfoByPlanID(m.getPlanRoleInfo().getPlan().getId());
+            PlanResponseDTO plansResDTO = ModelMapperUtils.map(m.getPlanRoleInfo().getPlan(), PlanResponseDTO.class);
+            plansResDTO.setRoles(roles);
+            plansResponseDTO.add(plansResDTO);
+
+        });
+
+        return plansResponseDTO;
     }
 
     @Override
-    public List<MemberResponseDTO> findMemberMemberships(Long id) {
+    public List<MembershipResponseDTO> findMemberMemberships(Long id) {
         List<Membership> memberships = membershipInfoRepository.getMembershipByMemberId(id);
-        List<MemberResponseDTO> memberResponseDTOS = new ArrayList<>();
-        memberships.forEach(membership -> memberResponseDTOS.add(ModelMapperUtils.map(membership, MemberResponseDTO.class)));
+        List<MembershipResponseDTO> memberResponseDTOS = new ArrayList<>();
+        memberships.forEach(membership -> memberResponseDTOS.add(ModelMapperUtils.map(membership, MembershipResponseDTO.class)));
         return memberResponseDTOS;
     }
 
