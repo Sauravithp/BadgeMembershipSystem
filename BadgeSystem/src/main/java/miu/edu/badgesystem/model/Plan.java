@@ -29,12 +29,6 @@ public class Plan {
     @Column(name = "is_limited")
     private Boolean isLimited;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "plan_role",
-    joinColumns = {@JoinColumn(name = "plan_id")},
-    inverseJoinColumns ={@JoinColumn(name = "role_id")} )
-    private List<Role> roles;
-
     @Column(name = "status")
     private Character status;
 }

@@ -63,7 +63,7 @@ public class MembershipServiceImpl implements MembershipService {
 
         });
 
-        return toBeSaved;
+        return membershipRepository.saveAll(toBeSaved);
     }
 
     @Override

@@ -11,9 +11,11 @@ import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Plan;
 import miu.edu.badgesystem.repository.MemberRepository;
+import miu.edu.badgesystem.repository.MembershipInfoRepository;
 import miu.edu.badgesystem.repository.MembershipRepository;
 import miu.edu.badgesystem.repository.PlanRepository;
 import miu.edu.badgesystem.service.MemberService;
+import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.MembershipService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,8 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MembershipService membershipService;
 
+    @Autowired
+    private MembershipInfoService membershipInfoService;
 
     @Override
     public MemberResponseDTO findById(Long memberId) {
@@ -67,10 +71,10 @@ public class MemberServiceImpl implements MemberService {
 
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
-        List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());;
-//        memberToSave.setBadges(memberDTO.getBadges());
-        memberToSave.setMemberships(membershipResponseDTOS);
         memberRepository.save(memberToSave);
+        List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());;
+         membershipInfoService.save(memberToSave,membershipResponseDTOS);
+//        memberToSave.setBadges(memberDTO.getBadges());
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
         return responseDTO;
     }

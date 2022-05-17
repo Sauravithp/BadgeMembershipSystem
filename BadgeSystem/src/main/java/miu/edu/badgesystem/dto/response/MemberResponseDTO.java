@@ -25,7 +25,6 @@ public class MemberResponseDTO {
 
     private Character status;
 
-    private List<MembershipResponseDTO> memberships;
-
+    private String badgeNumber;
 
 }

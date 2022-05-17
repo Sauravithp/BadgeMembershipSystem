@@ -6,9 +6,11 @@ import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Plan;
+import miu.edu.badgesystem.model.PlanRoleInfo;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.PlanRepository;
 import miu.edu.badgesystem.repository.RoleRepository;
+import miu.edu.badgesystem.service.PlanRoleInfoService;
 import miu.edu.badgesystem.service.PlanService;
 import miu.edu.badgesystem.service.RoleService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
@@ -32,6 +34,9 @@ public class PlanServiceImpl implements PlanService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private PlanRoleInfoService planRoleInfoService;
+
 
     @Override
     public PlanResponseDTO findById(Long planId) {
@@ -52,8 +57,8 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanResponseDTO save(PlanRequestDTO planDTO) {
-        Plan plan = planRepository.getPlanByName(planDTO.getName());
-        if (Objects.nonNull(plan)) {
+        Plan planExists = planRepository.getPlanByName(planDTO.getName());
+        if (Objects.nonNull(planExists)) {
             throw new DataDuplicationException("Member with name" + planDTO.getName() + "already exists");
         }
         List<Role> roles = getRolesByID(planDTO.getRolesId());
@@ -62,9 +67,10 @@ public class PlanServiceImpl implements PlanService {
         planToSave.setDescription(planDTO.getDescription());
         planToSave.setCount(planDTO.getCount());
         planToSave.setIsLimited(planDTO.getIsLimited());
-        planToSave.setRoles(roles);
         planToSave.setStatus('Y');
-        return ModelMapperUtils.map(planRepository.save(planToSave), PlanResponseDTO.class);
+        Plan plan=planRepository.save(planToSave);
+        planRoleInfoService.save(plan,roles);
+        return ModelMapperUtils.map(plan, PlanResponseDTO.class);
     }
 
     private List<Role> getRolesByID(List<Long> rolesId) {
