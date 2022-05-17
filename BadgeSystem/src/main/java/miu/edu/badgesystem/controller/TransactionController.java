@@ -4,6 +4,7 @@ package miu.edu.badgesystem.controller;
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.model.Transaction;
+
 import miu.edu.badgesystem.service.TransactionService;
 import miu.edu.badgesystem.util.ListMapper;
 import miu.edu.badgesystem.util.ModelMapperUtils;
@@ -18,25 +19,26 @@ import java.util.List;
 public class TransactionController {
 
     private final TransactionService transactionService;
-    @Autowired
-     private ListMapper<Transaction,TransactionResponseDTO> listMapper;
+
+    @Autowired private ListMapper<Transaction, TransactionResponseDTO> listMapper;
+
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
 
     @PostMapping
-    private ResponseEntity<TransactionResponseDTO> save(@RequestBody TransactionRequestDTO transactionDto) {
+    private ResponseEntity<TransactionResponseDTO> save(
+            @RequestBody TransactionRequestDTO transactionDto) {
 
         TransactionResponseDTO savedTransaction = transactionService.saveTransaction(transactionDto);
         System.out.println(savedTransaction);
         return ResponseEntity.ok(savedTransaction);
     }
 
-
     @GetMapping
-    private  ResponseEntity <?> getAllTransactions() {
+    private ResponseEntity<?> getAllTransactions() {
         List<Transaction> transactions = transactionService.getAllTransaction();
-        return  ResponseEntity.ok(listMapper.mapList(transactions,new TransactionResponseDTO()));
+        return ResponseEntity.ok(listMapper.mapList(transactions, new TransactionResponseDTO()));
     }
 
     @GetMapping("/{id}")
@@ -45,11 +47,18 @@ public class TransactionController {
         return ResponseEntity.ok(ModelMapperUtils.map(transaction, TransactionResponseDTO.class));
     }
 
-//    @DeleteMapping("/{id}")
-//    private ResponseEntity<TransactionDTO> deleteById(@PathVariable("id") Long id) {
-////        transactionService.deleteTransaction(id);
-//        return ResponseEntity.ok(mapper.map(id, TransactionDTO.class));
-//    }
+    @GetMapping("/badge/{id}")
+    private ResponseEntity<?> getAllBadgeTransactions(@PathVariable("id") Long id) {
+        List<Transaction> transactionList = transactionService.getAllBadgeTransaction(id);
+        return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
+    }
+
+    @GetMapping("/members/{id}")
+    private ResponseEntity<?> getTransactionByMembershipId(@PathVariable("id") Long id) {
+        List<Transaction> transactionList = transactionService.getTransactionByMembershipId(id);
+        return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
+    }
+
 
 
 }

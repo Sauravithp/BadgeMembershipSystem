@@ -11,6 +11,8 @@ public interface TransactionService {
     TransactionResponseDTO saveTransaction(TransactionRequestDTO transaction);
     Transaction getTransaction(Long id);
     List<Transaction> getAllTransaction();
-//    void deleteTransaction(Long id);
+    //    void deleteTransaction(Long id);
+    List<Transaction>getAllBadgeTransaction(Long id);
+    List<Transaction> getTransactionByMembershipId(Long id);
 
 }

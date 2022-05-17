@@ -3,7 +3,6 @@ package miu.edu.badgesystem.dto.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.*;
-import miu.edu.badgesystem.dto.request.LocationTimeSlotDTO;
 
 import java.time.LocalDate;
 import java.util.List;

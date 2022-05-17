@@ -17,6 +17,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -85,16 +86,6 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    @Override
-    public Transaction getTransaction(Long id) {
-        return transactionRepository.getById(id);
-    }
-
-    @Override
-    public List<Transaction> getAllTransaction() {
-        return transactionRepository.findAll();
-
-    }
 
     private void checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
         PlanRoleInfo planRoleInfo=planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
@@ -145,6 +136,36 @@ return membership;
 //    public void deleteTransaction(Long id) {
 ////        transactionRipository.deleteTransaction(transactionRipository.findById(id));
 //    }
+
+    @Override
+    public Transaction getTransaction(Long id) {
+        return transactionRepository.getById(id);
+    }
+
+    @Override
+    public List<Transaction> getAllTransaction() {
+        return transactionRepository.findAll();
+    }
+
+    @Override
+    public List<Transaction> getAllBadgeTransaction(Long id) {
+//  getTransaction().
+        return null;
+    }
+
+    public List<Transaction> getTransactionByMembershipId(Long id) {
+        Membership membership = membershipRepository.getById(id);
+        List<Transaction> transactionList =
+                transactionRepository.findAll().stream()
+                        .filter(s -> s.getMembership().equals(membership))
+                        .collect(Collectors.toList());
+        return transactionList;
+    }
+    //
+    //    @Override
+    //    public void deleteTransaction(Long id) {
+    ////        transactionRipository.deleteTransaction(transactionRipository.findById(id));
+    //    }
 
 
 }
