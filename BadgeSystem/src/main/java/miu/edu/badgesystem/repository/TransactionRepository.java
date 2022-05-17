@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
@@ -22,8 +21,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     //query for calculating the capacity per day
     @Query("Select count(t.id) from Transaction t where  t.createdDate=CURDATE() AND t.location.id=:locationId")
     Integer getOccupiedSeat(@Param("locationId") Long locationId);
-
-
-      List<Transaction> getTransactionByMemberId( @Param("memberId") Long id);
 
 }
