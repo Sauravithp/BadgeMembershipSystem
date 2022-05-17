@@ -6,8 +6,10 @@ import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Plan;
+import miu.edu.badgesystem.model.PlanRoleInfo;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.PlanRepository;
+import miu.edu.badgesystem.repository.PlanRoleInfoRepository;
 import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.PlanRoleInfoService;
 import miu.edu.badgesystem.service.PlanService;
@@ -34,13 +36,22 @@ public class PlanServiceImpl implements PlanService {
     @Autowired
     private PlanRoleInfoService planRoleInfoService;
 
+    @Autowired
+    private PlanRoleInfoRepository planRoleInfoRepository;
+
 
     @Override
     public PlanResponseDTO findById(Long planId) {
+
+        List<Role> roles = planRoleInfoRepository.getActiveRoleInfoByPlanID(planId);
+
         Plan plan = planRepository.getActivePlanById(planId).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
-        return ModelMapperUtils.map(plan, PlanResponseDTO.class);
+
+        PlanResponseDTO pDTO = ModelMapperUtils.map(plan, PlanResponseDTO.class);
+        pDTO.setRoles(roles);
+        return pDTO;
     }
 
     @Override
@@ -49,7 +60,15 @@ public class PlanServiceImpl implements PlanService {
         if (plans.isEmpty()) {
             throw new NoContentFoundException("Plan(s) is empty, No data found");
         }
-        return plans.stream().map(plan -> ModelMapperUtils.map(plan, PlanResponseDTO.class)).collect(Collectors.toList());
+
+        List<PlanResponseDTO> planResponseDTOS = plans.stream().map(plan -> {
+            List<Role> r = planRoleInfoRepository.getActiveRoleInfoByPlanID(plan.getId());
+            PlanResponseDTO p = ModelMapperUtils.map(plan, PlanResponseDTO.class);
+            p.setRoles(r);
+            return p;
+        }).collect(Collectors.toList());
+
+        return planResponseDTOS;
     }
 
     @Override
@@ -59,15 +78,17 @@ public class PlanServiceImpl implements PlanService {
             throw new DataDuplicationException("Plan with name" + planDTO.getName() + "already exists");
         }
         List<Role> roles = getRolesByID(planDTO.getRolesId());
-        Plan planToSave =  new Plan();
+        Plan planToSave = new Plan();
         planToSave.setName(planDTO.getName());
         planToSave.setDescription(planDTO.getDescription());
         planToSave.setCount(planDTO.getCount());
         planToSave.setIsLimited(planDTO.getIsLimited());
         planToSave.setStatus('Y');
-        Plan plan=planRepository.save(planToSave);
-        planRoleInfoService.save(plan,roles);
-        return ModelMapperUtils.map(plan, PlanResponseDTO.class);
+        Plan plan = planRepository.save(planToSave);
+        planRoleInfoService.save(plan, roles);
+        PlanResponseDTO responseDTO = ModelMapperUtils.map(plan, PlanResponseDTO.class);
+        responseDTO.setRoles(roles);
+        return responseDTO;
     }
 
     private List<Role> getRolesByID(List<Long> rolesId) {
@@ -79,7 +100,7 @@ public class PlanServiceImpl implements PlanService {
 
             roles.add(toBeSaved);
         });
-return roles;
+        return roles;
     }
 
     @Override

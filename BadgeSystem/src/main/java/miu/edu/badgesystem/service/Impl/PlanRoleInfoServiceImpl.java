@@ -1,5 +1,6 @@
 package miu.edu.badgesystem.service.Impl;
 
+import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.model.Plan;
 import miu.edu.badgesystem.model.PlanRoleInfo;
 import miu.edu.badgesystem.model.Role;
@@ -20,7 +21,8 @@ public class PlanRoleInfoServiceImpl implements PlanRoleInfoService {
 
     @Override
     public void save(Plan plan, List<Role> roles) {
-        List<PlanRoleInfo> planRoleInfos=new ArrayList<>();
+        List<PlanRoleInfo> planRoleInfos =new ArrayList<>();
+
         roles.forEach(role -> {
             PlanRoleInfo planRoleInfo=new PlanRoleInfo();
             planRoleInfo.setStatus('Y');
