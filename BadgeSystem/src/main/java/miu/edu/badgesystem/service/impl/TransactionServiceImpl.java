@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,12 +36,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final MemberRepository memberRepository;
 
+    private final BadgeRepository badgeRepository;
+
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   PlanRoleInfoRepository planRoleInfoRepository,
                                   LocationRepository locationRepository,
                                   MembershipRepository membershipRepository,
-                                  LocationDateRepository locationDateRepository, MemberRepository memberRepository) {
+                                  LocationDateRepository locationDateRepository, MemberRepository memberRepository,
+                                  BadgeRepository badgeRepository) {
         this.transactionRepository = transactionRepository;
         this.planRoleInfoRepository = planRoleInfoRepository;
         this.locationRepository = locationRepository;
@@ -48,11 +52,13 @@ public class TransactionServiceImpl implements TransactionService {
 
         this.locationDateRepository = locationDateRepository;
         this.memberRepository = memberRepository;
+        this.badgeRepository = badgeRepository;
     }
 
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {
-        Membership membership = memberRepository.getMembershipByBadgeAndLocation(requestDTO.getBadgeNumber(), requestDTO.getLocationId());
+        BigInteger memberId=badgeRepository.getMemberShip( requestDTO.getLocationId(),requestDTO.getBadgeNumber());
+        Membership membership = membershipRepository.getById(Long.parseLong(memberId.toString()));
         Location location = getLocationById(requestDTO.getLocationId());
         checkIfPlanCountExceeds(requestDTO, membership);
         checkIfLocationCapacityIsFull(requestDTO,location);
