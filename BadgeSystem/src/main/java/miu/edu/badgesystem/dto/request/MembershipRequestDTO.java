@@ -7,6 +7,7 @@ import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.Plan;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +17,9 @@ import java.util.List;
 public class MembershipRequestDTO {
 
     @NotNull
-    private Date startDate;
+    private LocalDate startDate;
     @NotNull
-    private Date endDate;
+    private LocalDate endDate;
     @NotNull
     private Character status;
 
