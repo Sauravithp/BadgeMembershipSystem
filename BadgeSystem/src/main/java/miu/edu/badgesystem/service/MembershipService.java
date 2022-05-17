@@ -18,4 +18,5 @@ public interface MembershipService {
     void delete(Long membershipId);
 
     MembershipResponseDTO update(MembershipRequestDTO membershipDTO, Long id);
+     List<Membership>membershipListBymemberId(Long id);
 }
