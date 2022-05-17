@@ -33,23 +33,26 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final LocationDateRepository locationDateRepository;
 
+    private final MemberRepository memberRepository;
+
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   PlanRoleInfoRepository planRoleInfoRepository,
                                   LocationRepository locationRepository,
                                   MembershipRepository membershipRepository,
-                                  LocationDateRepository locationDateRepository) {
+                                  LocationDateRepository locationDateRepository, MemberRepository memberRepository) {
         this.transactionRepository = transactionRepository;
         this.planRoleInfoRepository = planRoleInfoRepository;
         this.locationRepository = locationRepository;
         this.membershipRepository = membershipRepository;
 
         this.locationDateRepository = locationDateRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {
-        Membership membership = getMembershipById(requestDTO.getMembershipId());
+        Membership membership = memberRepository.getMembershipByBadgeAndLocation(requestDTO.getBadgeNumber(), requestDTO.getLocationId());
         Location location = getLocationById(requestDTO.getLocationId());
         checkIfPlanCountExceeds(requestDTO, membership);
         checkIfLocationCapacityIsFull(requestDTO,location);
@@ -97,7 +100,7 @@ public class TransactionServiceImpl implements TransactionService {
             LocalDate endDate = DateUtil.getEndDayOfMonth();
             Integer transactionCount = transactionRepository.getTransactionCountByMembershipAndLocationId(
                     requestDTO.getLocationId(),
-                    requestDTO.getMembershipId(), startDate, endDate);
+                    membership.getId(), startDate, endDate);
             Integer count = planRoleInfo.getPlan().getCount();
             if (transactionCount == count) {
                 throw new BadRequestException("sorry transaction for this month has exceeded");
