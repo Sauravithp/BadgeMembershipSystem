@@ -27,6 +27,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("SELECT msi.membership FROM Member m LEFT JOIN m.badges b LEFT JOIN MembershipInfo msi ON msi.member.id=m.id" +
             " where b.badgeNumber = :badgeNumber" )
-    List<Membership> getMembershipsByBadge(String badgeNumber);
+    List<Membership> getMembershipsByBadge(@Param("badgeNumber") String badgeNumber);
 
 }
