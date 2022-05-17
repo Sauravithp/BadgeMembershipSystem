@@ -33,9 +33,6 @@ public class MembershipServiceImpl implements MembershipService {
     @Autowired
     private LocationRepository locationRepository;
 
-    @Autowired
-    private MemberRolesService memberRolesService;
-
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
         Membership membership = membershipRepository.findById(membershipId).orElseThrow(() -> {throw new NoContentFoundException("Membership with id " + membershipId + " NOT FOUND");});
