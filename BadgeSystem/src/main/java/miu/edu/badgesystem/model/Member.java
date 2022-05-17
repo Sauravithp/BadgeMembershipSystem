@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import miu.edu.badgesystem.audit.Auditable;
-import miu.edu.badgesystem.listener.BadgeEntityListener;
 import miu.edu.badgesystem.listener.MemberEntityListener;
 
 import javax.persistence.*;

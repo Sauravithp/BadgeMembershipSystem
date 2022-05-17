@@ -23,5 +23,5 @@ public interface LocationRepository extends JpaRepository<Location,Long> {
     List<Location> getAllLocation();
 
     @Query("SELECT l FROM Location l WHERE l.id=:id AND l.status='Y'")
-    Optional<Location> getActivePlanById(@Param("id") Long id);
+    Optional<Location> getActiveLocationById(@Param("id") Long id);
 }

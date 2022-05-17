@@ -29,4 +29,7 @@ public class MembershipRequestDTO {
     @NotNull
     private Long plan;
 
+    @NotNull
+    private Long role;
+
 }

@@ -30,6 +30,6 @@ public class Membership {
     private Location location;
 
     @ManyToOne
-    @JoinColumn(name = "plan_id")
-    private Plan plan;
+    @JoinColumn(name = "plan_role_id")
+    private PlanRoleInfo planRoleInfo;
 }
