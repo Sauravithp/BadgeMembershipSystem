@@ -5,17 +5,19 @@ import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.BadgeResponseDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
+import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
+import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
-import miu.edu.badgesystem.model.Member;
-import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.model.Badge;
-import miu.edu.badgesystem.repository.BadgeRepository;
+import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
+import miu.edu.badgesystem.repository.BadgeRepository;
 import miu.edu.badgesystem.repository.MemberRepository;
 import miu.edu.badgesystem.service.MemberService;
 import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.MembershipService;
+import miu.edu.badgesystem.util.ListMapper;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MembershipInfoService membershipInfoService;
+
+    @Autowired
+    ListMapper<Membership, MembershipResponseDTO> membershipListMapper;
 
     @Override
     public MemberResponseDTO findById(Long memberId) {
@@ -137,4 +142,8 @@ public class MemberServiceImpl implements MemberService {
         return ModelMapperUtils.map(updatedBadge, BadgeResponseDTO.class);
     }
 
+    @Override
+    public List<Membership> getMembershipsByBadgeNumber(String badgeId){
+        return memberRepository.getMembershipsByBadge(badgeId);
+    }
 }
