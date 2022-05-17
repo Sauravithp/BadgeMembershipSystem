@@ -57,4 +57,12 @@ public class MemberController {
                 memberService.getMembershipsByBadgeNumber(badgeNumber),
                 HttpStatus.OK);
     }
+
+    @GetMapping("/{memberId}/badges")
+    public ResponseEntity<?> getBadgesByMemberId(@PathVariable Long memberId) {
+        return new ResponseEntity<>(
+                memberService.getBadgesByMemberId(memberId),
+                HttpStatus.OK);
+    }
+
 }

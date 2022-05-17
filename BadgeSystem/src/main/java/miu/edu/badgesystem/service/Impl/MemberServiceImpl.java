@@ -143,7 +143,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Membership> getMembershipsByBadgeNumber(String badgeId){
-        return memberRepository.getMembershipsByBadge(badgeId);
+    public List<Membership> getMembershipsByBadgeNumber(String badgeNumber){
+        return memberRepository.getMembershipsByBadge(badgeNumber);
+    }
+
+    @Override
+    public List<Badge> getBadgesByMemberId(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(()-> new BadRequestException("Member is not found")).getBadges();
     }
 }
