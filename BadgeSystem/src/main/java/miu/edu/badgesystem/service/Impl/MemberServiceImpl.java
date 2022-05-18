@@ -10,6 +10,7 @@ import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Member;
+import miu.edu.badgesystem.model.MemberRoles;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.MemberRepository;
@@ -48,13 +49,13 @@ public class MemberServiceImpl implements MemberService {
     private RoleRepository roleRepository;
 
     @Autowired
-    private MemberRolesService memberRolesService;
-
-    @Autowired
     private MembershipInfoRepository membershipInfoRepository;
 
     @Autowired
     private PlanRoleInfoRepository planRoleInfoRepository;
+
+    @Autowired
+    private MemberRolesService memberRolesService;
 
     @Override
     public MemberResponseDTO findById(Long memberId) {
@@ -84,16 +85,15 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
-        memberRolesService.save(memberToSave, mapToRole(memberDTO.getRoles()));
+        memberRolesService.save(memberToSave, mapToRole(membershipResponseDTOS));
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
         return responseDTO;
     }
 
-    private List<Role> mapToRole(List<RoleRequestDTO> roles) {
+    private List<Role> mapToRole(List<Membership> membership) {
         List<Role> role = new ArrayList<>();
-        roles.forEach( r -> {
-            role.add(ModelMapperUtils.map(r, Role.class));
-                }
+        membership.forEach( r -> {
+            role.add(r.getPlanRoleInfo().getRole()); }
         );
         return role;
     }

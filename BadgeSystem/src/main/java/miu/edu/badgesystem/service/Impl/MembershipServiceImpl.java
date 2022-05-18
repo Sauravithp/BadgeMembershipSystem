@@ -7,6 +7,7 @@ import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.*;
+import miu.edu.badgesystem.service.MemberRolesService;
 import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.MembershipService;
 import miu.edu.badgesystem.util.MembershipDataUtil;
