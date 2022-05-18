@@ -61,5 +61,12 @@ public class TransactionController {
         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
     }
 
+    @GetMapping("/member/{id}")
+    private ResponseEntity<?> getTransactionByMemberId(@PathVariable("id")Long id,
+                                                       @RequestHeader("Authorization") String token){
+        System.out.println("BOOM transaction controller");
+        List<Transaction> transactionList = transactionService.getTransactionByMemberId(id,token);
+        return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
+    }
 
 }

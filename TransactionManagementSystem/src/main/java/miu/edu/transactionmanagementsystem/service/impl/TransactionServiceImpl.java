@@ -35,7 +35,6 @@ public class TransactionServiceImpl implements TransactionService {
 
 
 
-
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO, String token) {
         BigInteger membershipId=badgeSystemFeign.getMemberShip(requestDTO.getLocationId(),requestDTO.getBadgeNumber(), token);
@@ -158,6 +157,16 @@ return membership;
         return null;
     }
 
+
+    @Override
+    public List<Transaction> getTransactionByMemberId(Long id, String token) {
+        List<Membership> membershipList = badgeSystemFeign.membershipListByMemberId(id,token);
+
+        return transactionRepository.findAll().
+                stream().filter(s -> membershipList.contains(s.getMembership())).
+                collect(Collectors.toList());
+    }
+
     @Override
     public List<Transaction> getTransactionByMembershipId(Long id, String token) {
         Membership membership = badgeSystemFeign.getActiveMembershipByID(id, token)
@@ -168,6 +177,8 @@ return membership;
                         .collect(Collectors.toList());
         return transactionList;
     }
+
+
 
 
 

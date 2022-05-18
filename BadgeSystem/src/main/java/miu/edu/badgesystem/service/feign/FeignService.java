@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 public interface FeignService {
@@ -24,6 +25,9 @@ public interface FeignService {
 
     Integer checkIfLocationDateIsAvailable(@PathVariable("id") Long id);
 
-    Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(Long id);
+    Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("id") Long id);
+
+    List<Membership> getMembershipListByMemberId(@PathVariable("id") Long id);
+
 
 }

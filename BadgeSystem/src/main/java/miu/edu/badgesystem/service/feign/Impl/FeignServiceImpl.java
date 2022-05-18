@@ -6,12 +6,14 @@ import miu.edu.badgesystem.model.LocationDate;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.PlanRoleInfo;
 import miu.edu.badgesystem.repository.*;
+import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.feign.FeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +34,9 @@ public class FeignServiceImpl implements FeignService {
 
     @Autowired
     private PlanRoleInfoRepository planRoleInfoRepository;
+
+    @Autowired
+    private MembershipInfoService membershipInfoService;
 
     @Override
     public BigInteger getMemberShip(Long locationId, String badgeSystem) {
@@ -69,5 +74,10 @@ public class FeignServiceImpl implements FeignService {
     @Override
     public Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(Long id) {
         return planRoleInfoRepository.getActivePlanRoleInfoByPlanID(id);
+    }
+
+    @Override
+    public List<Membership> getMembershipListByMemberId(Long id) {
+        return membershipInfoService.membershipListBymemberId(id);
     }
 }

@@ -1,0 +1,115 @@
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"CompilerConfiguration\">\n    <annotationProcessing>\n      <profile default=\"true\" name=\"Default\" enabled=\"true\" />\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\n        <outputRelativeToContentRoot value=\"true\" />\n        <module name=\"EurekaServer\" />\n        <module name=\"Entity\" />\n        <module name=\"TransactionManagementSystem\" />\n        <module name=\"BadgeMembershipSystem\" />\n        <module name=\"BadgeSystem\" />\n      </profile>\n    </annotationProcessing>\n    <bytecodeTargetLevel>\n      <module name=\"BadgeMembershipSystem\" target=\"11\" />\n      <module name=\"BadgeSystem\" target=\"11\" />\n      <module name=\"Enity\" target=\"11\" />\n      <module name=\"Entity\" target=\"11\" />\n      <module name=\"EurekaServer\" target=\"17\" />\n      <module name=\"Persistence\" target=\"11\" />\n      <module name=\"TransactionManagementSystem\" target=\"17\" />\n    </bytecodeTargetLevel>\n  </component>\n  <component name=\"JavacSettings\">\n    <option name=\"ADDITIONAL_OPTIONS_OVERRIDE\">\n      <module name=\"BadgeMembershipSystem\" options=\"-parameters\" />\n      <module name=\"BadgeSystem\" options=\"-parameters\" />\n      <module name=\"Enity\" options=\"-parameters\" />\n      <module name=\"Entity\" options=\"-parameters\" />\n      <module name=\"EurekaServer\" options=\"-parameters\" />\n      <module name=\"Persistence\" options=\"-parameters\" />\n      <module name=\"TransactionManagementSystem\" options=\"-parameters\" />\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision 3638e1fa835227464f503acbb5156fc0ea4711ac)
++++ b/.idea/compiler.xml	(date 1652888224244)
+@@ -8,7 +8,6 @@
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+         <outputRelativeToContentRoot value="true" />
+         <module name="EurekaServer" />
+-        <module name="Entity" />
+         <module name="TransactionManagementSystem" />
+         <module name="BadgeMembershipSystem" />
+         <module name="BadgeSystem" />
+@@ -17,10 +16,7 @@
+     <bytecodeTargetLevel>
+       <module name="BadgeMembershipSystem" target="11" />
+       <module name="BadgeSystem" target="11" />
+-      <module name="Enity" target="11" />
+-      <module name="Entity" target="11" />
+       <module name="EurekaServer" target="17" />
+-      <module name="Persistence" target="11" />
+       <module name="TransactionManagementSystem" target="17" />
+     </bytecodeTargetLevel>
+   </component>
+@@ -28,10 +24,7 @@
+     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+       <module name="BadgeMembershipSystem" options="-parameters" />
+       <module name="BadgeSystem" options="-parameters" />
+-      <module name="Enity" options="-parameters" />
+-      <module name="Entity" options="-parameters" />
+       <module name="EurekaServer" options="-parameters" />
+-      <module name="Persistence" options="-parameters" />
+       <module name="TransactionManagementSystem" options="-parameters" />
+     </option>
+   </component>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"FrameworkDetectionExcludesConfiguration\">\n    <file type=\"web\" url=\"file://$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MavenProjectsManager\">\n    <option name=\"originalFiles\">\n      <list>\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\n        <option value=\"$PROJECT_DIR$/Entity/pom.xml\" />\n        <option value=\"$PROJECT_DIR$/BadgeSystem/pom.xml\" />\n        <option value=\"$PROJECT_DIR$/TransactionManagementSystem/pom.xml\" />\n        <option value=\"$PROJECT_DIR$/EurekaServer/pom.xml\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"17\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 3638e1fa835227464f503acbb5156fc0ea4711ac)
++++ b/.idea/misc.xml	(date 1652887999436)
+@@ -7,14 +7,14 @@
+     <option name="originalFiles">
+       <list>
+         <option value="$PROJECT_DIR$/pom.xml" />
+-        <option value="$PROJECT_DIR$/Entity/pom.xml" />
+         <option value="$PROJECT_DIR$/BadgeSystem/pom.xml" />
+         <option value="$PROJECT_DIR$/TransactionManagementSystem/pom.xml" />
+         <option value="$PROJECT_DIR$/EurekaServer/pom.xml" />
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/out" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_18" default="true" project-jdk-name="openjdk-18" project-jdk-type="JavaSDK" />
++  <component name="ProjectType">
++    <option name="id" value="jpab" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"Encoding\">\n    <file url=\"file://$PROJECT_DIR$/BadgeSystem/src/main/java\" charset=\"UTF-8\" />\n    <file url=\"file://$PROJECT_DIR$/Entity/src/main/java\" charset=\"UTF-8\" />\n    <file url=\"file://$PROJECT_DIR$/EurekaServer/src/main/java\" charset=\"UTF-8\" />\n    <file url=\"file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java\" charset=\"UTF-8\" />\n    <file url=\"file://$PROJECT_DIR$/src/main/java\" charset=\"UTF-8\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+--- a/.idea/encodings.xml	(revision 3638e1fa835227464f503acbb5156fc0ea4711ac)
++++ b/.idea/encodings.xml	(date 1652887999444)
+@@ -2,9 +2,12 @@
+ <project version="4">
+   <component name="Encoding">
+     <file url="file://$PROJECT_DIR$/BadgeSystem/src/main/java" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/Entity/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/BadgeSystem/src/main/resources" charset="UTF-8" />
+     <file url="file://$PROJECT_DIR$/EurekaServer/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/EurekaServer/src/main/resources" charset="UTF-8" />
+     <file url="file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/TransactionManagementSystem/src/main/resources" charset="UTF-8" />
+     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectModuleManager\">\n    <modules>\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml\" filepath=\"$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml\" />\n      <module fileurl=\"file://$PROJECT_DIR$/BadgeSystem/BadgeSystem.iml\" filepath=\"$PROJECT_DIR$/BadgeSystem/BadgeSystem.iml\" />\n      <module fileurl=\"file://$PROJECT_DIR$/Entity/Entity.iml\" filepath=\"$PROJECT_DIR$/Entity/Entity.iml\" />\n      <module fileurl=\"file://$PROJECT_DIR$/EurekaServer/EurekaServer.iml\" filepath=\"$PROJECT_DIR$/EurekaServer/EurekaServer.iml\" />\n      <module fileurl=\"file://$PROJECT_DIR$/TransactionManagementSystem/TransactionManagementSystem.iml\" filepath=\"$PROJECT_DIR$/TransactionManagementSystem/TransactionManagementSystem.iml\" />\n    </modules>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	(revision 3638e1fa835227464f503acbb5156fc0ea4711ac)
++++ b/.idea/modules.xml	(date 1652887999356)
+@@ -2,9 +2,8 @@
+ <project version="4">
+   <component name="ProjectModuleManager">
+     <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml" filepath="$PROJECT_DIR$/.idea/BadgeMembershipSystem.iml" />
++      <module fileurl="file://$PROJECT_DIR$/BadgeMembershipSystem.iml" filepath="$PROJECT_DIR$/BadgeMembershipSystem.iml" />
+       <module fileurl="file://$PROJECT_DIR$/BadgeSystem/BadgeSystem.iml" filepath="$PROJECT_DIR$/BadgeSystem/BadgeSystem.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/Entity/Entity.iml" filepath="$PROJECT_DIR$/Entity/Entity.iml" />
+       <module fileurl="file://$PROJECT_DIR$/EurekaServer/EurekaServer.iml" filepath="$PROJECT_DIR$/EurekaServer/EurekaServer.iml" />
+       <module fileurl="file://$PROJECT_DIR$/TransactionManagementSystem/TransactionManagementSystem.iml" filepath="$PROJECT_DIR$/TransactionManagementSystem/TransactionManagementSystem.iml" />
+     </modules>

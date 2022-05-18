@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 @FeignClient(name = "badge-system", configuration = FeignClientConfiguration.class)
@@ -22,7 +23,7 @@ public interface BadgeSystemFeign {
                              @PathVariable("badgeSystem") String badgeSystem,
                              @RequestHeader("Authorization") String token);
 
-    @GetMapping("/feign/membership/{id}")
+    @GetMapping("/feign/active/membership/{id}")
     Optional<Membership> getActiveMembershipByID(@PathVariable("id") Long id,
                                                  @RequestHeader("Authorization") String token);
 
@@ -41,6 +42,10 @@ public interface BadgeSystemFeign {
     @GetMapping("/feign/planRoleIfo/{id}")
     Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("id") Long id,
                                                          @RequestHeader("Authorization") String token);
+
+    @GetMapping("/memberShips/{id}")
+    List<Membership> membershipListByMemberId(@PathVariable("id") Long id,
+                                              @RequestHeader("Authorization") String token);
 
 //    @GetMapping("/api/users/find")
 //    Optional<UserDTO> findUserByEmail(

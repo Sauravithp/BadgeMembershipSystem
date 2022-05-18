@@ -21,7 +21,7 @@ public class TransactionUtils {
             transaction.setTransactionStatus(TransactionStatus.ACCESSED);
 
         }
-
+        transaction.setTransactionNumber(RandomNumberUtil.createTransactionNumber());
         return transaction;
     }
 }

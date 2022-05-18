@@ -34,6 +34,9 @@ public class Transaction extends Auditable<Long> {
     @Column
     private Character status;
 
+    @Column
+    private String transactionNumber;
+
     @Column(name = "transaction_status")
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
