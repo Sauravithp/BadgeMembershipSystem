@@ -2,6 +2,7 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
+import miu.edu.badgesystem.dto.request.RoleRequestDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
 
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
@@ -83,8 +84,18 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
+        memberRolesService.save(memberToSave, mapToRole(memberDTO.getRoles()));
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
         return responseDTO;
+    }
+
+    private List<Role> mapToRole(List<RoleRequestDTO> roles) {
+        List<Role> role = new ArrayList<>();
+        roles.forEach( r -> {
+            role.add(ModelMapperUtils.map(r, Role.class));
+                }
+        );
+        return role;
     }
 
     @Override
