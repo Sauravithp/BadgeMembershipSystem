@@ -1,4 +1,6 @@
 package miu.edu.badgesystem.controller;
+
+import miu.edu.badgesystem.dto.request.MemberMembershipRequestDTO;
 import miu.edu.badgesystem.dto.request.MembershipRequestDTO;
 import miu.edu.badgesystem.service.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,10 @@ public class MembershipController {
     private MembershipService membershipService;
 
 
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody MemberMembershipRequestDTO membershipRequestDTO) {
+        return new ResponseEntity<>(membershipService.saveMembership(membershipRequestDTO), HttpStatus.CREATED);
+    }
 
     @GetMapping
     public ResponseEntity<?> findAll() {

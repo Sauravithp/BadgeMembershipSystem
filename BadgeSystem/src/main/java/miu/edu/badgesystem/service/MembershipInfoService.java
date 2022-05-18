@@ -13,4 +13,6 @@ public interface MembershipInfoService{
     List<Membership> membershipListBymemberId(Long id);
 
     List<Membership> deleteByMemberId(Long memberId);
+
+    void saveMembership(Member member, Membership membership);
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import miu.edu.badgesystem.model.Badge;
 import miu.edu.badgesystem.model.MemberRoles;
 import miu.edu.badgesystem.model.Membership;
+import miu.edu.badgesystem.model.Role;
 
 import java.util.List;
 
@@ -26,5 +27,7 @@ public class MemberResponseDTO {
     private Character status;
 
     private String badgeNumber;
+
+    private List<Role> roles;
 
 }

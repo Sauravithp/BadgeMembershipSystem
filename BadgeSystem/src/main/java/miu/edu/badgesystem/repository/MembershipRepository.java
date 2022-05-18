@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface MembershipRepository extends JpaRepository<Membership, Long> {
+
     @Query("SELECT ms FROM Membership ms WHERE ms.id=:id AND ms.status='Y'")
     Optional<Membership> getActiveMembershipByID(@Param("id") Long id);
 

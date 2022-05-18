@@ -9,6 +9,7 @@ import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Badge;
 import miu.edu.badgesystem.model.Member;
+import miu.edu.badgesystem.model.MemberRoles;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.*;
@@ -59,46 +60,63 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private PlanRoleInfoRepository planRoleInfoRepository;
 
+    @Autowired
+    private MemberRolesRepository memberRolesRepository;
+
     @Override
     public MemberResponseDTO findById(Long memberId) {
         Member member = memberRepository.getActiveMemberByID(memberId).orElseThrow(() -> {
             throw new NoContentFoundException("No content found");
         });
-        return ModelMapperUtils.map(member, MemberResponseDTO.class);
+        MemberResponseDTO memberResponseDTO = ModelMapperUtils.map(member, MemberResponseDTO.class);
+        memberResponseDTO.setRoles(memberRolesRepository.getRolesByMemberId(memberId));
+        return memberResponseDTO;
     }
 
     @Override
-    // TODO: 5/16/22
     public List<MemberResponseDTO> findAll() {
         List<Member> members = memberRepository.getActiveAllMembers();
         if (members.isEmpty()) {
             throw new NoContentFoundException("Member(s) is empty, No data found");
         }
-        return members.stream().map(member -> ModelMapperUtils.map(member, MemberResponseDTO.class)).collect(Collectors.toList());
+        List<MemberResponseDTO> memberResponseDTOS = new ArrayList<>();
+        members.forEach(m -> {
+            MemberResponseDTO memberDTOS = ModelMapperUtils.map(m, MemberResponseDTO.class);
+            memberDTOS.setRoles(memberRolesRepository.getRolesByMemberId(m.getId()));
+            memberResponseDTOS.add(memberDTOS);
+        });
+        return memberResponseDTOS;
     }
 
     @Override
-    // TODO: 5/16/22
     public MemberResponseDTO save(MemberRequestDTO memberDTO) {
         Member member = memberRepository.getMemberByEmailAddress(memberDTO.getEmailAddress());
         if (Objects.nonNull(member)) {
             throw new DataDuplicationException("Member with email address" + memberDTO.getEmailAddress() + "already exists");
         }
-
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
-        memberRepository.save(memberToSave);
+        Member memberDT = memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
         memberToSave.setBadges(Arrays.asList(createBadgeFirstTime()));
+        memberRolesService.save(memberToSave, mapToRole(membershipResponseDTOS));
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
+        responseDTO.setRoles(memberRolesRepository.getRolesByMemberId(memberDT.getId()));
         responseDTO.setBadgeNumber(memberToSave.getBadges().get(0).getBadgeNumber());
         return responseDTO;
     }
 
+    private List<Role> mapToRole(List<Membership> membership) {
+        List<Role> role = new ArrayList<>();
+        membership.forEach( r -> {
+            role.add(r.getPlanRoleInfo().getRole()); }
+        );
+        return role;
+    }
+
     @Override
     public void delete(Long memberId) {
-        //TODO
         Member foundMember = memberRepository.findById(memberId).orElseThrow(() -> {
             throw new NoContentFoundException("No Content Found");
         });
@@ -167,15 +185,12 @@ public class MemberServiceImpl implements MemberService {
     public List<PlanResponseDTO> findMemberPlans(Long id) {
         List<Membership> memberships = membershipInfoRepository.getMembershipByMemberId(id);
         List<PlanResponseDTO> plansResponseDTO = new ArrayList<>();
-
         memberships.forEach(m -> {
             List<Role> roles = planRoleInfoRepository.getActiveRoleInfoByPlanID(m.getPlanRoleInfo().getPlan().getId());
             PlanResponseDTO plansResDTO = ModelMapperUtils.map(m.getPlanRoleInfo().getPlan(), PlanResponseDTO.class);
             plansResDTO.setRoles(roles);
             plansResponseDTO.add(plansResDTO);
-
         });
-
         return plansResponseDTO;
     }
 
