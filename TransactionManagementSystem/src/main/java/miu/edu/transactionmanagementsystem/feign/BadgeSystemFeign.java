@@ -34,4 +34,8 @@ public interface BadgeSystemFeign {
 
     @GetMapping("/feign/planRoleIfo/{id}")
     Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("id") Long id);
+
+//    @GetMapping("/api/users/find")
+//    Optional<UserDTO> findUserByEmail(
+//            @RequestHeaders("Authorization") String token, @RequestParam("email") String email);
 }

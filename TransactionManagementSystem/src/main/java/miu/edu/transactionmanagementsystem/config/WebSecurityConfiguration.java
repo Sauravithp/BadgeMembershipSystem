@@ -18,8 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private UserDetailsService userDetailsService;
 
 
 
@@ -29,6 +27,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             http.csrf().disable()
                     .authorizeHttpRequests()
                     .antMatchers("/*").permitAll()
+                    .antMatchers("/eureka/css/**","/eureka/images/**","/eureka/fonts/**", "/eureka/js/**").permitAll()
                     .anyRequest()
                     .authenticated()
                     .and()
