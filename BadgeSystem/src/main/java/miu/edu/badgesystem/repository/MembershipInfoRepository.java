@@ -15,4 +15,7 @@ public interface MembershipInfoRepository extends JpaRepository<MembershipInfo,L
     @Query("SELECT i.membership From MembershipInfo i where i.member.id=:id")
     List<Membership> getMembershipByMemberId(@Param("id") Long id);
 
+    @Query("SELECT i From MembershipInfo i where i.member.id=:id")
+    List<MembershipInfo> getMembershipInfoByMemberId(@Param("id") Long id);
+
 }

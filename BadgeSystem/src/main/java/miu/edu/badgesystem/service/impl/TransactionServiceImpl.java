@@ -3,6 +3,7 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
+import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.*;
@@ -64,8 +65,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {
-        BigInteger membershipId=badgeRepository.getMemberShip( requestDTO.getLocationId(),requestDTO.getBadgeNumber());
-        if(membershipId!=BigInteger.ZERO){
+        BigInteger membershipId = badgeRepository.getMemberShip(requestDTO.getLocationId(), requestDTO.getBadgeNumber());
+        if (membershipId != BigInteger.ZERO) {
             Membership membership = membershipRepository.getActiveMembershipByID(Long.parseLong(membershipId.toString()))
                     .orElseThrow(() -> {
                         throw new NoContentFoundException("Membership NOT Active");
@@ -117,8 +118,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
         Character status = 'Y';
-        PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
-                getId()).orElseThrow(() -> {
+        PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanAndRoleID(membership.getPlanRoleInfo().
+                getPlan().getId(), membership.getPlanRoleInfo().getRole().getId()).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
         if (planRoleInfo.getPlan().getIsLimited()) {

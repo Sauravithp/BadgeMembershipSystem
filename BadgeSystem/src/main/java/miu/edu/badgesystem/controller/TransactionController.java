@@ -61,6 +61,7 @@ public class TransactionController {
 
     @GetMapping("/member/{id}")
     private ResponseEntity<?> getTransactionByMemberId(@PathVariable("id")Long id){
+        System.out.println("BOOM transaction controller");
         List<Transaction> transactionList = transactionService.getTransactionByMemberId(id);
         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
     }

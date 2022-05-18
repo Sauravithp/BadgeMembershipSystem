@@ -1,5 +1,6 @@
 package miu.edu.badgesystem.controller;
 
+import miu.edu.badgesystem.dto.request.AddRoleRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanUpdateRequestDTO;
 import miu.edu.badgesystem.service.PlanService;
@@ -43,5 +44,22 @@ public class PlanController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         planService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/roles/{id}")
+    public ResponseEntity<?> addRoles(@RequestBody AddRoleRequestDTO addRoleRequestDTO, @PathVariable Long id) {
+        planService.addRolesToExistingPlan(addRoleRequestDTO,id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/role/{planId}/{roleId}")
+    public ResponseEntity<?> removeRole(@PathVariable("planId") Long planId , @PathVariable("roleId") Long roleId) {
+        planService.removeRoleFromPlan(planId,roleId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{planId}/locations")
+    public ResponseEntity<?> getListLocationByPlan(@PathVariable("planId") Long planId) {
+        return ResponseEntity.ok(planService.getLocationsByPlanId(planId));
     }
 }

@@ -25,6 +25,8 @@ import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static miu.edu.badgesystem.util.RandomNumberUtil.createBadgeNumber;
+
 @Service
 @Transactional
 public class MemberServiceImpl implements MemberService {
@@ -85,14 +87,12 @@ public class MemberServiceImpl implements MemberService {
 
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
-        Badge badge=createBadgeFirstTime();
-        memberToSave.setBadges(Arrays.asList(badge));
         memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
-//        memberToSave.setBadges(memberDTO.getBadges());
+        memberToSave.setBadges(Arrays.asList(createBadgeFirstTime()));
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
-        responseDTO.setBadgeNumber(badge.getBadgeNumber());
+        responseDTO.setBadgeNumber(memberToSave.getBadges().get(0).getBadgeNumber());
         return responseDTO;
     }
 
@@ -196,7 +196,7 @@ public class MemberServiceImpl implements MemberService {
     public Badge createBadgeFirstTime() {
         Badge badge =new Badge();
         badge.setStatus('Y');
-        badge.setBadgeNumber(UUID.randomUUID().toString());
+        badge.setBadgeNumber(createBadgeNumber());
         return badge;
     }
 

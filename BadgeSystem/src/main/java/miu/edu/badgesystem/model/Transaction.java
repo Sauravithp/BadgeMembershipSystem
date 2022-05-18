@@ -24,7 +24,7 @@ public class Transaction extends Auditable<Long> {
 
     private LocalDate date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "membership_id")
     private Membership membership;
 
@@ -34,6 +34,9 @@ public class Transaction extends Auditable<Long> {
 
     @Column
     private Character status;
+
+    @Column
+    private String transactionNumber;
 
     @Column(name = "transaction_status")
     @Enumerated(EnumType.STRING)

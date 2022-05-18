@@ -2,6 +2,7 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.dto.response.MinimumMemberShipResponseDTO;
+import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.MembershipInfo;
@@ -44,11 +45,24 @@ public class MembershipInfoImpl implements MembershipInfoService {
     }
   public List<Membership> membershipListBymemberId(Long id){
 
-
-
-    return membershipInfoRepository.findAll().stream()
-            .filter(s->s.getMember().getId().equals(id)).map(s->s.getMembership())
-            .collect(Collectors.toList());
+List<Membership> membershipList=membershipInfoRepository.findAll().stream()
+        .filter(s->s.getMember().getId().equals(id)).map(s->s.getMembership())
+        .collect(Collectors.toList());
+if(membershipList.isEmpty()){
+  throw new BadRequestException("there is no membership available for this member");
+}
+    return membershipList;
   }
+
+    @Override
+    public List<Membership> deleteByMemberId(Long memberId) {
+        List<MembershipInfo> infos=membershipInfoRepository.getMembershipInfoByMemberId(memberId);
+        infos.forEach(info->{
+            info.setStatus('D');
+        });
+        membershipInfoRepository.saveAll(infos);
+
+        return membershipInfoRepository.getMembershipByMemberId(memberId);
+    }
 
 }

@@ -21,6 +21,7 @@ public class JwtFilter implements Filter {
     @SneakyThrows
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("boom this is jwt controller ");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String url = String.valueOf(httpRequest.getRequestURL());
         if (url.contains("/login") || url.contains("/error")) {
