@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a44d4f7a-05b7-476c-b870-449ed5f76486" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/PlanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/PlanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/PlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/PlanService.java" afterDir="false" />
-    </list>
+    <list default="true" id="a44d4f7a-05b7-476c-b870-449ed5f76486" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -121,7 +117,7 @@
       <option name="presentableId" value="Default" />
       <updated>1652839575920</updated>
       <workItem from="1652839577067" duration="9606000" />
-      <workItem from="1652850335526" duration="1662000" />
+      <workItem from="1652850335526" duration="2329000" />
     </task>
     <servers />
   </component>
