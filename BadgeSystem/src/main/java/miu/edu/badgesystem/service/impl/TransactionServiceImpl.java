@@ -66,7 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {
         BigInteger membershipId = badgeRepository.getMemberShip(requestDTO.getLocationId(), requestDTO.getBadgeNumber());
-        if (membershipId == BigInteger.ZERO) {
+        if (membershipId != BigInteger.ZERO) {
             Membership membership = membershipRepository.getActiveMembershipByID(Long.parseLong(membershipId.toString()))
                     .orElseThrow(() -> {
                         throw new NoContentFoundException("Membership NOT Active");
@@ -119,7 +119,7 @@ public class TransactionServiceImpl implements TransactionService {
     private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
         Character status = 'Y';
         PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
-                getId()).orElseThrow(() -> {
+                getPlan().getId()).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
         if (planRoleInfo.getPlan().getIsLimited()) {

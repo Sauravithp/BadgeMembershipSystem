@@ -11,11 +11,13 @@ import miu.edu.badgesystem.service.MembershipService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,11 +66,21 @@ public class MembershipServiceImpl implements MembershipService {
             Location location = getLocationById(requestDTO.getLocation());
             Role role=getRole(requestDTO.getRole());
             PlanRoleInfo planRoleInfo=getPlanRoleInfo(plan.getId(),role.getId());
-            toBeSaved.add(mapToMemberShip(requestDTO, location, planRoleInfo));
-
+            if(checkSameLocationDifferentPlan(location,planRoleInfo,toBeSaved).size()==0){
+                toBeSaved.add(mapToMemberShip(requestDTO, location, planRoleInfo));
+            }
         });
 
         return membershipRepository.saveAll(toBeSaved);
+    }
+
+    private List<Membership> checkSameLocationDifferentPlan(Location location,PlanRoleInfo planRoleInfo,List<Membership> memberships){
+
+       List<Membership> memberships1= memberships.stream().filter(membership -> {
+          return membership.getLocation().equals(location) && membership.getPlanRoleInfo().getPlan().equals(planRoleInfo.getPlan());
+        }).collect(Collectors.toList());
+
+        return memberships1;
     }
 
     @Override
