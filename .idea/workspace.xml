@@ -39,6 +39,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
@@ -77,6 +78,13 @@
       <recent name="miu.edu.transactionmanagementsystem.config" />
       <recent name="miu.edu.transactionmanagementsystem.service.impl" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
   </component>
   <component name="RunManager" selected="Spring Boot.BadgeSystemApplication">
     <configuration name="BadgeSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
