@@ -51,4 +51,15 @@ public class MembershipInfoImpl implements MembershipInfoService {
             .collect(Collectors.toList());
   }
 
+    @Override
+    public List<Membership> deleteByMemberId(Long memberId) {
+        List<MembershipInfo> infos=membershipInfoRepository.getMembershipInfoByMemberId(memberId);
+        infos.forEach(info->{
+            info.setStatus('D');
+        });
+        membershipInfoRepository.saveAll(infos);
+
+        return membershipInfoRepository.getMembershipByMemberId(memberId);
+    }
+
 }

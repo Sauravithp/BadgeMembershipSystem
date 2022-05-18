@@ -11,4 +11,6 @@ public interface MembershipInfoService{
 
     List<MinimumMemberShipResponseDTO> getMemberShipByBadgeNumber(String badgeNumber);
     List<Membership> membershipListBymemberId(Long id);
+
+    List<Membership> deleteByMemberId(Long memberId);
 }
