@@ -2,7 +2,6 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
-import miu.edu.badgesystem.dto.request.RoleRequestDTO;
 import miu.edu.badgesystem.dto.response.MemberResponseDTO;
 
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
@@ -10,13 +9,9 @@ import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Member;
-import miu.edu.badgesystem.model.MemberRoles;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Role;
-import miu.edu.badgesystem.repository.MemberRepository;
-import miu.edu.badgesystem.repository.MembershipInfoRepository;
-import miu.edu.badgesystem.repository.PlanRoleInfoRepository;
-import miu.edu.badgesystem.repository.RoleRepository;
+import miu.edu.badgesystem.repository.*;
 import miu.edu.badgesystem.service.MemberRolesService;
 import miu.edu.badgesystem.service.MemberService;
 import miu.edu.badgesystem.service.MembershipInfoService;
@@ -29,7 +24,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -57,12 +51,17 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberRolesService memberRolesService;
 
+    @Autowired
+    private MemberRolesRepository memberRolesRepository;
+
     @Override
     public MemberResponseDTO findById(Long memberId) {
         Member member = memberRepository.getActiveMemberByID(memberId).orElseThrow(() -> {
             throw new NoContentFoundException("No content found");
         });
-        return ModelMapperUtils.map(member, MemberResponseDTO.class);
+        MemberResponseDTO memberResponseDTO = ModelMapperUtils.map(member, MemberResponseDTO.class);
+        memberResponseDTO.setRoles(memberRolesRepository.getRolesByMemberId(memberId));
+        return memberResponseDTO;
     }
 
     @Override
@@ -71,7 +70,13 @@ public class MemberServiceImpl implements MemberService {
         if (members.isEmpty()) {
             throw new NoContentFoundException("Member(s) is empty, No data found");
         }
-        return members.stream().map(member -> ModelMapperUtils.map(member, MemberResponseDTO.class)).collect(Collectors.toList());
+        List<MemberResponseDTO> memberResponseDTOS = new ArrayList<>();
+        members.forEach(m -> {
+            MemberResponseDTO memberDTOS = ModelMapperUtils.map(m, MemberResponseDTO.class);
+            memberDTOS.setRoles(memberRolesRepository.getRolesByMemberId(m.getId()));
+            memberResponseDTOS.add(memberDTOS);
+        });
+        return memberResponseDTOS;
     }
 
     @Override
@@ -82,11 +87,12 @@ public class MemberServiceImpl implements MemberService {
         }
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
-        memberRepository.save(memberToSave);
+        Member memberDT = memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
         memberRolesService.save(memberToSave, mapToRole(membershipResponseDTOS));
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
+        responseDTO.setRoles(memberRolesRepository.getRolesByMemberId(memberDT.getId()));
         return responseDTO;
     }
 

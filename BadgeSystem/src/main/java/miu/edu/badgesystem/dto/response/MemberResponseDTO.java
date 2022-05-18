@@ -28,4 +28,6 @@ public class MemberResponseDTO {
 
     private String badgeNumber;
 
+    private List<Role> roles;
+
 }
