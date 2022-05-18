@@ -14,5 +14,5 @@ public interface TransactionService {
     //    void deleteTransaction(Long id);
     List<Transaction>getAllBadgeTransaction(Long id);
     List<Transaction> getTransactionByMembershipId(Long id);
-
+    List<Transaction> getTransactionByMemberId(Long id);
 }

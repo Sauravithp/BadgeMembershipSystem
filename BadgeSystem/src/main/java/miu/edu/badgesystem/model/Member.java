@@ -32,7 +32,7 @@ public class Member extends Auditable<Long> {
     @Column(name = "status")
     private Character status;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private List<Badge> badges;
 

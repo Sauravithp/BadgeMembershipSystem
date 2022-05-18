@@ -53,12 +53,16 @@ public class TransactionController {
         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
     }
 
-    @GetMapping("/members/{id}")
+    @GetMapping("/membership/{id}")
     private ResponseEntity<?> getTransactionByMembershipId(@PathVariable("id") Long id) {
         List<Transaction> transactionList = transactionService.getTransactionByMembershipId(id);
         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
     }
 
-
+    @GetMapping("/member/{id}")
+    private ResponseEntity<?> getTransactionByMemberId(@PathVariable("id")Long id){
+        List<Transaction> transactionList = transactionService.getTransactionByMemberId(id);
+        return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
+    }
 
 }

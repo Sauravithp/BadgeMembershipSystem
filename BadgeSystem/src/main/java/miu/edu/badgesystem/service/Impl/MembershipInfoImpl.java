@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -41,6 +42,13 @@ public class MembershipInfoImpl implements MembershipInfoService {
     public List<MinimumMemberShipResponseDTO> getMemberShipByBadgeNumber(String badgeNumber) {
         return null;
     }
+  public List<Membership> membershipListBymemberId(Long id){
 
+
+
+    return membershipInfoRepository.findAll().stream()
+            .filter(s->s.getMember().getId().equals(id)).map(s->s.getMembership())
+            .collect(Collectors.toList());
+  }
 
 }

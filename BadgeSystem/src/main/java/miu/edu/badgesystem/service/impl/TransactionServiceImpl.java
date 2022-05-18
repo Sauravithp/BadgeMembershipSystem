@@ -3,14 +3,15 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
-import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.*;
+import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.TransactionService;
 import miu.edu.badgesystem.util.DateUtil;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import miu.edu.badgesystem.util.TransactionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -35,23 +36,28 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final LocationDateRepository locationDateRepository;
 
+    @Autowired
+    private MembershipInfoService membershipInfoService;
+
     private final MemberRepository memberRepository;
 
     private final BadgeRepository badgeRepository;
-
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   PlanRoleInfoRepository planRoleInfoRepository,
                                   LocationRepository locationRepository,
                                   MembershipRepository membershipRepository,
-                                  LocationDateRepository locationDateRepository, MemberRepository memberRepository,
-                                  BadgeRepository badgeRepository) {
+                                  LocationDateRepository locationDateRepository,
+                                  MemberRepository memberRepository,
+                                  BadgeRepository badgeRepository,
+                                  MembershipInfoService membershipInfoService) {
         this.transactionRepository = transactionRepository;
         this.planRoleInfoRepository = planRoleInfoRepository;
         this.locationRepository = locationRepository;
         this.membershipRepository = membershipRepository;
 
         this.locationDateRepository = locationDateRepository;
+        this.membershipInfoService = membershipInfoService;
         this.memberRepository = memberRepository;
         this.badgeRepository = badgeRepository;
     }
@@ -61,13 +67,15 @@ public class TransactionServiceImpl implements TransactionService {
         BigInteger membershipId=badgeRepository.getMemberShip( requestDTO.getLocationId(),requestDTO.getBadgeNumber());
         if(membershipId!=BigInteger.ZERO){
             Membership membership = membershipRepository.getActiveMembershipByID(Long.parseLong(membershipId.toString()))
-                    .orElseThrow(() -> {throw new NoContentFoundException("Membership NOT Active");});
+                    .orElseThrow(() -> {
+                        throw new NoContentFoundException("Membership NOT Active");
+                    });
             Location location = getLocationById(requestDTO.getLocationId());
-            Character status='Y';
-            status=checkIfPlanCountExceeds(requestDTO, membership);
-            status=checkIfLocationCapacityIsFull(requestDTO,location);
-            status=checkIfAvailableDateAndTime(location);
-            Transaction transaction = TransactionUtils.mapToTransaction(location,membership,status);
+            Character status = 'Y';
+            status = checkIfPlanCountExceeds(requestDTO, membership);
+            status = checkIfLocationCapacityIsFull(requestDTO, location);
+            status = checkIfAvailableDateAndTime(location);
+            Transaction transaction = TransactionUtils.mapToTransaction(location, membership, status);
             transactionRepository.save(transaction);
             TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);
             return transactionResponseDTO;
@@ -76,29 +84,29 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private Character checkIfAvailableDateAndTime(Location location) {
-        LocationDate locationDate=locationDateRepository.getLocationDateByLocationId(location.getId());
-        Character status='Y';
-        status=checkClosedDate(locationDate);
-        status=checkIfLocationIsAvailable(locationDate);
+        LocationDate locationDate = locationDateRepository.getLocationDateByLocationId(location.getId());
+        Character status = 'Y';
+        status = checkClosedDate(locationDate);
+        status = checkIfLocationIsAvailable(locationDate);
         return status;
     }
 
     private Character checkIfLocationIsAvailable(LocationDate locationDate) {
-        Integer count=locationDateRepository.checkIfLocationDateIsAvailable(locationDate.getId());
-        if(count==0){
+        Integer count = locationDateRepository.checkIfLocationDateIsAvailable(locationDate.getId());
+        if (count == 0) {
             return 'N';
         }
         return 'Y';
     }
 
-    public Character checkClosedDate(LocationDate locationDate){
-        AtomicReference<Character> status= new AtomicReference<>('Y');
-        if(locationDate.getHasLocationClosedDate()){
-            List<LocationClosed> locationClosedDates=locationDate.getLocationClosed();
-            locationClosedDates.forEach(date->{
+    public Character checkClosedDate(LocationDate locationDate) {
+        AtomicReference<Character> status = new AtomicReference<>('Y');
+        if (locationDate.getHasLocationClosedDate()) {
+            List<LocationClosed> locationClosedDates = locationDate.getLocationClosed();
+            locationClosedDates.forEach(date -> {
                 boolean isEqual = LocalDate.now().
                         isEqual(date.getDate());
-                if(isEqual){
+                if (isEqual) {
                     status.set('N');
                 }
             });
@@ -108,8 +116,8 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
-        Character status='Y';
-        PlanRoleInfo planRoleInfo=planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
+        Character status = 'Y';
+        PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
                 getId()).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
@@ -121,23 +129,23 @@ public class TransactionServiceImpl implements TransactionService {
                     membership.getId(), startDate, endDate);
             Integer count = planRoleInfo.getPlan().getCount();
             if (transactionCount == count) {
-                status='N';
+                status = 'N';
             }
         }
         return status;
     }
 
-    private Character checkIfLocationCapacityIsFull(TransactionRequestDTO requestDTO,Location location) {
+    private Character checkIfLocationCapacityIsFull(TransactionRequestDTO requestDTO, Location location) {
         Integer occupiedSeatCount = transactionRepository.getOccupiedSeat(requestDTO.getLocationId());
         if (occupiedSeatCount >= location.getCapacity()) {
 
-          return 'N';
+            return 'N';
         }
 
         return 'Y';
     }
 
-    private Location getLocationById(Long id){
+    private Location getLocationById(Long id) {
         Location location = locationRepository.getLocationByID(id);
 
 
@@ -148,12 +156,12 @@ public class TransactionServiceImpl implements TransactionService {
         return location;
     }
 
-    private Membership getMembershipById(Long id){
+    private Membership getMembershipById(Long id) {
         Membership membership = membershipRepository.getById(id);
         if (ObjectUtils.isEmpty(membership)) {
             throw new NoContentFoundException("membership Not found");
         }
-return membership;
+        return membership;
     }
 //
 //    @Override
@@ -179,12 +187,20 @@ return membership;
 
     public List<Transaction> getTransactionByMembershipId(Long id) {
         Membership membership = membershipRepository.getById(id);
-        List<Transaction> transactionList =
-                transactionRepository.findAll().stream()
-                        .filter(s -> s.getMembership().equals(membership))
-                        .collect(Collectors.toList());
+        List<Transaction> transactionList = transactionRepository.findAll()
+                .stream().filter(s -> s.getMembership().equals(membership))
+                .collect(Collectors.toList());
         return transactionList;
     }
+
+    public List<Transaction> getTransactionByMemberId(Long id) {
+        List<Membership> membershipList = membershipInfoService.membershipListBymemberId(id);
+
+        return transactionRepository.findAll().
+                stream().filter(s -> membershipList.contains(s.getMembership())).
+                collect(Collectors.toList());
+    }
+
     //
     //    @Override
     //    public void deleteTransaction(Long id) {

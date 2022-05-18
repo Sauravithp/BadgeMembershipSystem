@@ -1,8 +1,11 @@
 package miu.edu.badgesystem.service;
 
+import miu.edu.badgesystem.dto.request.BadgeRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberRequestDTO;
 import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
-import miu.edu.badgesystem.dto.response.MemberResponseDTO;
+import miu.edu.badgesystem.dto.response.*;
+import miu.edu.badgesystem.model.Badge;
+import miu.edu.badgesystem.model.Membership;
 
 import java.util.List;
 
@@ -17,4 +20,20 @@ public interface MemberService {
     void delete(Long memberId);
 
     MemberResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id);
+
+
+    List<PlanResponseDTO> findMemberPlans(Long id);
+
+    List<MembershipResponseDTO> findMemberMemberships(Long id);
+
+    List<TransactionResponseDTO> findMemberTransactions(Long id);
+
+    Badge createBadgeFirstTime();
+
+    BadgeResponseDTO createBadgeForAMember(BadgeRequestDTO dto, Long memberId);
+
+    List<Membership> getMembershipsByBadgeNumber(String badgeId);
+
+    List<Badge> getBadgesByMemberId(Long memberId);
+
 }

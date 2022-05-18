@@ -2,12 +2,19 @@
 server:
   port: 8081
 
+keycloak:
+  auth-server-url: http://localhost:8180/auth
+  realm: SpringBootKeycloak
+  resource: login-app
+  public-client: true
+
 spring:
   application:
     name: badge-system
   datasource:
-    url: jdbc:mysql://localhost:3306/Practice
+    url: jdbc:mysql://localhost:3306/practice
     username: root
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10
