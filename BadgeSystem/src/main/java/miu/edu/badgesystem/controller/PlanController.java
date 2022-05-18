@@ -57,4 +57,9 @@ public class PlanController {
         planService.removeRoleFromPlan(planId,roleId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/{planId}/locations")
+    public ResponseEntity<?> getListLocationByPlan(@PathVariable("planId") Long planId) {
+        return ResponseEntity.ok(planService.getLocationsByPlanId(planId));
+    }
 }

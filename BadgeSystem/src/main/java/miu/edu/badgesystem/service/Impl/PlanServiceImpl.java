@@ -3,9 +3,11 @@ package miu.edu.badgesystem.service.Impl;
 import miu.edu.badgesystem.dto.request.AddRoleRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanUpdateRequestDTO;
+import miu.edu.badgesystem.dto.response.PlanLocationResponseDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
+import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.Plan;
 import miu.edu.badgesystem.model.PlanRoleInfo;
 import miu.edu.badgesystem.model.Role;
@@ -174,6 +176,19 @@ public class PlanServiceImpl implements PlanService {
             planRoleInfo.setStatus('D');
         });
         planRoleInfoRepository.saveAll(planRoleInfos);
+    }
+
+    @Override
+    public List<PlanLocationResponseDTO> getLocationsByPlanId(Long planId) {
+        List<Location> locationFound = planRepository.getLocationByPlanId(planId);
+        if (locationFound.isEmpty()) {
+            throw new NoContentFoundException("Location not found with Plan");
+        }
+        List<PlanLocationResponseDTO> planResponseDTOS = locationFound.stream().map(location -> {
+            PlanLocationResponseDTO p = ModelMapperUtils.map(location, PlanLocationResponseDTO.class);
+            return p;
+        }).collect(Collectors.toList());
+        return planResponseDTOS;
     }
 }
 

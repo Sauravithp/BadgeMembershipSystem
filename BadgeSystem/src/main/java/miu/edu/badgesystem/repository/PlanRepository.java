@@ -1,5 +1,7 @@
 package miu.edu.badgesystem.repository;
 
+import miu.edu.badgesystem.dto.response.PlanLocationResponseDTO;
+import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Plan;
 import miu.edu.badgesystem.model.Role;
@@ -26,4 +28,16 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     @Query("SELECT p FROM Plan p WHERE p.id<>:id AND p.name=:name AND p.status='Y'")
     Plan getUpdatePlanByName(@Param("name") String name, @Param("id") Long id);
+
+    @Query("Select" +
+            " DISTINCT(l) as name," +
+            " l.status as status," +
+            " l.capacity as capacity," +
+            " l.description as description" +
+            " from Plan p" +
+            " LEFT JOIN PlanRoleInfo pri ON p.id=pri.plan.id" +
+            " LEFT JOIN Membership m  On pri.id=m.planRoleInfo.id" +
+            " LEFT JOIN Location l ON m.location.id=l.id" +
+            " WHERE p.id=:planId AND l.status='Y'")
+    List<Location> getLocationByPlanId(@Param("planId") Long planId);
 }

@@ -4,6 +4,7 @@ package miu.edu.badgesystem.service;
 import miu.edu.badgesystem.dto.request.AddRoleRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanUpdateRequestDTO;
+import miu.edu.badgesystem.dto.response.PlanLocationResponseDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface PlanService {
     void addRolesToExistingPlan(AddRoleRequestDTO planDTO, Long planId);
 
     void removeRoleFromPlan(Long planId, Long roleId);
+
+    List<PlanLocationResponseDTO> getLocationsByPlanId(Long planId);
 }
