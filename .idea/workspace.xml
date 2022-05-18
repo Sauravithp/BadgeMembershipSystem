@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a44d4f7a-05b7-476c-b870-449ed5f76486" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/PlanRoleInfoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/PlanRoleInfoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/dto/request/AddRoleRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/PlanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/PlanController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/PlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/PlanService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +77,7 @@
       <recent name="$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="miu.edu.badgesystem.dto.request" />
       <recent name="miu.edu.transactionmanagementsystem.filter" />
       <recent name="miu.edu.badgesystem.service.feign" />
       <recent name="miu.edu.transactionmanagementsystem.config" />
@@ -119,152 +123,11 @@
       <option name="presentableId" value="Default" />
       <updated>1652839575920</updated>
       <workItem from="1652839577067" duration="9606000" />
-      <workItem from="1652850335526" duration="309000" />
+      <workItem from="1652850335526" duration="1140000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>91</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>101</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java</url>
-          <line>98</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/config/WebSecurityConfiguration.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>30</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/filter/JwtFilter.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
