@@ -60,9 +60,6 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private PlanRoleInfoRepository planRoleInfoRepository;
 
-    @Autowired
-    private MemberRolesService memberRolesService;
-
     @Override
     public MemberResponseDTO findById(Long memberId) {
         Member member = memberRepository.getActiveMemberByID(memberId).orElseThrow(() -> {
