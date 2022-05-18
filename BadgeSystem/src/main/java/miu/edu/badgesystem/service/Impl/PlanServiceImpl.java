@@ -110,6 +110,10 @@ public class PlanServiceImpl implements PlanService {
             throw new NoContentFoundException("Plan not found");
         });
         foundPlan.setStatus('D');
+        List<PlanRoleInfo> planRoleInfos=planRoleInfoRepository.getActiveInfoByPlanID(foundPlan.getId());
+        planRoleInfos.forEach(role->{
+            role.setStatus('D');
+        });
         planRepository.save(foundPlan);
     }
 
