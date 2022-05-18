@@ -7,8 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="BadgeMembershipSystem" />
+        <module name="EurekaServer" />
         <module name="Entity" />
+        <module name="TransactionManagementSystem" />
+        <module name="BadgeMembershipSystem" />
         <module name="BadgeSystem" />
       </profile>
     </annotationProcessing>
@@ -17,7 +19,9 @@
       <module name="BadgeSystem" target="11" />
       <module name="Enity" target="11" />
       <module name="Entity" target="11" />
+      <module name="EurekaServer" target="17" />
       <module name="Persistence" target="11" />
+      <module name="TransactionManagementSystem" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -26,7 +30,9 @@
       <module name="BadgeSystem" options="-parameters" />
       <module name="Enity" options="-parameters" />
       <module name="Entity" options="-parameters" />
+      <module name="EurekaServer" options="-parameters" />
       <module name="Persistence" options="-parameters" />
+      <module name="TransactionManagementSystem" options="-parameters" />
     </option>
   </component>
 </project>

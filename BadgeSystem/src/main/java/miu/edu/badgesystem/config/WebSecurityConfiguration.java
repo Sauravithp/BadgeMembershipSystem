@@ -28,11 +28,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-            http.csrf().disable()
+            http.csrf().ignoringAntMatchers("/eureka/**").disable()
                     .addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers(HttpMethod.POST,"/login").permitAll()
+                    . antMatchers("/eureka/css/**","/eureka/images/**","/eureka/fonts/**", "/eureka/js/**").permitAll()
+                    .antMatchers("/eureka/**").permitAll()
                     .anyRequest()
                     .authenticated()
                     .and()

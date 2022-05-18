@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -35,6 +36,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private BadgeRepository badgeRepository;
 
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
@@ -91,6 +95,8 @@ public class MembershipServiceImpl implements MembershipService {
 
         return ModelMapperUtils.map(foundMembership, MembershipResponseDTO.class);
     }
+
+
 
     private Plan getPlanById(Long id) {
         return planRepository.getActivePlanById(id).orElseThrow(() -> {

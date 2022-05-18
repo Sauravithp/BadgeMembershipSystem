@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: entity-service
+    name: badge-system
   datasource:
     url: jdbc:mysql://localhost:3306/Practice
     username: root
@@ -22,3 +22,11 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         hbm2ddl:
           auto: update
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
