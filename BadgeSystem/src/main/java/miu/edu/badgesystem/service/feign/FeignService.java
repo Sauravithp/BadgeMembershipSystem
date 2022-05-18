@@ -13,9 +13,9 @@ import java.util.Optional;
 
 public interface FeignService {
 
-    BigInteger getMemberShip(Long locationId, String badgeSystem);
+    BigInteger getMemberShip(@PathVariable("locationId")Long locationId,@PathVariable("badgeSystem") String badgeSystem);
 
-    Membership findMemberShipById(Long membershipId);
+    Membership findMemberShipById(@PathVariable("membershipId") Long membershipId);
 
     Optional<Membership> getActiveMembershipByID(@PathVariable("id") Long id);
 
@@ -25,7 +25,8 @@ public interface FeignService {
 
     Integer checkIfLocationDateIsAvailable(@PathVariable("id") Long id);
 
-    Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("id") Long id);
+    Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("planId") Long planId,
+                                                         @PathVariable("roleId") Long roleId);
 
     List<Membership> getMembershipListByMemberId(@PathVariable("id") Long id);
 

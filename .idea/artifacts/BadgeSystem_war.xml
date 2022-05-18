@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="BadgeSystem:war">
+    <output-path>$PROJECT_DIR$/BadgeSystem/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>BadgeSystem</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="BadgeSystem-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="BadgeSystem:war exploded" />
+    </root>
+  </artifact>
+</component>

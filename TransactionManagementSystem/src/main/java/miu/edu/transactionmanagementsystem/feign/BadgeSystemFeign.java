@@ -39,8 +39,9 @@ public interface BadgeSystemFeign {
     Integer checkIfLocationDateIsAvailable(@PathVariable("id") Long id,
                                            @RequestHeader("Authorization") String token);
 
-    @GetMapping("/feign/planRoleIfo/{id}")
-    Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("id") Long id,
+    @GetMapping("/feign/planRoleIfo/{planId}/{roleId}")
+    Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("planId") Long planId,
+                                                         @PathVariable("roleId") Long roleId,
                                                          @RequestHeader("Authorization") String token);
 
     @GetMapping("/memberShips/{id}")

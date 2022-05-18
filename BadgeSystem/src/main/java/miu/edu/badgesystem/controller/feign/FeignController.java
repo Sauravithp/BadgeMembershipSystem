@@ -50,9 +50,10 @@ public class FeignController {
         return feignService.checkIfLocationDateIsAvailable(id);
     }
 
-    @GetMapping("/planRoleIfo/{id}")
-   public Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("id") Long id){
-      return   feignService.getActivePlanRoleInfoByPlanID(id);
+    @GetMapping("/planRoleIfo/{planId}/{roleId}")
+    public Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@PathVariable("planId") Long planId,
+                                                         @PathVariable("roleId") Long roleId){
+      return   feignService.getActivePlanRoleInfoByPlanID(planId,roleId);
     }
 
     @GetMapping("/memberShips/{id}")

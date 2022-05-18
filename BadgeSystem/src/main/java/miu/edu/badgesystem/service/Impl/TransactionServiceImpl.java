@@ -73,11 +73,16 @@ public class TransactionServiceImpl implements TransactionService {
                         throw new NoContentFoundException("Membership NOT Active");
                     });
             Location location = getLocationById(requestDTO.getLocationId());
-            Character status = 'Y';
-            status = checkIfPlanCountExceeds(requestDTO, membership);
-            status = checkIfLocationCapacityIsFull(requestDTO, location);
-            status = checkIfAvailableDateAndTime(location);
-            Transaction transaction = TransactionUtils.mapToTransaction(location, membership, status);
+            Character status='Y';
+            status=checkIfPlanCountExceeds(requestDTO, membership);
+            if(status=='Y'){
+                status=checkIfLocationCapacityIsFull(requestDTO,location);
+                if(status=='Y'){
+                    status=checkIfAvailableDateAndTime(location);
+                }
+            }
+
+            Transaction transaction = TransactionUtils.mapToTransaction(location,membership,status);
             transactionRepository.save(transaction);
             TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);
             return transactionResponseDTO;

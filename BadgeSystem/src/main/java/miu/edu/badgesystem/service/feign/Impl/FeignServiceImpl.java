@@ -72,8 +72,8 @@ public class FeignServiceImpl implements FeignService {
     }
 
     @Override
-    public Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(Long id) {
-        return planRoleInfoRepository.getActivePlanRoleInfoByPlanID(id);
+    public Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(Long planId, Long roleId) {
+        return planRoleInfoRepository.getActivePlanRoleInfoByPlanAndRoleID(planId,roleId);
     }
 
     @Override

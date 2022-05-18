@@ -44,8 +44,13 @@ public class TransactionServiceImpl implements TransactionService {
             Location location = getLocationById(requestDTO.getLocationId(), token);
             Character status='Y';
             status=checkIfPlanCountExceeds(requestDTO, membership, token);
-            status=checkIfLocationCapacityIsFull(requestDTO,location);
-            status=checkIfAvailableDateAndTime(location, token);
+            if(status=='Y'){
+                status=checkIfLocationCapacityIsFull(requestDTO,location);
+                if(status=='Y'){
+                    status=checkIfAvailableDateAndTime(location, token);
+                }
+            }
+
             Transaction transaction = TransactionUtils.mapToTransaction(location,membership,status);
             transactionRepository.save(transaction);
             TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);
@@ -89,7 +94,7 @@ public class TransactionServiceImpl implements TransactionService {
     private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership, String token) {
         Character status='Y';
         PlanRoleInfo planRoleInfo=badgeSystemFeign.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
-                getId(), token).orElseThrow(() -> {
+                getPlan().getId(), membership.getPlanRoleInfo().getRole().getId(),token).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
         if (planRoleInfo.getPlan().getIsLimited()) {
