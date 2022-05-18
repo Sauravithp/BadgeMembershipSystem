@@ -118,8 +118,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
         Character status = 'Y';
-        PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
-                getPlan().getId()).orElseThrow(() -> {
+        PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanAndRoleID(membership.getPlanRoleInfo().
+                getPlan().getId(),membership.getPlanRoleInfo().getRole().getId()).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
         if (planRoleInfo.getPlan().getIsLimited()) {

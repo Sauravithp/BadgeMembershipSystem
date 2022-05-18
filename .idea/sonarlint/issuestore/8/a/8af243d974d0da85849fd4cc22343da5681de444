@@ -1,0 +1,22 @@
+
+
+java:S1488O"dImmediately return this expression instead of assigning it to the temporary variable "memberships1".( æ©ûùÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ø°´Çúÿÿÿÿ
+M
+java:S1135A"2Complete the task associated to this TODO comment.(º¹ªøÿÿÿÿ
+T
+java:S1155E">Use isEmpty() to check whether the collection is empty or not.(†íÅÓ
+n
+java:S1602O"SRemove useless curly braces around statement and then remove useless return keyword( æ©ûùÿÿÿÿ
+A
+java:S1602a",Remove useless curly braces around statement(ß¯ü&
+B
+java:S1602§",Remove useless curly braces around statement(ß¯ü&
+m
+java:S1128"KRemove this unused import 'miu.edu.badgesystem.service.MemberRolesService'.(Ö¼Şüÿÿÿÿ8ÔÃ£Â0
+^
+java:S1128"ARemove this unused import 'org.springframework.util.ObjectUtils'.(ÜêÅ™8ÕÃ£Â0
+_
+java:S1128"=Remove this unused import 'java.util.NoSuchElementException'.(®“ÿéúÿÿÿÿ8ÕÃ£Â0
+K
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8ÖÃ£Â0

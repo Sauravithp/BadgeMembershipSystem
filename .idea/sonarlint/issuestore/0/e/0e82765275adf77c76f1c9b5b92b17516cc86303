@@ -1,0 +1,33 @@
+
+V	java:S107/"AConstructor has 8 parameters, which is greater than 7 authorized.(ÍºÍ…
+‰
+java:S1488Q"nImmediately return this expression instead of assigning it to the temporary variable "transactionResponseDTO".(ØÕŸûÿÿÿÿ
+~
+java:S1488¿"gImmediately return this expression instead of assigning it to the temporary variable "transactionList".(êäˆ×
+@
+java:S5411i"*Use the primitive boolean expression here.(ƒüÕØ
+?
+java:S5411}"*Use the primitive boolean expression here.(Å³ŸF
+X
+java:S4973„"<Strings and Boxed types should be compared using "equals()".(ŞìÁõÿÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ø°´Çúÿÿÿÿ
+U
+java:S1854M":Remove this useless assignment to local variable "status".(ÔñÙıÿÿÿÿ
+U
+java:S1854L":Remove this useless assignment to local variable "status".(º¥—şøÿÿÿÿ
+P
+java:S1854K":Remove this useless assignment to local variable "status".(• æ®
+U
+java:S1854Z":Remove this useless assignment to local variable "status".(é¸”Ïùÿÿÿÿ
+P
+java:S1854Y":Remove this useless assignment to local variable "status".(• æ®
+R	java:S125©"<This block of commented-out lines of code should be removed.(÷¹Û³
+B
+java:S1168º"+Return an empty collection instead of null.(¥¹ï
+R	java:S125Ï"<This block of commented-out lines of code should be removed.(÷¹Û³
+p
+java:S1128"NRemove this unused import 'miu.edu.badgesystem.exception.BadRequestException'.(ãó«Íşÿÿÿÿ8åÂÙÂ0
+I
+java:S1068+"4Remove this unused "memberRepository" private field.(»µ\
+R
+java:S1144 "6Remove this unused private "getMembershipById" method.(©–¯Ôøÿÿÿÿ

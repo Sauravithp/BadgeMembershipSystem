@@ -1,0 +1,22 @@
+
+e
+java:S11924"ODefine a constant instead of duplicating this literal "Plan not found" 4 times.(•’Ïš
+ƒ
+java:S1488C"hImmediately return this expression instead of assigning it to the temporary variable "planResponseDTOS".(»ìİšùÿÿÿÿ
+u
+java:S1488 "YImmediately return this expression instead of assigning it to the temporary variable "p".(›éüÿÿÿÿ
+v
+java:S1488¼"YImmediately return this expression instead of assigning it to the temporary variable "p".(ªíşt8·˜Ô¿0
+†
+java:S1488»"hImmediately return this expression instead of assigning it to the temporary variable "planResponseDTOS".(Ûî8ö™Õ¿0
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ø°´Çúÿÿÿÿ
+H
+java:S1135o"2Complete the task associated to this TODO comment.(…ïœ†
+B
+java:S1602u",Remove useless curly braces around statement(µ„Ä
+[
+java:S1854˜"DRemove this useless assignment to local variable "planResponseDTOS".(’¼Š»
+L
+java:S1481˜"5Remove this unused "planResponseDTOS" local variable.(’¼Š»
+H
+java:S1602¯",Remove useless curly braces around statement(™ÓÑİÿÿÿÿÿ
