@@ -1,5 +1,6 @@
 package miu.edu.badgesystem.service.Impl;
 
+import miu.edu.badgesystem.dto.request.AddRoleRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanRequestDTO;
 import miu.edu.badgesystem.dto.request.PlanUpdateRequestDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
@@ -107,6 +108,10 @@ public class PlanServiceImpl implements PlanService {
             throw new NoContentFoundException("Plan not found");
         });
         foundPlan.setStatus('D');
+        List<PlanRoleInfo> planRoleInfos=planRoleInfoRepository.getActiveInfoByPlanID(foundPlan.getId());
+        planRoleInfos.forEach(role->{
+            role.setStatus('D');
+        });
         planRepository.save(foundPlan);
     }
 
@@ -132,6 +137,40 @@ public class PlanServiceImpl implements PlanService {
                 });
 
         return ModelMapperUtils.map(foundPlan, PlanResponseDTO.class);
+    }
+
+    @Override
+    public void addRolesToExistingPlan(AddRoleRequestDTO planDTO, Long planId) {
+       Plan plan= planRepository.findById(planId).orElseThrow(()->{
+           throw new NoContentFoundException("Plan not found");});
+
+        List<PlanResponseDTO> planResponseDTOS = planDTO.getRolesId().stream().map(roleId -> {
+            Role role = roleRepository.getActiveRoleByID(roleId).orElseThrow(()->{
+                throw new NoContentFoundException("Plan not found");});
+            PlanRoleInfo planRoleInfo=new PlanRoleInfo();
+            planRoleInfo.setPlan(plan);
+            planRoleInfo.setRole(role);
+            planRoleInfo.setStatus('Y');
+            planRoleInfoRepository.save(planRoleInfo);
+            PlanResponseDTO p = ModelMapperUtils.map(plan, PlanResponseDTO.class);
+            return p;
+        }).collect(Collectors.toList());
+
+
+
+    }
+
+    @Override
+    public void removeRoleFromPlan(Long planId, Long roleId) {
+        List<PlanRoleInfo> planRoleInfos=planRoleInfoRepository.getAllActivePlanRoleInfoByPlanAndRoleID(planId,roleId);
+
+        if(planRoleInfos.isEmpty()){
+            throw new NoContentFoundException("Role not found");
+        }
+        planRoleInfos.forEach(planRoleInfo -> {
+            planRoleInfo.setStatus('D');
+        });
+        planRoleInfoRepository.saveAll(planRoleInfos);
     }
 }
 

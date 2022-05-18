@@ -6,6 +6,7 @@ import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.*;
 import miu.edu.badgesystem.service.MemberRolesService;
+import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.MembershipService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private MembershipInfoService membershipInfoService;
 
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
@@ -77,6 +81,15 @@ public class MembershipServiceImpl implements MembershipService {
         });
         foundMembership.setStatus('D');
         membershipRepository.save(foundMembership);
+    }
+
+    @Override
+    public void deleteAllByMemberId(Long memberId) {
+        List<Membership> memberships=membershipInfoService.deleteByMemberId(memberId);
+        memberships.forEach(membership -> {
+            membership.setStatus('D');
+        });
+        membershipRepository.saveAll(memberships);
     }
 
     @Override
