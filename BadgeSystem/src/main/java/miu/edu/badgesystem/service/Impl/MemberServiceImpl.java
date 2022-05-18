@@ -60,12 +60,17 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private PlanRoleInfoRepository planRoleInfoRepository;
 
+    @Autowired
+    private MemberRolesRepository memberRolesRepository;
+
     @Override
     public MemberResponseDTO findById(Long memberId) {
         Member member = memberRepository.getActiveMemberByID(memberId).orElseThrow(() -> {
             throw new NoContentFoundException("No content found");
         });
-        return ModelMapperUtils.map(member, MemberResponseDTO.class);
+        MemberResponseDTO memberResponseDTO = ModelMapperUtils.map(member, MemberResponseDTO.class);
+        memberResponseDTO.setRoles(memberRolesRepository.getRolesByMemberId(memberId));
+        return memberResponseDTO;
     }
 
     @Override
@@ -74,7 +79,13 @@ public class MemberServiceImpl implements MemberService {
         if (members.isEmpty()) {
             throw new NoContentFoundException("Member(s) is empty, No data found");
         }
-        return members.stream().map(member -> ModelMapperUtils.map(member, MemberResponseDTO.class)).collect(Collectors.toList());
+        List<MemberResponseDTO> memberResponseDTOS = new ArrayList<>();
+        members.forEach(m -> {
+            MemberResponseDTO memberDTOS = ModelMapperUtils.map(m, MemberResponseDTO.class);
+            memberDTOS.setRoles(memberRolesRepository.getRolesByMemberId(m.getId()));
+            memberResponseDTOS.add(memberDTOS);
+        });
+        return memberResponseDTOS;
     }
 
     @Override
@@ -85,12 +96,13 @@ public class MemberServiceImpl implements MemberService {
         }
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
-        memberRepository.save(memberToSave);
+        Member memberDT = memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
         memberToSave.setBadges(Arrays.asList(createBadgeFirstTime()));
         memberRolesService.save(memberToSave, mapToRole(membershipResponseDTOS));
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
+        responseDTO.setRoles(memberRolesRepository.getRolesByMemberId(memberDT.getId()));
         responseDTO.setBadgeNumber(memberToSave.getBadges().get(0).getBadgeNumber());
         return responseDTO;
     }
