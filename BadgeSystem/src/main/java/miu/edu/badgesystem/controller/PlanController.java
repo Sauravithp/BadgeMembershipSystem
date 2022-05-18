@@ -51,4 +51,10 @@ public class PlanController {
         planService.addRolesToExistingPlan(addRoleRequestDTO,id);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/role/{planId}/{roleId}")
+    public ResponseEntity<?> removeRole(@PathVariable("planId") Long planId , @PathVariable("roleId") Long roleId) {
+        planService.removeRoleFromPlan(planId,roleId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

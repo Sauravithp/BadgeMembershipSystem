@@ -21,4 +21,6 @@ public interface PlanService {
     PlanResponseDTO update(PlanUpdateRequestDTO planDTO, Long id);
 
     void addRolesToExistingPlan(AddRoleRequestDTO planDTO, Long planId);
+
+    void removeRoleFromPlan(Long planId, Long roleId);
 }

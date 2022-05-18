@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a44d4f7a-05b7-476c-b870-449ed5f76486" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/dto/request/AddRoleRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/PlanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/PlanController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/PlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/PlanService.java" afterDir="false" />
@@ -123,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1652839575920</updated>
       <workItem from="1652839577067" duration="9606000" />
-      <workItem from="1652850335526" duration="1140000" />
+      <workItem from="1652850335526" duration="1662000" />
     </task>
     <servers />
   </component>

@@ -17,6 +17,9 @@ public interface PlanRoleInfoRepository extends JpaRepository<PlanRoleInfo,Long>
     @Query("SELECT pr FROM PlanRoleInfo pr WHere pr.plan.id=:planId AND pr.role.id=:roleId AND pr.status='Y'" )
     Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanAndRoleID(@Param("planId") Long planId,@Param("roleId") Long roleId);
 
+    @Query("SELECT pr FROM PlanRoleInfo pr WHere pr.plan.id=:planId AND pr.role.id=:roleId AND pr.status='Y'" )
+    List<PlanRoleInfo> getAllActivePlanRoleInfoByPlanAndRoleID(@Param("planId") Long planId,@Param("roleId") Long roleId);
+
 
     @Query("SELECT pr FROM PlanRoleInfo pr WHere pr.plan.id=:planId AND pr.status='Y'" )
     Optional<PlanRoleInfo> getActivePlanRoleInfoByPlanID(@Param("planId") Long planId);

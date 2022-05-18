@@ -162,5 +162,18 @@ public class PlanServiceImpl implements PlanService {
 
 
     }
+
+    @Override
+    public void removeRoleFromPlan(Long planId, Long roleId) {
+        List<PlanRoleInfo> planRoleInfos=planRoleInfoRepository.getAllActivePlanRoleInfoByPlanAndRoleID(planId,roleId);
+
+        if(planRoleInfos.isEmpty()){
+            throw new NoContentFoundException("Role not found");
+        }
+        planRoleInfos.forEach(planRoleInfo -> {
+            planRoleInfo.setStatus('D');
+        });
+        planRoleInfoRepository.saveAll(planRoleInfos);
+    }
 }
 
