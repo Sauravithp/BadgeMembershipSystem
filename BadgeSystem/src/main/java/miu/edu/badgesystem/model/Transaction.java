@@ -24,7 +24,7 @@ public class Transaction extends Auditable<Long> {
 
     private LocalDate date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "membership_id")
     private Membership membership;
 
