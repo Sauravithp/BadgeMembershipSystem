@@ -14,25 +14,5 @@ public class FeignClientConfiguration {
         return new BasicAuthRequestInterceptor("sauravi", "sauravi");
     }
 
-//    class FeignClientConfiguration(private val authorizedClientManager: OAuth2AuthorizedClientManager) {
-//
-//        @Bean
-//        fun requestInterceptor(): RequestInterceptor = RequestInterceptor { template ->
-//            if (template.headers()["Authorization"].isNullOrEmpty()) {
-//                val accessToken = getAccessToken()
-//                logger.debug { "ACCESS TOKEN TYPE: ${accessToken?.tokenType?.value}" }
-//                logger.debug { "ACCESS TOKEN: ${accessToken?.tokenValue}" }
-//                template.header("Authorization", "Bearer ${accessToken?.tokenValue}")
-//            }
-//        }
-//
-//        private fun getAccessToken(): OAuth2AccessToken? {
-//            val request = OAuth2AuthorizeRequest
-//                    .withClientRegistrationId("keycloak") // <- Here you load your registered client
-//                    .principal(SecurityContextHolder.getContext().authentication)
-//                    .build()
-//            return authorizedClientManager.authorize(request)?.accessToken
-//        }
-//
-//    }
+
 }

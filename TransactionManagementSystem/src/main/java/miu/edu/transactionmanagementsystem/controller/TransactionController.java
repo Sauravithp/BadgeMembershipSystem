@@ -19,7 +19,8 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @Autowired private ListMapper<Transaction, TransactionResponseDTO> listMapper;
+    @Autowired
+    private ListMapper<Transaction, TransactionResponseDTO> listMapper;
 
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
@@ -27,9 +28,10 @@ public class TransactionController {
 
     @PostMapping
     private ResponseEntity<TransactionResponseDTO> save(
-            @RequestBody TransactionRequestDTO transactionDto) {
+            @RequestBody TransactionRequestDTO transactionDto,
+            @RequestHeader("Authorization") String token) {
 
-        TransactionResponseDTO savedTransaction = transactionService.saveTransaction(transactionDto);
+        TransactionResponseDTO savedTransaction = transactionService.saveTransaction(transactionDto, token);
         System.out.println(savedTransaction);
         return ResponseEntity.ok(savedTransaction);
     }
@@ -53,11 +55,11 @@ public class TransactionController {
     }
 
     @GetMapping("/members/{id}")
-    private ResponseEntity<?> getTransactionByMembershipId(@PathVariable("id") Long id) {
-        List<Transaction> transactionList = transactionService.getTransactionByMembershipId(id);
+    private ResponseEntity<?> getTransactionByMembershipId(@PathVariable("id") Long id,
+                                                           @RequestHeader("Authorization") String token) {
+        List<Transaction> transactionList = transactionService.getTransactionByMembershipId(id, token);
         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
     }
-
 
 
 }

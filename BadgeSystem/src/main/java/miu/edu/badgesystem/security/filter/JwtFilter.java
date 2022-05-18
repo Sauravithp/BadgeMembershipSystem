@@ -23,7 +23,7 @@ public class JwtFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String url = String.valueOf(httpRequest.getRequestURL());
-        if (url.contains("/login")) {
+        if (url.contains("/login") || url.contains("/error")) {
             chain.doFilter(request, response);
         } else {
             String header = httpRequest.getHeader("Authorization");

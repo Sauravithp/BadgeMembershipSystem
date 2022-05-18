@@ -37,16 +37,16 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {
-        BigInteger membershipId=badgeSystemFeign.getMemberShip( requestDTO.getLocationId(),requestDTO.getBadgeNumber());
+    public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO, String token) {
+        BigInteger membershipId=badgeSystemFeign.getMemberShip(requestDTO.getLocationId(),requestDTO.getBadgeNumber(), token);
         if(membershipId!=BigInteger.ZERO){
-            Membership membership = badgeSystemFeign.getActiveMembershipByID(Long.parseLong(membershipId.toString()))
+            Membership membership = badgeSystemFeign.getActiveMembershipByID(Long.parseLong(membershipId.toString()), token)
                     .orElseThrow(() -> {throw new NoContentFoundException("Membership NOT Active");});
-            Location location = getLocationById(requestDTO.getLocationId());
+            Location location = getLocationById(requestDTO.getLocationId(), token);
             Character status='Y';
-            status=checkIfPlanCountExceeds(requestDTO, membership);
+            status=checkIfPlanCountExceeds(requestDTO, membership, token);
             status=checkIfLocationCapacityIsFull(requestDTO,location);
-            status=checkIfAvailableDateAndTime(location);
+            status=checkIfAvailableDateAndTime(location, token);
             Transaction transaction = TransactionUtils.mapToTransaction(location,membership,status);
             transactionRepository.save(transaction);
             TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);
@@ -55,16 +55,16 @@ public class TransactionServiceImpl implements TransactionService {
         throw new NoContentFoundException("Membership Not Found");
     }
 
-    private Character checkIfAvailableDateAndTime(Location location) {
-        LocationDate locationDate=badgeSystemFeign.getLocationDateByLocationId(location.getId());
+    private Character checkIfAvailableDateAndTime(Location location, String token) {
+        LocationDate locationDate=badgeSystemFeign.getLocationDateByLocationId(location.getId(), token);
         Character status='Y';
         status=checkClosedDate(locationDate);
-        status=checkIfLocationIsAvailable(locationDate);
+        status=checkIfLocationIsAvailable(locationDate, token);
         return status;
     }
 
-    private Character checkIfLocationIsAvailable(LocationDate locationDate) {
-        Integer count=badgeSystemFeign.checkIfLocationDateIsAvailable(locationDate.getId());
+    private Character checkIfLocationIsAvailable(LocationDate locationDate, String token) {
+        Integer count=badgeSystemFeign.checkIfLocationDateIsAvailable(locationDate.getId(), token);
         if(count==0){
             return 'N';
         }
@@ -87,10 +87,10 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 
-    private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
+    private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership, String token) {
         Character status='Y';
         PlanRoleInfo planRoleInfo=badgeSystemFeign.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().
-                getId()).orElseThrow(() -> {
+                getId(), token).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
         if (planRoleInfo.getPlan().getIsLimited()) {
@@ -117,8 +117,8 @@ public class TransactionServiceImpl implements TransactionService {
         return 'Y';
     }
 
-    private Location getLocationById(Long id){
-        Location location = badgeSystemFeign.getActiveLocationByID(id);
+    private Location getLocationById(Long id, String token){
+        Location location = badgeSystemFeign.getActiveLocationByID(id, token);
 
 
         if (ObjectUtils.isEmpty(location)) {
@@ -128,8 +128,8 @@ public class TransactionServiceImpl implements TransactionService {
         return location;
     }
 
-    private Membership getMembershipById(Long id){
-        Membership membership = badgeSystemFeign.getActiveMembershipByID(id)
+    private Membership getMembershipById(Long id, String token){
+        Membership membership = badgeSystemFeign.getActiveMembershipByID(id, token)
                 .orElseThrow(() -> {throw new NoContentFoundException("Membership NOT Active");});
         if (ObjectUtils.isEmpty(membership)) {
             throw new NoContentFoundException("membership Not found");
@@ -158,8 +158,9 @@ return membership;
         return null;
     }
 
-    public List<Transaction> getTransactionByMembershipId(Long id) {
-        Membership membership = badgeSystemFeign.getActiveMembershipByID(id)
+    @Override
+    public List<Transaction> getTransactionByMembershipId(Long id, String token) {
+        Membership membership = badgeSystemFeign.getActiveMembershipByID(id, token)
                 .orElseThrow(() -> {throw new NoContentFoundException("Membership NOT Active");});
         List<Transaction> transactionList =
                 transactionRepository.findAll().stream()

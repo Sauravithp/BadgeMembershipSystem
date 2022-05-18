@@ -32,7 +32,7 @@ public class JwtFilter implements Filter {
                 String token=header.substring(6);
                 String headerJson = parseJWTHeader(token);
                 //decrypt the jwt
-                if(headerJson.contains("JWT")){
+                if(headerJson.contains("JWT") || url.contains("/error")){
                     chain.doFilter(request, response);
                 } else{
                     setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response);
