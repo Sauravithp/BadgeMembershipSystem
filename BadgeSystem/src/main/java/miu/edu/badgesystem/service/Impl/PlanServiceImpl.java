@@ -15,6 +15,7 @@ import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.PlanRoleInfoService;
 import miu.edu.badgesystem.service.PlanService;
 import miu.edu.badgesystem.util.ModelMapperUtils;
+import miu.edu.badgesystem.util.PlanDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,16 +79,11 @@ public class PlanServiceImpl implements PlanService {
             throw new DataDuplicationException("Plan with name" + planDTO.getName() + "already exists");
         }
         List<Role> roles = getRolesByID(planDTO.getRolesId());
-        Plan planToSave = new Plan();
-        planToSave.setName(planDTO.getName());
-        planToSave.setDescription(planDTO.getDescription());
-        planToSave.setCount(planDTO.getCount());
-        planToSave.setIsLimited(planDTO.getIsLimited());
-        planToSave.setStatus('Y');
-        Plan plan = planRepository.save(planToSave);
+        Plan plan = planRepository.save(PlanDataUtil.setPlan(planDTO));
         planRoleInfoService.save(plan, roles);
         PlanResponseDTO responseDTO = ModelMapperUtils.map(plan, PlanResponseDTO.class);
         responseDTO.setRoles(roles);
+        planRoleInfoService.save(plan, roles);
         return responseDTO;
     }
 
@@ -155,14 +151,11 @@ public class PlanServiceImpl implements PlanService {
             PlanResponseDTO p = ModelMapperUtils.map(plan, PlanResponseDTO.class);
             return p;
         }).collect(Collectors.toList());
-
-
-
     }
 
     @Override
     public void removeRoleFromPlan(Long planId, Long roleId) {
-        List<PlanRoleInfo> planRoleInfos=planRoleInfoRepository.getAllActivePlanRoleInfoByPlanAndRoleID(planId,roleId);
+        List<PlanRoleInfo> planRoleInfos = planRoleInfoRepository.getAllActivePlanRoleInfoByPlanAndRoleID(planId,roleId);
 
         if(planRoleInfos.isEmpty()){
             throw new NoContentFoundException("Role not found");

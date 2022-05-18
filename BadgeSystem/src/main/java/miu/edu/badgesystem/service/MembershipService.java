@@ -1,6 +1,8 @@
 package miu.edu.badgesystem.service;
 
+import miu.edu.badgesystem.dto.request.MemberMembershipRequestDTO;
 import miu.edu.badgesystem.dto.request.MembershipRequestDTO;
+import miu.edu.badgesystem.dto.response.MemberMembershipResponseDTO;
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
@@ -21,5 +23,5 @@ public interface MembershipService {
 
     MembershipResponseDTO update(MembershipRequestDTO membershipDTO, Long id);
 
-    MembershipResponseDTO saveMembership(MembershipRequestDTO membershipRequestDTO);
+    MemberMembershipResponseDTO saveMembership(MemberMembershipRequestDTO membershipRequestDTO);
 }

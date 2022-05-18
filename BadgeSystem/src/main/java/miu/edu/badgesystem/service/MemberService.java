@@ -23,11 +23,8 @@ public interface MemberService {
 
     MemberResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id);
 
-
     List<PlanResponseDTO> findMemberPlans(Long id);
 
     List<MembershipResponseDTO> findMemberMemberships(Long id);
-
-    List<TransactionResponseDTO> findMemberTransactions(Long id);
 
 }

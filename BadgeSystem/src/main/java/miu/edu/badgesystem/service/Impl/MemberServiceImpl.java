@@ -6,7 +6,6 @@ import miu.edu.badgesystem.dto.response.MemberResponseDTO;
 
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.dto.response.PlanResponseDTO;
-import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Member;
@@ -44,7 +43,6 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MembershipInfoService membershipInfoService;
 
-
     @Autowired
     private RoleRepository roleRepository;
 
@@ -80,12 +78,10 @@ public class MemberServiceImpl implements MemberService {
         if (Objects.nonNull(member)) {
             throw new DataDuplicationException("Member with email address" + memberDTO.getEmailAddress() + "already exists");
         }
-
         Member memberToSave = ModelMapperUtils.map(memberDTO, Member.class);
         memberToSave.setStatus('Y');
         memberRepository.save(memberToSave);
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
-        ;
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
         return responseDTO;
@@ -128,15 +124,12 @@ public class MemberServiceImpl implements MemberService {
     public List<PlanResponseDTO> findMemberPlans(Long id) {
         List<Membership> memberships = membershipInfoRepository.getMembershipByMemberId(id);
         List<PlanResponseDTO> plansResponseDTO = new ArrayList<>();
-
         memberships.forEach(m -> {
             List<Role> roles = planRoleInfoRepository.getActiveRoleInfoByPlanID(m.getPlanRoleInfo().getPlan().getId());
             PlanResponseDTO plansResDTO = ModelMapperUtils.map(m.getPlanRoleInfo().getPlan(), PlanResponseDTO.class);
             plansResDTO.setRoles(roles);
             plansResponseDTO.add(plansResDTO);
-
         });
-
         return plansResponseDTO;
     }
 
@@ -147,11 +140,5 @@ public class MemberServiceImpl implements MemberService {
         memberships.forEach(membership -> memberResponseDTOS.add(ModelMapperUtils.map(membership, MembershipResponseDTO.class)));
         return memberResponseDTOS;
     }
-
-    @Override
-    public List<TransactionResponseDTO> findMemberTransactions(Long id) {
-        return null;
-    }
-
 
 }

@@ -59,4 +59,13 @@ public class MembershipInfoImpl implements MembershipInfoService {
         return membershipInfoRepository.getMembershipByMemberId(memberId);
     }
 
+    @Override
+    public void saveMembership(Member member, Membership membership) {
+        MembershipInfo membershipInfo = new MembershipInfo();
+        membershipInfo.setMember(member);
+        membershipInfo.setMembership(membership);
+        membershipInfo.setStatus('Y');
+        membershipInfoRepository.save(membershipInfo);
+    }
+
 }
