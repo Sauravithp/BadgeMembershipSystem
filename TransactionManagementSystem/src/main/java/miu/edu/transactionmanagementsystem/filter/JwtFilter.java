@@ -24,17 +24,16 @@ public class JwtFilter implements Filter {
         if (url.contains("/login")) {
             chain.doFilter(request, response);
         } else {
-//            String header = httpRequest.getHeader("Authorization");
-//            try {
-//                //header
-//                //decrypt the jwt
-//                header.contains("test");
-//                chain.doFilter(request, response);
-//            } catch (Exception e) {
-//                setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response, e);
-//                e.printStackTrace();
-//            }
-            chain.doFilter(request,response);
+            String header = httpRequest.getHeader("Authorization");
+            try {
+                //header
+                //decrypt the jwt
+                header.contains("test");
+                chain.doFilter(request, response);
+            } catch (Exception e) {
+                setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response, e);
+                e.printStackTrace();
+            }
         }
     }
 
