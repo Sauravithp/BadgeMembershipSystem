@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f012986f-612f-47aa-8d58-4c2d5d33e2d1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/feign/FeignController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/feign/FeignController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/feign/FeignService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/feign/FeignService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/feign/Impl/FeignServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/feign/Impl/FeignServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EurekaServer/EurekaServer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/dto/response/TransactionResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/dto/response/TransactionResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/feign/BadgeSystemFeign.java" beforeDir="false" afterPath="$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/feign/BadgeSystemFeign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem/service/impl/TransactionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransactionManagementSystem/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TransactionManagementSystem/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransactionManagementSystem/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/TransactionManagementSystem/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransactionManagementSystem/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/TransactionManagementSystem/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +72,17 @@
   </component>
   <component name="TaskManager">
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
