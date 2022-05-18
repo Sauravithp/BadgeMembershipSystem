@@ -13,5 +13,8 @@ public class TransactionResponseDTO {
 
     private Character status;
 
+    private String transactionNumber;
+
+
 }
 

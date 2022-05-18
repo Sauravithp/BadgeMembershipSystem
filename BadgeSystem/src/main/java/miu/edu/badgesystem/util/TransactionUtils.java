@@ -21,7 +21,7 @@ if(status=='N'){
     transaction.setTransactionStatus(TransactionStatus.ACCESSED);
 
 }
-
+transaction.setTransactionNumber(RandomNumberUtil.createTransactionNumber());
         return transaction;
     }
 }
