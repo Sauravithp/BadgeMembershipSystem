@@ -27,8 +27,6 @@ NBadgeSystem/src/main/java/miu/edu/badgesystem/controller/MemberController.java
 LBadgeSystem/src/main/java/miu/edu/badgesystem/service/MembershipService.java,b/f/bf252be494908d1c461aefee21a2f4586ae0f129
 ‚
 RBadgeSystem/src/main/java/miu/edu/badgesystem/controller/MembershipController.java,f/8/f8acc0209a146d07b73efc58469392a1773c0257
-‚
-RBadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MembershipInfoImpl.java,a/1/a1d9ecf83cbd0d2c9f54dd8d02d5894184dd46d4
 †
 VBadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberRolesServiceImpl.java,b/7/b791d4fa4e8a0f8cfa91ee18001e51b20c25915b
 „
