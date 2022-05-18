@@ -1,5 +1,6 @@
 package miu.edu.transactionmanagementsystem.filter;
 
+import com.nimbusds.jwt.SignedJWT;
 import lombok.SneakyThrows;
 import miu.edu.transactionmanagementsystem.exception.ExceptionResponse;
 import miu.edu.transactionmanagementsystem.util.ObjectMapperUtil;
@@ -10,6 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 
 @Component
@@ -27,17 +29,34 @@ public class JwtFilter implements Filter {
             String header = httpRequest.getHeader("Authorization");
             try {
                 //header
+                String token=header.substring(6);
+                String headerJson = parseJWTHeader(token);
                 //decrypt the jwt
-                header.contains("test");
-                chain.doFilter(request, response);
+                if(headerJson.contains("JWT")){
+                    chain.doFilter(request, response);
+                } else{
+                    setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response);
+                }
             } catch (Exception e) {
-                setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response, e);
+                setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response);
                 e.printStackTrace();
             }
         }
     }
 
-    public void setErrorResponse(HttpStatus status, HttpServletResponse response, Throwable ex) {
+    @SneakyThrows
+    private String parseJWTHeader(String accessToken) {
+        String header;
+        try {
+            var decodedJWT = SignedJWT.parse(accessToken);
+            header = decodedJWT.getHeader().toString();
+        } catch (ParseException e) {
+            throw new Exception("Invalid token!");
+        }
+        return header;
+    }
+
+    public void setErrorResponse(HttpStatus status, HttpServletResponse response) {
         response.setStatus(status.value());
         response.setContentType("application/json");
         // A class used for errors
