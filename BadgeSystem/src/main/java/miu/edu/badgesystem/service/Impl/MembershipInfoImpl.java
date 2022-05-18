@@ -8,6 +8,7 @@ import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.MembershipInfo;
 import miu.edu.badgesystem.repository.MembershipInfoRepository;
 import miu.edu.badgesystem.service.MembershipInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -43,7 +44,8 @@ public class MembershipInfoImpl implements MembershipInfoService {
     public List<MinimumMemberShipResponseDTO> getMemberShipByBadgeNumber(String badgeNumber) {
         return null;
     }
-  public List<Membership> membershipListBymemberId(Long id){
+
+    public List<Membership> membershipListBymemberId(Long id) {
 
 List<Membership> membershipList=membershipInfoRepository.findAll().stream()
         .filter(s->s.getMember().getId().equals(id)).map(s->s.getMembership())
@@ -63,6 +65,15 @@ if(membershipList.isEmpty()){
         membershipInfoRepository.saveAll(infos);
 
         return membershipInfoRepository.getMembershipByMemberId(memberId);
+    }
+
+    @Override
+    public void saveMembership(Member member, Membership membership) {
+        MembershipInfo membershipInfo = new MembershipInfo();
+        membershipInfo.setMember(member);
+        membershipInfo.setMembership(membership);
+        membershipInfo.setStatus('Y');
+        membershipInfoRepository.save(membershipInfo);
     }
 
 }

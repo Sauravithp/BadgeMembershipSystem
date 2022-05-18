@@ -21,16 +21,16 @@ public class PlanRoleInfoServiceImpl implements PlanRoleInfoService {
 
     @Override
     public void save(Plan plan, List<Role> roles) {
-        List<PlanRoleInfo> planRoleInfos =new ArrayList<>();
+        List<PlanRoleInfo> planRoleInformation = new ArrayList<>();
 
         roles.forEach(role -> {
-            PlanRoleInfo planRoleInfo=new PlanRoleInfo();
+            PlanRoleInfo planRoleInfo = new PlanRoleInfo();
             planRoleInfo.setStatus('Y');
             planRoleInfo.setRole(role);
             planRoleInfo.setPlan(plan);
-            planRoleInfos.add(planRoleInfo);
+            planRoleInformation.add(planRoleInfo);
         });
 
-        planRoleInfoRepository.saveAll(planRoleInfos);
+        planRoleInfoRepository.saveAll(planRoleInformation);
     }
 }

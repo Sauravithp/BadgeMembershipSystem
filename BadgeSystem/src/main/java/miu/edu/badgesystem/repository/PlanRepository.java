@@ -19,7 +19,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     @Query("SELECT p FROM Plan p WHERE p.id=:id AND p.status='Y'")
     Optional<Plan> getActivePlanById(@Param("id") Long id);
 
-
     @Query("SELECT p FROM Plan p WHERE  p.status='Y'")
     List<Plan> getActiveAllPlans();
 
