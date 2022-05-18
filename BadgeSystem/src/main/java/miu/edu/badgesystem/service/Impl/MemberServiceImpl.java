@@ -93,7 +93,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void delete(Long memberId) {
-        //TODO
         Member foundMember = memberRepository.findById(memberId).orElseThrow(() -> {
             throw new NoContentFoundException("No Content Found");
         });
