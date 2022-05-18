@@ -38,14 +38,16 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
-        Membership membership = membershipRepository.getActiveMembershipByID(membershipId).orElseThrow(() -> {throw new NoContentFoundException("Membership NOT FOUND");});
+        Membership membership = membershipRepository.getActiveMembershipByID(membershipId).orElseThrow(() -> {
+            throw new NoContentFoundException("Membership NOT FOUND");
+        });
         return ModelMapperUtils.map(membership, MembershipResponseDTO.class);
     }
 
     @Override
     public List<MembershipResponseDTO> findAll() {
         List<Membership> memberships = membershipRepository.getActiveAllMemberships();
-        if(memberships.isEmpty()) {
+        if (memberships.isEmpty()) {
             throw new NoContentFoundException("Membership(s) is empty, No data found");
         }
         return memberships.stream().map(membership -> ModelMapperUtils.map(membership, MembershipResponseDTO.class)).collect(Collectors.toList());
@@ -58,8 +60,8 @@ public class MembershipServiceImpl implements MembershipService {
             Plan plan = getPlanById(requestDTO.getPlan());
             //TODO TO BE TESTED!!
             Location location = getLocationById(requestDTO.getLocation());
-            Role role=getRole(requestDTO.getRole());
-            PlanRoleInfo planRoleInfo=getPlanRoleInfo(plan.getId(),role.getId());
+            Role role = getRole(requestDTO.getRole());
+            PlanRoleInfo planRoleInfo = getPlanRoleInfo(plan.getId(), role.getId());
             toBeSaved.add(mapToMemberShip(requestDTO, location, planRoleInfo));
 
         });
@@ -70,7 +72,9 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public void delete(Long membershipId) {
         Membership foundMembership = membershipRepository.findById(membershipId).orElseThrow(() ->
-        {throw new NoContentFoundException("Membership NOT FOUND");});
+        {
+            throw new NoContentFoundException("Membership NOT FOUND");
+        });
         foundMembership.setStatus('D');
         membershipRepository.save(foundMembership);
     }
@@ -92,6 +96,13 @@ public class MembershipServiceImpl implements MembershipService {
         return ModelMapperUtils.map(foundMembership, MembershipResponseDTO.class);
     }
 
+    @Override
+    public MembershipResponseDTO saveMembership(MembershipRequestDTO membershipRequestDTO) {
+        Membership membership = ModelMapperUtils.map(membershipRequestDTO, Membership.class);
+        membership.setLocation(locationRepository.getLocationByID(membershipRequestDTO.getLocation()));
+        return ModelMapperUtils.map(membershipRepository.save(membership), MembershipResponseDTO.class);
+    }
+
     private Plan getPlanById(Long id) {
         return planRepository.getActivePlanById(id).orElseThrow(() -> {
             throw new NoContentFoundException("Sorry, Plan is not active");
@@ -104,8 +115,8 @@ public class MembershipServiceImpl implements MembershipService {
         });
     }
 
-    private PlanRoleInfo getPlanRoleInfo(Long planId,Long roleId) {
-        return planRoleInfoRepository.getActivePlanRoleInfoByPlanAndRoleID(planId,roleId).orElseThrow(() -> {
+    private PlanRoleInfo getPlanRoleInfo(Long planId, Long roleId) {
+        return planRoleInfoRepository.getActivePlanRoleInfoByPlanAndRoleID(planId, roleId).orElseThrow(() -> {
             throw new NoContentFoundException("Sorry, Plan with the given role is not active");
         });
     }
@@ -138,11 +149,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     public List<MembershipResponseDTO> mapMemberShipResponseList(List<Membership> memberships) {
         List<MembershipResponseDTO> membershipResponseDTOS = new ArrayList<>();
-
         memberships.forEach(membership -> {
             membershipResponseDTOS.add(mapToMemberShipDTO(membership));
         });
-
         return membershipResponseDTOS;
     }
 

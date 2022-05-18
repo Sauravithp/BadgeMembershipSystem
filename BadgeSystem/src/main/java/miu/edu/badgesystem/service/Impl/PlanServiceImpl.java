@@ -44,14 +44,13 @@ public class PlanServiceImpl implements PlanService {
     public PlanResponseDTO findById(Long planId) {
 
         List<Role> roles = planRoleInfoRepository.getActiveRoleInfoByPlanID(planId);
-
         Plan plan = planRepository.getActivePlanById(planId).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });
 
-        PlanResponseDTO pDTO = ModelMapperUtils.map(plan, PlanResponseDTO.class);
-        pDTO.setRoles(roles);
-        return pDTO;
+        PlanResponseDTO planResponseDTO = ModelMapperUtils.map(plan, PlanResponseDTO.class);
+        planResponseDTO.setRoles(roles);
+        return planResponseDTO;
     }
 
     @Override
@@ -97,7 +96,6 @@ public class PlanServiceImpl implements PlanService {
             Role toBeSaved = roleRepository.getActiveRoleByID(role).orElseThrow(() -> {
                 throw new NoContentFoundException("No Content found");
             });
-
             roles.add(toBeSaved);
         });
         return roles;
@@ -105,7 +103,6 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public void delete(Long planId) {
-        //TODO
         Plan foundPlan = planRepository.getActivePlanById(planId).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });

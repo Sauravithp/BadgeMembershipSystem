@@ -18,4 +18,6 @@ public interface MembershipService {
     void delete(Long membershipId);
 
     MembershipResponseDTO update(MembershipRequestDTO membershipDTO, Long id);
+
+    MembershipResponseDTO saveMembership(MembershipRequestDTO membershipRequestDTO);
 }

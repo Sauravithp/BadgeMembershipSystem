@@ -67,7 +67,7 @@ public class MemberController {
     @GetMapping("/{id}/transactions")
     public ResponseEntity<?> findMemberTransactions(@PathVariable Long id) {
         return new ResponseEntity<>(
-                 transactionService.getTransactionByMembershipId(id),
+                transactionService.getTransactionByMemberId(id),
                 HttpStatus.OK);
     }
 }

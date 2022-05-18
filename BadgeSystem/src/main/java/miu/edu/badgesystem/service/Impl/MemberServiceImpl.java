@@ -66,7 +66,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    // TODO: 5/16/22
     public List<MemberResponseDTO> findAll() {
         List<Member> members = memberRepository.getActiveAllMembers();
         if (members.isEmpty()) {
@@ -76,7 +75,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    // TODO: 5/16/22
     public MemberResponseDTO save(MemberRequestDTO memberDTO) {
         Member member = memberRepository.getMemberByEmailAddress(memberDTO.getEmailAddress());
         if (Objects.nonNull(member)) {
@@ -89,7 +87,6 @@ public class MemberServiceImpl implements MemberService {
         List<Membership> membershipResponseDTOS = membershipService.save(memberToSave, memberDTO.getMemberships());
         ;
         membershipInfoService.save(memberToSave, membershipResponseDTOS);
-//        memberToSave.setBadges(memberDTO.getBadges());
         MemberResponseDTO responseDTO = ModelMapperUtils.map(memberToSave, MemberResponseDTO.class);
         return responseDTO;
     }
