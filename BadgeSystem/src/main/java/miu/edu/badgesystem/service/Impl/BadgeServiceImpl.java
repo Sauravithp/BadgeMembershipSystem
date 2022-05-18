@@ -25,14 +25,15 @@ public class BadgeServiceImpl implements BadgeService {
 
     @Override
     public BadgeResponseDTO findById(Long id) {
-        Badge badge = badgeRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Badge with id " + id + " NOT FOUND"));
+        Badge badge = badgeRepository.getActiveBadgeById(id)
+                .orElseThrow(() -> new NoSuchElementException("Badge with id NOT FOUND"));
         return ModelMapperUtils.map(badge, BadgeResponseDTO.class);
     }
 
     @Override
     public List<BadgeResponseDTO> findAll() {
-        List<Badge> badges = badgeRepository.findAll();
+        List<Badge> badges = badgeRepository.getAllActiveBadge()
+                .orElseThrow(() -> new NoSuchElementException("Badge with id NOT FOUND"));
         return badges.stream().map(badge -> ModelMapperUtils.map(badge, BadgeResponseDTO.class))
                 .collect(Collectors.toList());
     }
@@ -40,7 +41,7 @@ public class BadgeServiceImpl implements BadgeService {
     @Override
     public void deleteBadge(Long badgeId) {
         Badge badge = badgeRepository.getById(badgeId);
-        badge.setStatus('N');
+        badge.setStatus('D');
         badgeRepository.save(badge);
     }
 

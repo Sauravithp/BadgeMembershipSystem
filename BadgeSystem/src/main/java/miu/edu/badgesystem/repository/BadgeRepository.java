@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BadgeRepository extends JpaRepository<Badge,Long> {
@@ -22,4 +24,10 @@ public interface BadgeRepository extends JpaRepository<Badge,Long> {
             "WHERE l.id=:locationId\n" +
             "AND b.badge_number=:badgeNumber",nativeQuery = true)
     BigInteger getMemberShip(@Param("locationId") Long locationId, @Param("badgeNumber") String badgeNumber);
+
+    @Query(value = "SELECT b FROM Badge b WHERE b.id=:id AND b.status='Y'")
+    Optional<Badge> getActiveBadgeById(@Param("id") Long id);
+
+    @Query(value = "SELECT b FROM Badge b WHERE  b.status='Y'")
+    Optional<List<Badge>> getAllActiveBadge();
 }
