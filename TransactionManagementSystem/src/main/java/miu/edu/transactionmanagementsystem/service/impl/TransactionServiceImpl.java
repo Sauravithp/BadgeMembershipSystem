@@ -6,6 +6,7 @@ import miu.edu.transactionmanagementsystem.dto.response.TransactionResponseDTO;
 import miu.edu.transactionmanagementsystem.exception.NoContentFoundException;
 import miu.edu.transactionmanagementsystem.feign.BadgeSystemFeign;
 import miu.edu.transactionmanagementsystem.model.*;
+import miu.edu.transactionmanagementsystem.model.enums.TransactionStatus;
 import miu.edu.transactionmanagementsystem.repository.TransactionRepository;
 import miu.edu.transactionmanagementsystem.service.TransactionService;
 import miu.edu.transactionmanagementsystem.util.DateUtil;
@@ -171,6 +172,7 @@ return membership;
     public void delete(Long id) {
         Transaction transaction=  transactionRepository.getById(id);
         transaction.setStatus('D');
+        transaction.setTransactionStatus(TransactionStatus.DENIED);
         transactionRepository.save(transaction);
     }
 
