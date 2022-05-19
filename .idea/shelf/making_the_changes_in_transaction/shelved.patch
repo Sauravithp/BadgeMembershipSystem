@@ -1,0 +1,263 @@
+Index: BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package miu.edu.badgesystem.security.filter;\r\n\r\nimport lombok.SneakyThrows;\r\nimport miu.edu.badgesystem.exception.ExceptionResponse;\r\nimport miu.edu.badgesystem.util.ObjectMapperUtil;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.stereotype.Component;\r\nimport org.springframework.util.ObjectUtils;\r\n\r\nimport javax.servlet.*;\r\nimport javax.servlet.http.HttpServletRequest;\r\nimport javax.servlet.http.HttpServletResponse;\r\nimport java.io.IOException;\r\nimport java.time.LocalDateTime;\r\n\r\n@Component\r\npublic class JwtFilter implements Filter {\r\n\r\n\r\n    @SneakyThrows\r\n    @Override\r\n    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {\r\n        HttpServletRequest httpRequest = (HttpServletRequest) request;\r\n        String url = String.valueOf(httpRequest.getRequestURL());\r\n        if (url.contains(\"/login\")) {\r\n            chain.doFilter(request, response);\r\n        } else {\r\n//            String header = httpRequest.getHeader(\"Authorization\");\r\n//            try {\r\n//                //header\r\n//                //decrypt the jwt\r\n//                header.contains(\"test\");\r\n//                chain.doFilter(request, response);\r\n//            } catch (Exception e) {\r\n//                setErrorResponse(HttpStatus.BAD_REQUEST, (HttpServletResponse) response, e);\r\n//                e.printStackTrace();\r\n//            }\r\n            chain.doFilter(request,response);\r\n        }\r\n    }\r\n\r\n    public void setErrorResponse(HttpStatus status, HttpServletResponse response, Throwable ex) {\r\n        response.setStatus(status.value());\r\n        response.setContentType(\"application/json\");\r\n        // A class used for errors\r\n        ExceptionResponse apiError = ExceptionResponse\r\n                .builder()\r\n                .errorMessage(\"Unauthorized\")\r\n                .timeStamp(LocalDateTime.now())\r\n                .debugMessage(\"No Header found\")\r\n                .responseStatus(HttpStatus.UNAUTHORIZED)\r\n                .responseCode(401).build();\r\n        try {\r\n            String json = ObjectMapperUtil.convertToJson(apiError);\r\n            System.out.println(json);\r\n            response.getWriter().write(json);\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java b/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java
+--- a/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java	(revision c75f6d52e1064aa170c911024a634d4a754b3f81)
++++ b/BadgeSystem/src/main/java/miu/edu/badgesystem/security/filter/JwtFilter.java	(date 1652896887377)
+@@ -20,6 +20,7 @@
+     @SneakyThrows
+     @Override
+     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
++        System.out.println("boom this is jwt controller ");
+         HttpServletRequest httpRequest = (HttpServletRequest) request;
+         String url = String.valueOf(httpRequest.getRequestURL());
+         if (url.contains("/login")) {
+Index: BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MembershipInfoImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package miu.edu.badgesystem.service.Impl;\r\n\r\nimport miu.edu.badgesystem.dto.response.MembershipResponseDTO;\r\nimport miu.edu.badgesystem.dto.response.MinimumMemberShipResponseDTO;\r\nimport miu.edu.badgesystem.model.Member;\r\nimport miu.edu.badgesystem.model.Membership;\r\nimport miu.edu.badgesystem.model.MembershipInfo;\r\nimport miu.edu.badgesystem.repository.MembershipInfoRepository;\r\nimport miu.edu.badgesystem.service.MembershipInfoService;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport javax.transaction.Transactional;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\n@Service\r\n@Transactional\r\npublic class MembershipInfoImpl implements MembershipInfoService {\r\n\r\n    private final MembershipInfoRepository membershipInfoRepository;\r\n\r\n    public MembershipInfoImpl(MembershipInfoRepository membershipInfoRepository) {\r\n        this.membershipInfoRepository = membershipInfoRepository;\r\n    }\r\n\r\n    @Override\r\n    public void save(Member member, List<Membership> memberships) {\r\n       List<MembershipInfo> infos=new ArrayList<>();\r\n        memberships.forEach(membership -> {\r\n            MembershipInfo membershipInfo=new MembershipInfo();\r\n            membershipInfo.setMember(member);\r\n            membershipInfo.setMembership(membership);\r\n            membershipInfo.setStatus('Y');\r\n            infos.add(membershipInfo);\r\n        });\r\n\r\n        membershipInfoRepository.saveAll(infos);\r\n    }\r\n\r\n    @Override\r\n    public List<MinimumMemberShipResponseDTO> getMemberShipByBadgeNumber(String badgeNumber) {\r\n        return null;\r\n    }\r\n  public List<Membership> membershipListBymemberId(Long id){\r\n\r\n\r\n\r\n    return membershipInfoRepository.findAll().stream()\r\n            .filter(s->s.getMember().getId().equals(id)).map(s->s.getMembership())\r\n            .collect(Collectors.toList());\r\n  }\r\n\r\n    @Override\r\n    public List<Membership> deleteByMemberId(Long memberId) {\r\n        List<MembershipInfo> infos=membershipInfoRepository.getMembershipInfoByMemberId(memberId);\r\n        infos.forEach(info->{\r\n            info.setStatus('D');\r\n        });\r\n        membershipInfoRepository.saveAll(infos);\r\n\r\n        return membershipInfoRepository.getMembershipByMemberId(memberId);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MembershipInfoImpl.java b/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MembershipInfoImpl.java
+--- a/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MembershipInfoImpl.java	(revision c75f6d52e1064aa170c911024a634d4a754b3f81)
++++ b/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MembershipInfoImpl.java	(date 1652899418504)
+@@ -2,6 +2,7 @@
+ 
+ import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
+ import miu.edu.badgesystem.dto.response.MinimumMemberShipResponseDTO;
++import miu.edu.badgesystem.exception.BadRequestException;
+ import miu.edu.badgesystem.model.Member;
+ import miu.edu.badgesystem.model.Membership;
+ import miu.edu.badgesystem.model.MembershipInfo;
+@@ -44,11 +45,13 @@
+     }
+   public List<Membership> membershipListBymemberId(Long id){
+ 
+-
+-
+-    return membershipInfoRepository.findAll().stream()
+-            .filter(s->s.getMember().getId().equals(id)).map(s->s.getMembership())
+-            .collect(Collectors.toList());
++List<Membership> membershipList=membershipInfoRepository.findAll().stream()
++        .filter(s->s.getMember().getId().equals(id)).map(s->s.getMembership())
++        .collect(Collectors.toList());
++if(membershipList.isEmpty()){
++  throw new BadRequestException("there is no membership available for this member");
++}
++    return membershipList;
+   }
+ 
+     @Override
+Index: BadgeSystem/src/main/java/miu/edu/badgesystem/service/impl/TransactionServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package miu.edu.badgesystem.service.Impl;\r\n\r\n\r\nimport miu.edu.badgesystem.dto.request.TransactionRequestDTO;\r\nimport miu.edu.badgesystem.dto.response.TransactionResponseDTO;\r\nimport miu.edu.badgesystem.exception.BadRequestException;\r\nimport miu.edu.badgesystem.exception.NoContentFoundException;\r\nimport miu.edu.badgesystem.model.*;\r\nimport miu.edu.badgesystem.repository.*;\r\nimport miu.edu.badgesystem.service.MembershipInfoService;\r\nimport miu.edu.badgesystem.service.TransactionService;\r\nimport miu.edu.badgesystem.util.DateUtil;\r\nimport miu.edu.badgesystem.util.ModelMapperUtils;\r\nimport miu.edu.badgesystem.util.TransactionUtils;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\nimport org.springframework.transaction.annotation.Transactional;\r\nimport org.springframework.util.ObjectUtils;\r\n\r\nimport java.math.BigInteger;\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\nimport java.util.concurrent.atomic.AtomicReference;\r\nimport java.util.stream.Collectors;\r\n\r\n@Service\r\n@Transactional\r\npublic class TransactionServiceImpl implements TransactionService {\r\n\r\n    private final TransactionRepository transactionRepository;\r\n\r\n    private final PlanRoleInfoRepository planRoleInfoRepository;\r\n\r\n    private final LocationRepository locationRepository;\r\n\r\n    private final MembershipRepository membershipRepository;\r\n\r\n    private final LocationDateRepository locationDateRepository;\r\n\r\n    @Autowired\r\n    private MembershipInfoService membershipInfoService;\r\n\r\n    private final MemberRepository memberRepository;\r\n\r\n    private final BadgeRepository badgeRepository;\r\n\r\n    public TransactionServiceImpl(TransactionRepository transactionRepository,\r\n                                  PlanRoleInfoRepository planRoleInfoRepository,\r\n                                  LocationRepository locationRepository,\r\n                                  MembershipRepository membershipRepository,\r\n                                  LocationDateRepository locationDateRepository,\r\n                                  MemberRepository memberRepository,\r\n                                  BadgeRepository badgeRepository,\r\n                                  MembershipInfoService membershipInfoService) {\r\n        this.transactionRepository = transactionRepository;\r\n        this.planRoleInfoRepository = planRoleInfoRepository;\r\n        this.locationRepository = locationRepository;\r\n        this.membershipRepository = membershipRepository;\r\n\r\n        this.locationDateRepository = locationDateRepository;\r\n        this.membershipInfoService = membershipInfoService;\r\n        this.memberRepository = memberRepository;\r\n        this.badgeRepository = badgeRepository;\r\n    }\r\n\r\n    @Override\r\n    public TransactionResponseDTO saveTransaction(TransactionRequestDTO requestDTO) {\r\n        BigInteger membershipId = badgeRepository.getMemberShip(requestDTO.getLocationId(), requestDTO.getBadgeNumber());\r\n        if (membershipId == BigInteger.ZERO) {\r\n            Membership membership = membershipRepository.getActiveMembershipByID(Long.parseLong(membershipId.toString()))\r\n                    .orElseThrow(() -> {\r\n                        throw new NoContentFoundException(\"Membership NOT Active\");\r\n                    });\r\n            Location location = getLocationById(requestDTO.getLocationId());\r\n            Character status = 'Y';\r\n            status = checkIfPlanCountExceeds(requestDTO, membership);\r\n            status = checkIfLocationCapacityIsFull(requestDTO, location);\r\n            status = checkIfAvailableDateAndTime(location);\r\n            Transaction transaction = TransactionUtils.mapToTransaction(location, membership, status);\r\n            transactionRepository.save(transaction);\r\n            TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);\r\n            return transactionResponseDTO;\r\n        }\r\n        throw new NoContentFoundException(\"Membership Not Found\");\r\n    }\r\n\r\n    private Character checkIfAvailableDateAndTime(Location location) {\r\n        LocationDate locationDate = locationDateRepository.getLocationDateByLocationId(location.getId());\r\n        Character status = 'Y';\r\n        status = checkClosedDate(locationDate);\r\n        status = checkIfLocationIsAvailable(locationDate);\r\n        return status;\r\n    }\r\n\r\n    private Character checkIfLocationIsAvailable(LocationDate locationDate) {\r\n        Integer count = locationDateRepository.checkIfLocationDateIsAvailable(locationDate.getId());\r\n        if (count == 0) {\r\n            return 'N';\r\n        }\r\n        return 'Y';\r\n    }\r\n\r\n    public Character checkClosedDate(LocationDate locationDate) {\r\n        AtomicReference<Character> status = new AtomicReference<>('Y');\r\n        if (locationDate.getHasLocationClosedDate()) {\r\n            List<LocationClosed> locationClosedDates = locationDate.getLocationClosed();\r\n            locationClosedDates.forEach(date -> {\r\n                boolean isEqual = LocalDate.now().\r\n                        isEqual(date.getDate());\r\n                if (isEqual) {\r\n                    status.set('N');\r\n                }\r\n            });\r\n        }\r\n        return status.get();\r\n    }\r\n\r\n\r\n    private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {\r\n        Character status = 'Y';\r\n        PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanID(membership.getPlanRoleInfo().\r\n                getId()).orElseThrow(() -> {\r\n            throw new NoContentFoundException(\"Plan not found\");\r\n        });\r\n        if (planRoleInfo.getPlan().getIsLimited()) {\r\n            LocalDate startDate = DateUtil.getFirstDayOfMonth();\r\n            LocalDate endDate = DateUtil.getEndDayOfMonth();\r\n            Integer transactionCount = transactionRepository.getTransactionCountByMembershipAndLocationId(\r\n                    requestDTO.getLocationId(),\r\n                    membership.getId(), startDate, endDate);\r\n            Integer count = planRoleInfo.getPlan().getCount();\r\n            if (transactionCount == count) {\r\n                status = 'N';\r\n            }\r\n        }\r\n        return status;\r\n    }\r\n\r\n    private Character checkIfLocationCapacityIsFull(TransactionRequestDTO requestDTO, Location location) {\r\n        Integer occupiedSeatCount = transactionRepository.getOccupiedSeat(requestDTO.getLocationId());\r\n        if (occupiedSeatCount >= location.getCapacity()) {\r\n\r\n            return 'N';\r\n        }\r\n\r\n        return 'Y';\r\n    }\r\n\r\n    private Location getLocationById(Long id) {\r\n        Location location = locationRepository.getLocationByID(id);\r\n\r\n\r\n        if (ObjectUtils.isEmpty(location)) {\r\n            throw new NoContentFoundException(\"location Not found\");\r\n        }\r\n\r\n        return location;\r\n    }\r\n\r\n    private Membership getMembershipById(Long id) {\r\n        Membership membership = membershipRepository.getById(id);\r\n        if (ObjectUtils.isEmpty(membership)) {\r\n            throw new NoContentFoundException(\"membership Not found\");\r\n        }\r\n        return membership;\r\n    }\r\n//\r\n//    @Override\r\n//    public void deleteTransaction(Long id) {\r\n////        transactionRipository.deleteTransaction(transactionRipository.findById(id));\r\n//    }\r\n\r\n    @Override\r\n    public Transaction getTransaction(Long id) {\r\n        return transactionRepository.getById(id);\r\n    }\r\n\r\n    @Override\r\n    public List<Transaction> getAllTransaction() {\r\n        return transactionRepository.findAll();\r\n    }\r\n\r\n    @Override\r\n    public List<Transaction> getAllBadgeTransaction(Long id) {\r\n//  getTransaction().\r\n        return null;\r\n    }\r\n\r\n    public List<Transaction> getTransactionByMembershipId(Long id) {\r\n        Membership membership = membershipRepository.getById(id);\r\n        List<Transaction> transactionList = transactionRepository.findAll()\r\n                .stream().filter(s -> s.getMembership().equals(membership))\r\n                .collect(Collectors.toList());\r\n        return transactionList;\r\n    }\r\n\r\n    public List<Transaction> getTransactionByMemberId(Long id) {\r\n        List<Membership> membershipList = membershipInfoService.membershipListBymemberId(id);\r\n\r\n        return transactionRepository.findAll().\r\n                stream().filter(s -> membershipList.contains(s.getMembership())).\r\n                collect(Collectors.toList());\r\n    }\r\n\r\n    //\r\n    //    @Override\r\n    //    public void deleteTransaction(Long id) {\r\n    ////        transactionRipository.deleteTransaction(transactionRipository.findById(id));\r\n    //    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BadgeSystem/src/main/java/miu/edu/badgesystem/service/impl/TransactionServiceImpl.java b/BadgeSystem/src/main/java/miu/edu/badgesystem/service/impl/TransactionServiceImpl.java
+--- a/BadgeSystem/src/main/java/miu/edu/badgesystem/service/impl/TransactionServiceImpl.java	(revision c75f6d52e1064aa170c911024a634d4a754b3f81)
++++ b/BadgeSystem/src/main/java/miu/edu/badgesystem/service/impl/TransactionServiceImpl.java	(date 1652898889839)
+@@ -191,15 +191,24 @@
+         List<Transaction> transactionList = transactionRepository.findAll()
+                 .stream().filter(s -> s.getMembership().equals(membership))
+                 .collect(Collectors.toList());
++        transactionList.forEach(transaction -> {
++            transaction.getMembership();
++        });
+         return transactionList;
+     }
+ 
+     public List<Transaction> getTransactionByMemberId(Long id) {
++
+         List<Membership> membershipList = membershipInfoService.membershipListBymemberId(id);
+ 
+-        return transactionRepository.findAll().
+-                stream().filter(s -> membershipList.contains(s.getMembership())).
+-                collect(Collectors.toList());
++        List<Transaction>transactionList= transactionRepository.findAll()
++                .stream()
++                .filter(s -> membershipList.contains(s.getMembership()))
++                .collect(Collectors.toList());
++        if(transactionList.isEmpty()==true ){
++            throw new BadRequestException("there is no transaction");
++        }
++        return transactionList;
+     }
+ 
+     //
+Index: BadgeSystem/src/main/java/miu/edu/badgesystem/controller/MemberController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package miu.edu.badgesystem.controller;\r\n\r\nimport miu.edu.badgesystem.dto.request.MemberRequestDTO;\r\nimport miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;\r\nimport miu.edu.badgesystem.service.MemberService;\r\nimport miu.edu.badgesystem.service.TransactionService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport javax.validation.Valid;\r\n\r\n@RestController\r\n@RequestMapping(\"/members\")\r\npublic class MemberController {\r\n\r\n    @Autowired\r\n    private MemberService memberService;\r\n\r\n    @Autowired\r\n    private TransactionService transactionService;\r\n\r\n    @PostMapping\r\n    public ResponseEntity<?> save(@RequestBody @Valid MemberRequestDTO memberDTO) {\r\n        return new ResponseEntity(memberService.save(memberDTO), HttpStatus.CREATED);\r\n    }\r\n\r\n    @GetMapping\r\n    public ResponseEntity<?> findAll() {\r\n        return new ResponseEntity<>(memberService.findAll(), HttpStatus.OK);\r\n    }\r\n\r\n    @GetMapping(\"/{id}\")\r\n    public ResponseEntity<?> findById(@PathVariable Long id) {\r\n        return new ResponseEntity<>(\r\n                memberService.findById(id),\r\n                HttpStatus.OK);\r\n    }\r\n\r\n    @PutMapping(\"/{id}\")\r\n    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid MemberUpdateRequestDTO memberDTO) {\r\n        return new ResponseEntity<>(memberService.update(memberDTO, id), HttpStatus.OK);\r\n    }\r\n\r\n    @DeleteMapping(\"/{id}\")\r\n    public ResponseEntity<?> delete(@PathVariable Long id) {\r\n        memberService.delete(id);\r\n        return new ResponseEntity<>(HttpStatus.NO_CONTENT);\r\n    }\r\n\r\n\r\n    @GetMapping(\"/{id}/plans\")\r\n    public ResponseEntity<?> findMemberPlans(@PathVariable Long id) {\r\n        return new ResponseEntity<>(\r\n                memberService.findMemberPlans(id),\r\n                HttpStatus.OK);\r\n    }\r\n\r\n    @GetMapping(\"/{id}/memberships\")\r\n    public ResponseEntity<?> findMemberMemberships(@PathVariable Long id) {\r\n        return new ResponseEntity<>(\r\n                memberService.findMemberMemberships(id),\r\n                HttpStatus.OK);\r\n    }\r\n\r\n    @GetMapping(\"/{id}/transactions\")\r\n    public ResponseEntity<?> findMemberTransactions(@PathVariable Long id) {\r\n        return new ResponseEntity<>(\r\n                 transactionService.getTransactionByMembershipId(id),\r\n                HttpStatus.OK);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/MemberController.java b/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/MemberController.java
+--- a/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/MemberController.java	(revision c75f6d52e1064aa170c911024a634d4a754b3f81)
++++ b/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/MemberController.java	(date 1652899223739)
+@@ -2,72 +2,77 @@
+ 
+ import miu.edu.badgesystem.dto.request.MemberRequestDTO;
+ import miu.edu.badgesystem.dto.request.MemberUpdateRequestDTO;
++import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
++import miu.edu.badgesystem.model.Transaction;
+ import miu.edu.badgesystem.service.MemberService;
+ import miu.edu.badgesystem.service.TransactionService;
++import miu.edu.badgesystem.util.ListMapper;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.http.HttpStatus;
+ import org.springframework.http.ResponseEntity;
+ import org.springframework.web.bind.annotation.*;
+ 
+ import javax.validation.Valid;
++import java.util.List;
+ 
+ @RestController
+ @RequestMapping("/members")
+ public class MemberController {
+ 
+-    @Autowired
+-    private MemberService memberService;
++  @Autowired
++  private MemberService memberService;
+ 
+-    @Autowired
+-    private TransactionService transactionService;
++  @Autowired
++  private TransactionService transactionService;
++  @Autowired
++  private ListMapper listMapper;
+ 
+-    @PostMapping
+-    public ResponseEntity<?> save(@RequestBody @Valid MemberRequestDTO memberDTO) {
+-        return new ResponseEntity(memberService.save(memberDTO), HttpStatus.CREATED);
+-    }
++  @PostMapping
++  public ResponseEntity<?> save(@RequestBody @Valid MemberRequestDTO memberDTO) {
++    return new ResponseEntity(memberService.save(memberDTO), HttpStatus.CREATED);
++  }
+ 
+-    @GetMapping
+-    public ResponseEntity<?> findAll() {
+-        return new ResponseEntity<>(memberService.findAll(), HttpStatus.OK);
+-    }
++  @GetMapping
++  public ResponseEntity<?> findAll() {
++    return new ResponseEntity<>(memberService.findAll(), HttpStatus.OK);
++  }
+ 
+-    @GetMapping("/{id}")
+-    public ResponseEntity<?> findById(@PathVariable Long id) {
+-        return new ResponseEntity<>(
+-                memberService.findById(id),
+-                HttpStatus.OK);
+-    }
++  @GetMapping("/{id}")
++  public ResponseEntity<?> findById(@PathVariable Long id) {
++    return new ResponseEntity<>(
++            memberService.findById(id),
++            HttpStatus.OK);
++  }
+ 
+-    @PutMapping("/{id}")
+-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid MemberUpdateRequestDTO memberDTO) {
+-        return new ResponseEntity<>(memberService.update(memberDTO, id), HttpStatus.OK);
+-    }
++  @PutMapping("/{id}")
++  public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid MemberUpdateRequestDTO memberDTO) {
++    return new ResponseEntity<>(memberService.update(memberDTO, id), HttpStatus.OK);
++  }
+ 
+-    @DeleteMapping("/{id}")
+-    public ResponseEntity<?> delete(@PathVariable Long id) {
+-        memberService.delete(id);
+-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+-    }
++  @DeleteMapping("/{id}")
++  public ResponseEntity<?> delete(@PathVariable Long id) {
++    memberService.delete(id);
++    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
++  }
+ 
+ 
+-    @GetMapping("/{id}/plans")
+-    public ResponseEntity<?> findMemberPlans(@PathVariable Long id) {
+-        return new ResponseEntity<>(
+-                memberService.findMemberPlans(id),
+-                HttpStatus.OK);
+-    }
++  @GetMapping("/{id}/plans")
++  public ResponseEntity<?> findMemberPlans(@PathVariable Long id) {
++    return new ResponseEntity<>(
++            memberService.findMemberPlans(id),
++            HttpStatus.OK);
++  }
+ 
+-    @GetMapping("/{id}/memberships")
+-    public ResponseEntity<?> findMemberMemberships(@PathVariable Long id) {
+-        return new ResponseEntity<>(
+-                memberService.findMemberMemberships(id),
+-                HttpStatus.OK);
+-    }
++  @GetMapping("/{id}/memberships")
++  public ResponseEntity<?> findMemberMemberships(@PathVariable Long id) {
++    return new ResponseEntity<>(
++            memberService.findMemberMemberships(id),
++            HttpStatus.OK);
++  }
+ 
+-    @GetMapping("/{id}/transactions")
+-    public ResponseEntity<?> findMemberTransactions(@PathVariable Long id) {
+-        return new ResponseEntity<>(
+-                 transactionService.getTransactionByMembershipId(id),
+-                HttpStatus.OK);
+-    }
++  @GetMapping("/{id}/transactions")
++  public ResponseEntity<?> findMemberTransactions(@PathVariable Long id) {
++    List<Transaction> transactionList = transactionService.getTransactionByMemberId(id);
++    return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
++  }
+ }
+Index: BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package miu.edu.badgesystem.model;\r\n\r\nimport lombok.*;\r\nimport miu.edu.badgesystem.audit.Auditable;\r\nimport miu.edu.badgesystem.listener.BadgeEntityListener;\r\nimport miu.edu.badgesystem.listener.TransactionEntityListener;\r\nimport miu.edu.badgesystem.model.enums.TransactionStatus;\r\n\r\nimport javax.persistence.*;\r\nimport java.time.LocalDate;\r\n\r\n@Entity\r\n@AllArgsConstructor\r\n@NoArgsConstructor\r\n@Getter\r\n@Setter\r\n@ToString\r\n@EntityListeners(TransactionEntityListener.class)\r\npublic class Transaction extends Auditable<Long> {\r\n\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long id;\r\n\r\n    private LocalDate date;\r\n\r\n    @ManyToOne\r\n    @JoinColumn(name = \"membership_id\")\r\n    private Membership membership;\r\n\r\n    @ManyToOne\r\n    @JoinColumn(name = \"location_id\",nullable = false)\r\n    private Location location;\r\n\r\n    @Column\r\n    private Character status;\r\n\r\n    @Column(name = \"transaction_status\")\r\n    @Enumerated(EnumType.STRING)\r\n    private TransactionStatus transactionStatus;\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java b/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java
+--- a/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java	(revision c75f6d52e1064aa170c911024a634d4a754b3f81)
++++ b/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java	(date 1652897467126)
+@@ -24,7 +24,7 @@
+ 
+     private LocalDate date;
+ 
+-    @ManyToOne
++    @ManyToOne(fetch = FetchType.EAGER)
+     @JoinColumn(name = "membership_id")
+     private Membership membership;
+ 
+Index: BadgeSystem/src/main/java/miu/edu/badgesystem/controller/TransactionController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package miu.edu.badgesystem.controller;\r\n\r\n\r\nimport miu.edu.badgesystem.dto.request.TransactionRequestDTO;\r\nimport miu.edu.badgesystem.dto.response.TransactionResponseDTO;\r\nimport miu.edu.badgesystem.model.Transaction;\r\n\r\nimport miu.edu.badgesystem.service.TransactionService;\r\nimport miu.edu.badgesystem.util.ListMapper;\r\nimport miu.edu.badgesystem.util.ModelMapperUtils;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.List;\r\n\r\n@RestController\r\n@RequestMapping(\"/transactions\")\r\npublic class TransactionController {\r\n\r\n    private final TransactionService transactionService;\r\n\r\n    @Autowired private ListMapper<Transaction, TransactionResponseDTO> listMapper;\r\n\r\n    public TransactionController(TransactionService transactionService) {\r\n        this.transactionService = transactionService;\r\n    }\r\n\r\n    @PostMapping\r\n    private ResponseEntity<TransactionResponseDTO> save(\r\n            @RequestBody TransactionRequestDTO transactionDto) {\r\n\r\n        TransactionResponseDTO savedTransaction = transactionService.saveTransaction(transactionDto);\r\n        System.out.println(savedTransaction);\r\n        return ResponseEntity.ok(savedTransaction);\r\n    }\r\n\r\n    @GetMapping\r\n    private ResponseEntity<?> getAllTransactions() {\r\n        List<Transaction> transactions = transactionService.getAllTransaction();\r\n        return ResponseEntity.ok(listMapper.mapList(transactions, new TransactionResponseDTO()));\r\n    }\r\n\r\n    @GetMapping(\"/{id}\")\r\n    private ResponseEntity<TransactionResponseDTO> getTransactionByID(@PathVariable(\"id\") Long id) {\r\n        Transaction transaction = transactionService.getTransaction(id);\r\n        return ResponseEntity.ok(ModelMapperUtils.map(transaction, TransactionResponseDTO.class));\r\n    }\r\n\r\n    @GetMapping(\"/badge/{id}\")\r\n    private ResponseEntity<?> getAllBadgeTransactions(@PathVariable(\"id\") Long id) {\r\n        List<Transaction> transactionList = transactionService.getAllBadgeTransaction(id);\r\n        return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));\r\n    }\r\n\r\n    @GetMapping(\"/membership/{id}\")\r\n    private ResponseEntity<?> getTransactionByMembershipId(@PathVariable(\"id\") Long id) {\r\n        List<Transaction> transactionList = transactionService.getTransactionByMembershipId(id);\r\n        return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));\r\n    }\r\n\r\n    @GetMapping(\"/member/{id}\")\r\n    private ResponseEntity<?> getTransactionByMemberId(@PathVariable(\"id\")Long id){\r\n        List<Transaction> transactionList = transactionService.getTransactionByMemberId(id);\r\n        return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/TransactionController.java b/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/TransactionController.java
+--- a/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/TransactionController.java	(revision c75f6d52e1064aa170c911024a634d4a754b3f81)
++++ b/BadgeSystem/src/main/java/miu/edu/badgesystem/controller/TransactionController.java	(date 1652896712616)
+@@ -61,6 +61,7 @@
+ 
+     @GetMapping("/member/{id}")
+     private ResponseEntity<?> getTransactionByMemberId(@PathVariable("id")Long id){
++        System.out.println("BOOM transaction controller");
+         List<Transaction> transactionList = transactionService.getTransactionByMemberId(id);
+         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
+     }

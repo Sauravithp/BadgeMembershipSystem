@@ -1,0 +1,366 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"a44d4f7a-05b7-476c-b870-449ed5f76486\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/dto/request/BadgeRequestDTO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/util/RandomNumberUtil.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/modules.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/modules.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/0/e/0e82765275adf77c76f1c9b5b92b17516cc86303\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/1/1/116d9644aa475b760e0a96b0f7ff544c76dad972\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/8/a/8af243d974d0da85849fd4cc22343da5681de444\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/e/d/edd7a5255e550da80929673f8d97bf9cd8f10f98\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/MemberRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/MemberRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/BadgeServiceImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/BadgeServiceImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/MemberService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/MemberService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/util/TransactionUtils.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/util/TransactionUtils.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"transaction-refactor\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"29JmU0LMdvAYCMxWKMM02LIQvHh\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"showMembers\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RequestMappingsPanelOrder0\" value=\"0\" />\r\n    <property name=\"RequestMappingsPanelOrder1\" value=\"1\" />\r\n    <property name=\"RequestMappingsPanelWidth0\" value=\"75\" />\r\n    <property name=\"RequestMappingsPanelWidth1\" value=\"75\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"jdk.selected.JAVA_MODULE\" value=\"17\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/TransactionManagementSystem/src/main/resources\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.0\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"configurable.group.build\" />\r\n  </component>\r\n  <component name=\"ReactorSettings\">\r\n    <option name=\"notificationShown\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"$PROJECT_DIR$/TransactionManagementSystem/src/main/resources\" />\r\n      <recent name=\"$PROJECT_DIR$/TransactionManagementSystem/src/main/java/miu/edu/transactionmanagementsystem\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"miu.edu.badgesystem.dto.response\" />\r\n      <recent name=\"miu.edu.badgesystem.dto.request\" />\r\n      <recent name=\"miu.edu.transactionmanagementsystem.filter\" />\r\n      <recent name=\"miu.edu.badgesystem.service.feign\" />\r\n      <recent name=\"miu.edu.transactionmanagementsystem.config\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunDashboard\">\r\n    <option name=\"configurationTypes\">\r\n      <set>\r\n        <option value=\"SpringBootApplicationConfigurationType\" />\r\n      </set>\r\n    </option>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Spring Boot.BadgeSystemApplication\">\r\n    <configuration name=\"BadgeSystemApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"BadgeSystem\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"miu.edu.badgesystem.BadgeSystemApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"EntityApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"Entity\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"miu.edu.entity.EntityApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"EurekaServerApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"EurekaServer\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"miu.edu.eurekaserver.EurekaServerApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"TransactionManagementSystemApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"TransactionManagementSystem\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"miu.edu.transactionmanagementsystem.TransactionManagementSystemApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"a44d4f7a-05b7-476c-b870-449ed5f76486\" name=\"Changes\" comment=\"\" />\r\n      <created>1652839575920</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1652839575920</updated>\r\n      <workItem from=\"1652839577067\" duration=\"9606000\" />\r\n      <workItem from=\"1652850335526\" duration=\"2329000\" />\r\n      <workItem from=\"1652885320296\" duration=\"2452000\" />\r\n      <workItem from=\"1652888574218\" duration=\"222000\" />\r\n      <workItem from=\"1652888814789\" duration=\"60000\" />\r\n      <workItem from=\"1652888889007\" duration=\"6050000\" />\r\n      <workItem from=\"1652897698171\" duration=\"207000\" />\r\n      <workItem from=\"1652897909426\" duration=\"405000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>69</line>\r\n          <option name=\"timeStamp\" value=\"9\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>83</line>\r\n          <option name=\"timeStamp\" value=\"11\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>82</line>\r\n          <option name=\"timeStamp\" value=\"12\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>81</line>\r\n          <option name=\"timeStamp\" value=\"13\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>77</line>\r\n          <option name=\"timeStamp\" value=\"14\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>76</line>\r\n          <option name=\"timeStamp\" value=\"15\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>84</line>\r\n          <option name=\"timeStamp\" value=\"17\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>85</line>\r\n          <option name=\"timeStamp\" value=\"19\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>89</line>\r\n          <option name=\"timeStamp\" value=\"20\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>87</line>\r\n          <option name=\"timeStamp\" value=\"21\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>120</line>\r\n          <option name=\"timeStamp\" value=\"29\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>126</line>\r\n          <option name=\"timeStamp\" value=\"30\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>124</line>\r\n          <option name=\"timeStamp\" value=\"31\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>75</line>\r\n          <option name=\"timeStamp\" value=\"33\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>76</line>\r\n          <option name=\"timeStamp\" value=\"34\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>77</line>\r\n          <option name=\"timeStamp\" value=\"35\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>78</line>\r\n          <option name=\"timeStamp\" value=\"36\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>74</line>\r\n          <option name=\"timeStamp\" value=\"44\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>\r\n          <line>73</line>\r\n          <option name=\"timeStamp\" value=\"45\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>88</line>\r\n          <option name=\"timeStamp\" value=\"46\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>86</line>\r\n          <option name=\"timeStamp\" value=\"47\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>\r\n          <line>193</line>\r\n          <option name=\"timeStamp\" value=\"48\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-method\">\r\n          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/PlanRoleInfoRepository.java</url>\r\n          <line>27</line>\r\n          <properties class=\"miu.edu.badgesystem.repository.PlanRoleInfoRepository\" method=\"getActiveRoleInfoByPlanID\">\r\n            <option name=\"WATCH_EXIT\" value=\"false\" />\r\n          </properties>\r\n          <option name=\"timeStamp\" value=\"32\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,22 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="a44d4f7a-05b7-476c-b870-449ed5f76486" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/dto/request/BadgeRequestDTO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/util/RandomNumberUtil.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/e/0e82765275adf77c76f1c9b5b92b17516cc86303" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/1/116d9644aa475b760e0a96b0f7ff544c76dad972" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/a/8af243d974d0da85849fd4cc22343da5681de444" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/d/edd7a5255e550da80929673f8d97bf9cd8f10f98" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
++    <list default="true" id="a44d4f7a-05b7-476c-b870-449ed5f76486" name="Changes" comment="added delete api in transaction">
++      <change afterPath="$PROJECT_DIR$/.idea/google-java-format.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/model/Transaction.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/MemberRepository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/BadgeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/BadgeServiceImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/MemberService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/util/TransactionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/util/TransactionUtils.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/BadgeMembershipSystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeMembershipSystem.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/BadgeSystem/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/BadgeSystem/src/main/resources/application.yml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -49,6 +38,9 @@
+       <filtered-out-file-type name="TAG" />
+       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+     </file-type-list>
++  </component>
++  <component name="GitToolBoxStore">
++    <option name="projectConfigVersion" value="5" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -62,28 +54,17 @@
+     </option>
+   </component>
+   <component name="ProjectId" id="29JmU0LMdvAYCMxWKMM02LIQvHh" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+     <option name="showMembers" value="true" />
+   </component>
+-  <component name="PropertiesComponent">
+-    <property name="RequestMappingsPanelOrder0" value="0" />
+-    <property name="RequestMappingsPanelOrder1" value="1" />
+-    <property name="RequestMappingsPanelWidth0" value="75" />
+-    <property name="RequestMappingsPanelWidth1" value="75" />
+-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+-    <property name="WebServerToolWindowFactoryState" value="false" />
+-    <property name="jdk.selected.JAVA_MODULE" value="17" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$/TransactionManagementSystem/src/main/resources" />
+-    <property name="nodejs_package_manager_path" value="npm" />
+-    <property name="project.structure.last.edited" value="Modules" />
+-    <property name="project.structure.proportion" value="0.0" />
+-    <property name="project.structure.side.proportion" value="0.2" />
+-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+-  </component>
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "settings.editor.selected.configurable": "preferences.lookFeel"
++  }
++}]]></component>
+   <component name="ReactorSettings">
+     <option name="notificationShown" value="true" />
+   </component>
+@@ -107,7 +88,20 @@
+       </set>
+     </option>
+   </component>
+-  <component name="RunManager" selected="Spring Boot.BadgeSystemApplication">
++  <component name="RunManager" selected="Application.BadgeSystemApplication">
++    <configuration name="BadgeSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="miu.edu.badgesystem.BadgeSystemApplication" />
++      <module name="BadgeSystem" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="miu.edu.badgesystem.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="BadgeSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+       <module name="BadgeSystem" />
+       <option name="SPRING_BOOT_MAIN_CLASS" value="miu.edu.badgesystem.BadgeSystemApplication" />
+@@ -136,6 +130,11 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Application.BadgeSystemApplication" />
++      </list>
++    </recent_temporary>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+@@ -154,6 +153,21 @@
+       <workItem from="1652897698171" duration="207000" />
+       <workItem from="1652897909426" duration="405000" />
+     </task>
++    <task id="LOCAL-00001" summary="transaction and member and membership">
++      <created>1652900866947</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1652900866947</updated>
++    </task>
++    <task id="LOCAL-00002" summary="added delete api in transaction">
++      <created>1652932510691</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1652932510691</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -169,121 +183,192 @@
+         </entry>
+       </map>
+     </option>
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="making the changes in transaction" />
++    <MESSAGE value="transaction and member and membership" />
++    <MESSAGE value="added delete api in transaction" />
++    <option name="LAST_COMMIT_MESSAGE" value="added delete api in transaction" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+       <breakpoints>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>69</line>
+           <option name="timeStamp" value="9" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>83</line>
+           <option name="timeStamp" value="11" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>82</line>
+           <option name="timeStamp" value="12" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>81</line>
+           <option name="timeStamp" value="13" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>77</line>
+           <option name="timeStamp" value="14" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>76</line>
+           <option name="timeStamp" value="15" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>84</line>
+           <option name="timeStamp" value="17" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>85</line>
+           <option name="timeStamp" value="19" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>89</line>
+           <option name="timeStamp" value="20" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>87</line>
+           <option name="timeStamp" value="21" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>120</line>
+           <option name="timeStamp" value="29" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>126</line>
+           <option name="timeStamp" value="30" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>124</line>
+           <option name="timeStamp" value="31" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>75</line>
+           <option name="timeStamp" value="33" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>76</line>
+           <option name="timeStamp" value="34" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>77</line>
+           <option name="timeStamp" value="35" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>78</line>
+           <option name="timeStamp" value="36" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>74</line>
+           <option name="timeStamp" value="44" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/TransactionServiceImpl.java</url>
+           <line>73</line>
+           <option name="timeStamp" value="45" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>88</line>
+           <option name="timeStamp" value="46" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+           <line>86</line>
+           <option name="timeStamp" value="47" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
++        <line-breakpoint type="java-line">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/MemberServiceImpl.java</url>
+-          <line>193</line>
++          <line>197</line>
+           <option name="timeStamp" value="48" />
+         </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-method">
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>78</line>
++          <option name="timeStamp" value="55" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>79</line>
++          <option name="timeStamp" value="56" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>80</line>
++          <option name="timeStamp" value="57" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>83</line>
++          <option name="timeStamp" value="58" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>84</line>
++          <option name="timeStamp" value="59" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>85</line>
++          <option name="timeStamp" value="60" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>86</line>
++          <option name="timeStamp" value="62" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>87</line>
++          <option name="timeStamp" value="63" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>88</line>
++          <option name="timeStamp" value="66" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>90</line>
++          <option name="timeStamp" value="67" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>89</line>
++          <option name="timeStamp" value="68" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>91</line>
++          <option name="timeStamp" value="69" />
++        </line-breakpoint>
++        <line-breakpoint type="java-line">
++          <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/service/Impl/PlanServiceImpl.java</url>
++          <line>92</line>
++          <option name="timeStamp" value="70" />
++        </line-breakpoint>
++        <line-breakpoint type="java-method">
+           <url>file://$PROJECT_DIR$/BadgeSystem/src/main/java/miu/edu/badgesystem/repository/PlanRoleInfoRepository.java</url>
+           <line>27</line>
+           <properties class="miu.edu.badgesystem.repository.PlanRoleInfoRepository" method="getActiveRoleInfoByPlanID">
+@@ -298,4 +383,9 @@
+     <expand />
+     <select />
+   </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/BadgeMembershipSystem$BadgeSystemApplication.ic" NAME="BadgeSystemApplication Coverage Results" MODIFIED="1652906056352" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
++      <FILTER>miu.edu.badgesystem.*</FILTER>
++    </SUITE>
++  </component>
+ </project>
+\ No newline at end of file
