@@ -62,8 +62,10 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.getActiveMemberByID(memberId).orElseThrow(() -> {
             throw new NoContentFoundException("No content found");
         });
+        String badgeNumber = member.getBadges().get(0).getBadgeNumber();
         MemberResponseDTO memberResponseDTO = ModelMapperUtils.map(member, MemberResponseDTO.class);
         memberResponseDTO.setRoles(memberRolesRepository.getRolesByMemberId(memberId));
+        memberResponseDTO.setBadgeNumber(badgeNumber);
         return memberResponseDTO;
     }
 
@@ -75,8 +77,10 @@ public class MemberServiceImpl implements MemberService {
         }
         List<MemberResponseDTO> memberResponseDTOS = new ArrayList<>();
         members.forEach(m -> {
+            String badgeNumber = m.getBadges().get(0).getBadgeNumber();
             MemberResponseDTO memberDTOS = ModelMapperUtils.map(m, MemberResponseDTO.class);
             memberDTOS.setRoles(memberRolesRepository.getRolesByMemberId(m.getId()));
+            memberDTOS.setBadgeNumber(badgeNumber);
             memberResponseDTOS.add(memberDTOS);
         });
         return memberResponseDTOS;
@@ -103,8 +107,9 @@ public class MemberServiceImpl implements MemberService {
 
     private List<Role> mapToRole(List<Membership> membership) {
         List<Role> role = new ArrayList<>();
-        membership.forEach( r -> {
-            role.add(r.getPlanRoleInfo().getRole()); }
+        membership.forEach(r -> {
+                    role.add(r.getPlanRoleInfo().getRole());
+                }
         );
         return role;
     }
@@ -119,7 +124,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id) {
+    public MemberUpdateResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id) {
         Member member = ModelMapperUtils.map(memberDTO, Member.class);
         Member alreadyMember = memberRepository.getUpdateMemberByName(member.getEmailAddress(), id);
 
@@ -138,7 +143,10 @@ public class MemberServiceImpl implements MemberService {
                     throw new NoContentFoundException("No Content found");
                 });
 
-        return ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
+        String badgeNumber = foundMember.getBadges().get(0).getBadgeNumber();
+        MemberUpdateResponseDTO responseDTO = ModelMapperUtils.map(foundMember, MemberUpdateResponseDTO.class);
+        responseDTO.setBadgeNumber(badgeNumber);
+        return responseDTO;
     }
 
     @Override
@@ -146,17 +154,17 @@ public class MemberServiceImpl implements MemberService {
         Badge badge = ModelMapperUtils.map(dto, Badge.class);
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member with id " + memberId + " NOT FOUND"));
         List<Badge> badges = member.getBadges();
-        if(badges.stream().anyMatch(badge1 -> badge1.getBadgeNumber().equals(dto.getBadgeNumber()))){
+        if (badges.stream().anyMatch(badge1 -> badge1.getBadgeNumber().equals(dto.getBadgeNumber()))) {
             throw new BadRequestException("badgeNumber is already exist");
         }
         badges.forEach(oneBadge -> {
-            if(oneBadge.getStatus() == 'Y'){
+            if (oneBadge.getStatus() == 'Y') {
                 oneBadge.setStatus('N');
             }
         });
         badges.add(badge);
         member.setBadges(badges);
-        member =memberRepository.saveAndFlush(member);
+        member = memberRepository.saveAndFlush(member);
         Badge updatedBadge = member.getBadges().stream().
                 filter(b -> b.getStatus() == 'Y')
                 .findFirst().orElseThrow(
@@ -166,13 +174,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Membership> getMembershipsByBadgeNumber(String badgeNumber){
+    public List<Membership> getMembershipsByBadgeNumber(String badgeNumber) {
         return memberRepository.getMembershipsByBadge(badgeNumber);
     }
 
     @Override
     public List<Badge> getBadgesByMemberId(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow(()-> new BadRequestException("Member is not found")).getBadges();
+        return memberRepository.findById(memberId).orElseThrow(() -> new BadRequestException("Member is not found")).getBadges();
     }
 
     @Override
@@ -203,12 +211,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Badge createBadgeFirstTime() {
-        Badge badge =new Badge();
+        Badge badge = new Badge();
         badge.setStatus('Y');
         badge.setBadgeNumber(createBadgeNumber());
         return badge;
     }
-
 
 
 }

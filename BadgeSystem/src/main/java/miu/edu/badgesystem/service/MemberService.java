@@ -19,7 +19,7 @@ public interface MemberService {
 
     void delete(Long memberId);
 
-    MemberResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id);
+    MemberUpdateResponseDTO update(MemberUpdateRequestDTO memberDTO, Long id);
 
     List<PlanResponseDTO> findMemberPlans(Long id);
 
