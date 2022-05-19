@@ -3,17 +3,15 @@ package miu.edu.badgesystem.util;
 import miu.edu.badgesystem.dto.request.MemberMembershipRequestDTO;
 import miu.edu.badgesystem.dto.request.MembershipRequestDTO;
 import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
-import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.Location;
-import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.PlanRoleInfo;
-import miu.edu.badgesystem.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class MembershipDataUtil {
 
-    public static Membership saveMembership(Location location, MemberMembershipRequestDTO membershipRequestDTO, PlanRoleInfo planRoleInfo) {
+    public static Membership saveMembership(Location location,
+                                            MemberMembershipRequestDTO membershipRequestDTO,
+                                            PlanRoleInfo planRoleInfo) {
         Membership membership = new Membership();
         membership.setLocation(location);
         membership.setStartDate(membershipRequestDTO.getStartDate());
@@ -23,7 +21,9 @@ public class MembershipDataUtil {
         return membership;
     }
 
-    public static Membership mapToMemberShip(MembershipRequestDTO requestDTO, Location location, PlanRoleInfo planRoleInfo) {
+    public static Membership mapToMemberShip(MembershipRequestDTO requestDTO,
+                                             Location location,
+                                             PlanRoleInfo planRoleInfo) {
         Membership membership = new Membership();
         membership.setEndDate(requestDTO.getEndDate());
         membership.setStartDate(requestDTO.getStartDate());

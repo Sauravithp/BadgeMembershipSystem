@@ -11,13 +11,16 @@ import org.keycloak.representations.AccessTokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
 
 @Service
+@Transactional
 public class AuthenticateServiceImpl implements AuthenticateService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
     private final KeycloakProvider kcProvider;
 
     public AuthenticateServiceImpl(KeycloakProvider kcProvider) {

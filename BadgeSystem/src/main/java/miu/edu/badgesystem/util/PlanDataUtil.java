@@ -5,7 +5,6 @@ import miu.edu.badgesystem.model.Plan;
 
 public class PlanDataUtil {
 
-
     public static Plan setPlan(PlanRequestDTO planRequestDTO) {
         Plan planToSave = new Plan();
         planToSave.setName(planRequestDTO.getName());

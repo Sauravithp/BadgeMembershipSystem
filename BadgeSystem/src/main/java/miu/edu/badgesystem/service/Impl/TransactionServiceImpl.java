@@ -3,7 +3,6 @@ package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
-import miu.edu.badgesystem.exception.BadRequestException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.*;
@@ -37,10 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final LocationDateRepository locationDateRepository;
 
-    @Autowired
-    private MembershipInfoService membershipInfoService;
-
-    private final MemberRepository memberRepository;
+    private final MembershipInfoService membershipInfoService;
 
     private final BadgeRepository badgeRepository;
 
@@ -49,17 +45,14 @@ public class TransactionServiceImpl implements TransactionService {
                                   LocationRepository locationRepository,
                                   MembershipRepository membershipRepository,
                                   LocationDateRepository locationDateRepository,
-                                  MemberRepository memberRepository,
                                   BadgeRepository badgeRepository,
                                   MembershipInfoService membershipInfoService) {
         this.transactionRepository = transactionRepository;
         this.planRoleInfoRepository = planRoleInfoRepository;
         this.locationRepository = locationRepository;
         this.membershipRepository = membershipRepository;
-
         this.locationDateRepository = locationDateRepository;
         this.membershipInfoService = membershipInfoService;
-        this.memberRepository = memberRepository;
         this.badgeRepository = badgeRepository;
     }
 
@@ -84,7 +77,8 @@ public class TransactionServiceImpl implements TransactionService {
 
             Transaction transaction = TransactionUtils.mapToTransaction(location,membership,status);
             transactionRepository.save(transaction);
-            TransactionResponseDTO transactionResponseDTO = ModelMapperUtils.map(transaction, TransactionResponseDTO.class);
+            TransactionResponseDTO transactionResponseDTO = ModelMapperUtils
+                    .map(transaction, TransactionResponseDTO.class);
             return transactionResponseDTO;
         }
         throw new NoContentFoundException("Membership Not Found");
@@ -124,7 +118,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private Character checkIfPlanCountExceeds(TransactionRequestDTO requestDTO, Membership membership) {
         Character status = 'Y';
-        PlanRoleInfo planRoleInfo = planRoleInfoRepository.getActivePlanRoleInfoByPlanAndRoleID(membership.getPlanRoleInfo().
+        PlanRoleInfo planRoleInfo = planRoleInfoRepository
+                .getActivePlanRoleInfoByPlanAndRoleID(membership.getPlanRoleInfo().
                 getPlan().getId(), membership.getPlanRoleInfo().getRole().getId()).orElseThrow(() -> {
             throw new NoContentFoundException("Plan not found");
         });

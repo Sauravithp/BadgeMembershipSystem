@@ -1,7 +1,6 @@
 package miu.edu.badgesystem.repository;
 
 import miu.edu.badgesystem.model.MemberRoles;
-import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

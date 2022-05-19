@@ -10,17 +10,4 @@ public class StringUtil {
         return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase
                 (name.replaceAll("\\d+", "")), " ");
     }
-
-    public static String toNormalCase(String text) {
-
-        final char[] delimiters = {' ', '_'};
-
-        String normalCase = WordUtils.capitalizeFully(text, delimiters);
-        return normalCase;
-
-    }
-
-    public static String toUpperCase(String name){
-        return name.toUpperCase();
-    }
 }

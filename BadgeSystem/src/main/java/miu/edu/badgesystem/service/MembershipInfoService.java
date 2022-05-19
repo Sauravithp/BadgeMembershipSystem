@@ -10,6 +10,7 @@ public interface MembershipInfoService{
     void save(Member member, List<Membership> membership);
 
     List<MinimumMemberShipResponseDTO> getMemberShipByBadgeNumber(String badgeNumber);
+
     List<Membership> membershipListBymemberId(Long id);
 
     List<Membership> deleteByMemberId(Long memberId);

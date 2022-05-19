@@ -2,7 +2,6 @@ package miu.edu.badgesystem.model;
 
 import lombok.*;
 import miu.edu.badgesystem.audit.Auditable;
-import miu.edu.badgesystem.listener.BadgeEntityListener;
 import miu.edu.badgesystem.listener.TransactionEntityListener;
 import miu.edu.badgesystem.model.enums.TransactionStatus;
 
@@ -29,7 +28,7 @@ public class Transaction extends Auditable<Long> {
     private Membership membership;
 
     @ManyToOne
-    @JoinColumn(name = "location_id",nullable = false)
+    @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
     @Column

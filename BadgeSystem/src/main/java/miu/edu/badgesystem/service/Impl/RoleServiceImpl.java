@@ -4,7 +4,6 @@ import miu.edu.badgesystem.dto.request.RoleRequestDTO;
 import miu.edu.badgesystem.dto.response.RoleResponseDTO;
 import miu.edu.badgesystem.exception.DataDuplicationException;
 import miu.edu.badgesystem.exception.NoContentFoundException;
-import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.RoleService;

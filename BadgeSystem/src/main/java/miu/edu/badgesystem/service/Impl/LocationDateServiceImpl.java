@@ -1,9 +1,7 @@
 package miu.edu.badgesystem.service.Impl;
 
 import miu.edu.badgesystem.dto.request.LocationDateRequestDTO;
-import miu.edu.badgesystem.dto.response.LocationClosedResponseDTO;
 import miu.edu.badgesystem.dto.response.LocationDateResponseDTO;
-import miu.edu.badgesystem.dto.response.LocationTimeSlotResponseDTO;
 import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.LocationClosed;
 import miu.edu.badgesystem.model.LocationDate;
@@ -18,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,7 +45,8 @@ public class LocationDateServiceImpl implements LocationDateService {
             toBeSavedLocationDate.setLocationClosed(locationClosedList);
         }
         locationDateRepository.save(toBeSavedLocationDate);
-        LocationDateResponseDTO locationDateResponseDTO = LocationDateUtil.getLocationDateResponseDTO(toBeSavedLocationDate);
+        LocationDateResponseDTO locationDateResponseDTO = LocationDateUtil.getLocationDateResponseDTO
+                (toBeSavedLocationDate);
 
         return locationDateResponseDTO;
 

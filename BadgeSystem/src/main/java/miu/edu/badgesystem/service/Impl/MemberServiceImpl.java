@@ -37,9 +37,6 @@ public class MemberServiceImpl implements MemberService {
     private MemberRepository memberRepository;
 
     @Autowired
-    private BadgeRepository badgeRepository;
-
-    @Autowired
     private MembershipService membershipService;
 
     @Autowired
@@ -47,9 +44,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     ListMapper<Membership, MembershipResponseDTO> membershipListMapper;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private MemberRolesService memberRolesService;

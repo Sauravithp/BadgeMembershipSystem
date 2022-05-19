@@ -4,7 +4,6 @@ import miu.edu.badgesystem.model.Location;
 import miu.edu.badgesystem.model.LocationDate;
 import miu.edu.badgesystem.model.Membership;
 import miu.edu.badgesystem.model.PlanRoleInfo;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigInteger;

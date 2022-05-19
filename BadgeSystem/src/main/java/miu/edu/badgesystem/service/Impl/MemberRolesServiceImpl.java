@@ -1,11 +1,9 @@
 package miu.edu.badgesystem.service.Impl;
 
-import miu.edu.badgesystem.dto.request.RoleRequestDTO;
 import miu.edu.badgesystem.model.Member;
 import miu.edu.badgesystem.model.MemberRoles;
 import miu.edu.badgesystem.model.Role;
 import miu.edu.badgesystem.repository.MemberRolesRepository;
-import miu.edu.badgesystem.repository.RoleRepository;
 import miu.edu.badgesystem.service.MemberRolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +18,6 @@ public class MemberRolesServiceImpl implements MemberRolesService {
 
     @Autowired
     private MemberRolesRepository memberRolesRepository;
-
-    @Autowired
-    private RoleRepository rolesRepository;
 
     @Override
     public List<MemberRoles> save(Member member, List<Role> roles) {

@@ -71,7 +71,6 @@ public class LocationServiceImpl implements LocationService {
         List<LocationResponseDTO> responseDTOS = new ArrayList<>();
         if(location.isEmpty()) {
             throw new NoContentFoundException("Location(s) is empty", "No data found in Location");
-
         }
         location.forEach(loc -> {
             LocationResponseDTO locationResponseDTO=ModelMapperUtils.map(loc, LocationResponseDTO.class);

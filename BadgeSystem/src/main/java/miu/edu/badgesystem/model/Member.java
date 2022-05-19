@@ -37,5 +37,4 @@ public class Member extends Auditable<Long> {
     private List<Badge> badges;
 
 
-
 }

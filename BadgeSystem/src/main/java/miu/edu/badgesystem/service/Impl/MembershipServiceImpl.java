@@ -7,21 +7,16 @@ import miu.edu.badgesystem.dto.response.MembershipResponseDTO;
 import miu.edu.badgesystem.exception.NoContentFoundException;
 import miu.edu.badgesystem.model.*;
 import miu.edu.badgesystem.repository.*;
-import miu.edu.badgesystem.service.MemberRolesService;
 import miu.edu.badgesystem.service.MembershipInfoService;
 import miu.edu.badgesystem.service.MembershipService;
 import miu.edu.badgesystem.util.MembershipDataUtil;
 import miu.edu.badgesystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,9 +44,6 @@ public class MembershipServiceImpl implements MembershipService {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Autowired
-    private BadgeRepository badgeRepository;
-
     @Override
     public MembershipResponseDTO findById(Long membershipId) {
         Membership membership = membershipRepository.getActiveMembershipByID(membershipId).orElseThrow(() -> {
@@ -66,7 +58,8 @@ public class MembershipServiceImpl implements MembershipService {
         if (memberships.isEmpty()) {
             throw new NoContentFoundException("Membership(s) is empty, No data found");
         }
-        return memberships.stream().map(membership -> ModelMapperUtils.map(membership, MembershipResponseDTO.class)).collect(Collectors.toList());
+        return memberships.stream().map(membership -> ModelMapperUtils.map(membership, MembershipResponseDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -87,7 +80,8 @@ public class MembershipServiceImpl implements MembershipService {
     private List<Membership> checkSameLocationDifferentPlan(Location location,PlanRoleInfo planRoleInfo,List<Membership> memberships){
 
        List<Membership> memberships1= memberships.stream().filter(membership -> {
-          return membership.getLocation().equals(location) && membership.getPlanRoleInfo().getPlan().equals(planRoleInfo.getPlan());
+          return membership.getLocation().equals(location) &&
+                  membership.getPlanRoleInfo().getPlan().equals(planRoleInfo.getPlan());
         }).collect(Collectors.toList());
 
         return memberships1;
@@ -134,7 +128,8 @@ public class MembershipServiceImpl implements MembershipService {
         Location location = getLocationById(membershipRequestDTO.getLocation());
         Member member = getMemberById(membershipRequestDTO.getMemberId());
         PlanRoleInfo planRole = getPlanRoleInfo(plan.getId(), role.getId());
-        Membership membership = membershipRepository.save(MembershipDataUtil.saveMembership(location,membershipRequestDTO, planRole));
+        Membership membership = membershipRepository.save(MembershipDataUtil
+                .saveMembership(location,membershipRequestDTO, planRole));
         membershipInfoService.saveMembership(member, membership);
         return ModelMapperUtils.map(membership, MemberMembershipResponseDTO.class);
     }
@@ -168,15 +163,5 @@ public class MembershipServiceImpl implements MembershipService {
             throw new NoContentFoundException("Sorry, Member is not active");
         });
     }
-
-    public List<MembershipResponseDTO> mapMemberShipResponseList(List<Membership> memberships) {
-        List<MembershipResponseDTO> membershipResponseDTOS = new ArrayList<>();
-        memberships.forEach(membership -> {
-            membershipResponseDTOS.add(MembershipDataUtil.mapToMemberShipDTO(membership));
-        });
-        return membershipResponseDTOS;
-    }
-
-
 }
 

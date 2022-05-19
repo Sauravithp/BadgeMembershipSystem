@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface BadgeService {
 
-
     BadgeResponseDTO findById(Long id);
 
     List<BadgeResponseDTO> findAll();

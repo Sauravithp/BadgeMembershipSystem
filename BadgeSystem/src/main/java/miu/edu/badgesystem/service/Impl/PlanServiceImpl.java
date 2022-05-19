@@ -117,11 +117,9 @@ public class PlanServiceImpl implements PlanService {
     public PlanResponseDTO update(PlanUpdateRequestDTO planDTO, Long id) {
         Plan plan = ModelMapperUtils.map(planDTO, Plan.class);
         Plan alreadyPlan = planRepository.getUpdatePlanByName(plan.getName(), id);
-
         if (Objects.nonNull(alreadyPlan)) {
             throw new DataDuplicationException("Plan with name" + alreadyPlan.getName() + "already exists");
         }
-
         Plan foundPlan = planRepository.findById(id)
                 .map(p -> {
                     p.setName(plan.getName());
@@ -157,7 +155,8 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public void removeRoleFromPlan(Long planId, Long roleId) {
-        List<PlanRoleInfo> planRoleInfos = planRoleInfoRepository.getAllActivePlanRoleInfoByPlanAndRoleID(planId,roleId);
+        List<PlanRoleInfo> planRoleInfos = planRoleInfoRepository
+                .getAllActivePlanRoleInfoByPlanAndRoleID(planId,roleId);
 
         if(planRoleInfos.isEmpty()){
             throw new NoContentFoundException("Role not found");
