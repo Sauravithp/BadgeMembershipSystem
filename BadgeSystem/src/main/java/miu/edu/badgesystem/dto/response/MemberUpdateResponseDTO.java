@@ -25,5 +25,6 @@ public class MemberUpdateResponseDTO {
 
     private String badgeNumber;
 
+    private List<Role> roles;
 
 }

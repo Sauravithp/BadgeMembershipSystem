@@ -146,6 +146,8 @@ public class MemberServiceImpl implements MemberService {
         String badgeNumber = foundMember.getBadges().get(0).getBadgeNumber();
         MemberUpdateResponseDTO responseDTO = ModelMapperUtils.map(foundMember, MemberUpdateResponseDTO.class);
         responseDTO.setBadgeNumber(badgeNumber);
+        responseDTO.setRoles(memberRolesRepository.getRolesByMemberId(foundMember.getId()));
+
         return responseDTO;
     }
 
