@@ -140,11 +140,6 @@ public class TransactionServiceImpl implements TransactionService {
         }
 return membership;
     }
-//
-//    @Override
-//    public void deleteTransaction(Long id) {
-////        transactionRipository.deleteTransaction(transactionRipository.findById(id));
-//    }
 
     @Override
     public Transaction getTransaction(Long id) {
@@ -170,6 +165,13 @@ return membership;
         return transactionRepository.findAll().
                 stream().filter(s -> membershipList.contains(s.getMembership())).
                 collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(Long id) {
+        Transaction transaction=  transactionRepository.getById(id);
+        transaction.setStatus('D');
+        transactionRepository.save(transaction);
     }
 
     @Override

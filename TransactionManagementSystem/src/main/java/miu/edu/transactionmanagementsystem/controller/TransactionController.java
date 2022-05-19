@@ -8,6 +8,7 @@ import miu.edu.transactionmanagementsystem.service.TransactionService;
 import miu.edu.transactionmanagementsystem.util.ListMapper;
 import miu.edu.transactionmanagementsystem.util.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,4 +70,9 @@ public class TransactionController {
         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        transactionService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
