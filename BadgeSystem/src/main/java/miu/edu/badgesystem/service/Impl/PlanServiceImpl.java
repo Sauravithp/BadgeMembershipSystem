@@ -118,6 +118,7 @@ public class PlanServiceImpl implements PlanService {
         Plan plan = ModelMapperUtils.map(planDTO, Plan.class);
         Plan alreadyPlan = planRepository.getUpdatePlanByName(plan.getName(), id);
 
+
         if (Objects.nonNull(alreadyPlan)) {
             throw new DataDuplicationException("Plan with name" + alreadyPlan.getName() + "already exists");
         }
@@ -133,8 +134,10 @@ public class PlanServiceImpl implements PlanService {
                 }).orElseThrow(() -> {
                     throw new NoContentFoundException("No Content found");
                 });
-
-        return ModelMapperUtils.map(foundPlan, PlanResponseDTO.class);
+        List<Role> roles = planRoleInfoRepository.getActiveRoleInfoByPlanID(foundPlan.getId());
+        PlanResponseDTO planResponseDTO = ModelMapperUtils.map(foundPlan, PlanResponseDTO.class);
+        planResponseDTO.setRoles(roles);
+        return planResponseDTO;
     }
 
     @Override

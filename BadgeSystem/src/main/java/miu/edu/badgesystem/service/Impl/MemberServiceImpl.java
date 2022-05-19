@@ -144,7 +144,10 @@ public class MemberServiceImpl implements MemberService {
                     throw new NoContentFoundException("No Content found");
                 });
 
-        return ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
+        MemberResponseDTO memberResponseDTO = ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
+        memberResponseDTO.setRoles(memberRolesRepository.getRolesByMemberId(id));
+
+        return memberResponseDTO;
     }
 
     @Override
