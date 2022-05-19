@@ -173,6 +173,13 @@ return membership;
     }
 
     @Override
+    public void delete(Long id) {
+        Transaction transaction=  transactionRepository.getById(id);
+        transaction.setStatus('D');
+        transactionRepository.save(transaction);
+    }
+
+    @Override
     public List<Transaction> getTransactionByMembershipId(Long id, String token) {
         Membership membership = badgeSystemFeign.getActiveMembershipByID(id, token)
                 .orElseThrow(() -> {throw new NoContentFoundException("Membership NOT Active");});

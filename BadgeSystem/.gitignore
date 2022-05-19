@@ -18,7 +18,10 @@ target/
 *.iws
 *.iml
 *.ipr
-
+BadgeSystem.iml
+.mvn
+pom.xml
+*.yml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
