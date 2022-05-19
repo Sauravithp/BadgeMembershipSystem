@@ -130,8 +130,10 @@ public class PlanServiceImpl implements PlanService {
                 }).orElseThrow(() -> {
                     throw new NoContentFoundException("No Content found");
                 });
-
-        return ModelMapperUtils.map(foundPlan, PlanResponseDTO.class);
+        List<Role> roles = planRoleInfoRepository.getActiveRoleInfoByPlanID(foundPlan.getId());
+        PlanResponseDTO planResponseDTO = ModelMapperUtils.map(foundPlan, PlanResponseDTO.class);
+        planResponseDTO.setRoles(roles);
+        return planResponseDTO;
     }
 
     @Override
