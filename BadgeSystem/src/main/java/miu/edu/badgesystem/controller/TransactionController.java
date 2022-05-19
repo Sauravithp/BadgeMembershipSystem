@@ -4,7 +4,6 @@ package miu.edu.badgesystem.controller;
 import miu.edu.badgesystem.dto.request.TransactionRequestDTO;
 import miu.edu.badgesystem.dto.response.TransactionResponseDTO;
 import miu.edu.badgesystem.model.Transaction;
-
 import miu.edu.badgesystem.service.TransactionService;
 import miu.edu.badgesystem.util.ListMapper;
 import miu.edu.badgesystem.util.ModelMapperUtils;
@@ -20,7 +19,8 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @Autowired private ListMapper<Transaction, TransactionResponseDTO> listMapper;
+    @Autowired
+    private ListMapper<Transaction, TransactionResponseDTO> listMapper;
 
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
@@ -60,7 +60,7 @@ public class TransactionController {
     }
 
     @GetMapping("/member/{id}")
-    private ResponseEntity<?> getTransactionByMemberId(@PathVariable("id")Long id){
+    private ResponseEntity<?> getTransactionByMemberId(@PathVariable("id") Long id) {
         System.out.println("BOOM transaction controller");
         List<Transaction> transactionList = transactionService.getTransactionByMemberId(id);
         return ResponseEntity.ok(listMapper.mapList(transactionList, new TransactionResponseDTO()));

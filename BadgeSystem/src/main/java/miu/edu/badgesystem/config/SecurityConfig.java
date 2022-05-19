@@ -23,9 +23,6 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     private JwtFilter jwtFilter;
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
     public void configureGlobal(
             AuthenticationManagerBuilder auth) throws Exception {
 
@@ -54,8 +51,6 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .anyRequest()
                 .permitAll();
     }
-
-
 
 
 }

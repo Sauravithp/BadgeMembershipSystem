@@ -12,9 +12,8 @@ spring:
   application:
     name: badge-system
   datasource:
-    url: jdbc:mysql://localhost:3306/Practice
+    url: jdbc:mysql://localhost:3306/EA
     username: root
-    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10

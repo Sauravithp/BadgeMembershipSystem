@@ -16,10 +16,6 @@ public class DataDuplicationException extends RuntimeException {
         setErrorResponse(errorMessage, errorMessage);
     }
 
-    public DataDuplicationException(String errorMessage, String... searchParamsMap) {
-        String debugMessage = "Duplicate entries with " + toMap(String.class, String.class, searchParamsMap);
-        setErrorResponse(errorMessage, debugMessage);
-    }
 
     private void setErrorResponse(String errorMessage, String debugMessage) {
         exception = ExceptionResponse.builder()

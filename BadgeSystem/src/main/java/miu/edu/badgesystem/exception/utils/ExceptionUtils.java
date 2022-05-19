@@ -23,17 +23,11 @@ public class ExceptionUtils {
         return StringUtil.splitByCharacterTypeCamelCase(clazz.getSimpleName()) + errorMessage;
     }
 
-    public static String generateDebugMessage(Class clazz, String debugMessage) {
-        return StringUtil.splitByCharacterTypeCamelCase(clazz.getSimpleName()) + debugMessage;
-    }
 
     public static String generateMessage(String entity, Map<String, String> searchParams) {
         return StringUtils.capitalize(entity) + " was not found for parameters " + searchParams;
     }
 
-    public static String generateDebugMessage(Class clazz) {
-        return StringUtil.splitByCharacterTypeCamelCase(clazz.getSimpleName()) + "(s) is empty.";
-    }
 
     public static <K, V> Map<K, V> toMap(Class<K> keyType,
                                          Class<V> valueType,

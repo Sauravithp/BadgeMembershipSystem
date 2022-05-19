@@ -85,7 +85,6 @@ public class PlanServiceImpl implements PlanService {
         planRoleInfoService.save(plan, roles);
         PlanResponseDTO responseDTO = ModelMapperUtils.map(plan, PlanResponseDTO.class);
         responseDTO.setRoles(roles);
-        planRoleInfoService.save(plan, roles);
         return responseDTO;
     }
 

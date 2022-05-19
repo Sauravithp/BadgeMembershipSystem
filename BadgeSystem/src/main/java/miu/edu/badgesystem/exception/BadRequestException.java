@@ -16,10 +16,6 @@ public class BadRequestException extends RuntimeException {
         setErrorResponse(errorMessage, errorMessage);
     }
 
-    public BadRequestException(String errorMessage, String debugMessage) {
-        setErrorResponse(errorMessage, debugMessage);
-    }
-
     private void setErrorResponse(String errorMessage, String debugMessage) {
         exception = ExceptionResponse.builder()
                 .errorMessage(errorMessage)

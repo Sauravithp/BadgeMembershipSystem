@@ -1,0 +1,26 @@
+
+‹
+java:S1488P"nImmediately return this expression instead of assigning it to the temporary variable "transactionResponseDTO".(¯°¸8¦ä¸Æ0
+~
+java:S1488À"gImmediately return this expression instead of assigning it to the temporary variable "transactionList".(êäˆ×
+G
+java:S5411i"*Use the primitive boolean expression here.(ƒüÕØ8§ä¸Æ0
+?
+java:S5411~"*Use the primitive boolean expression here.(Å³ŸF
+X
+java:S4973…"<Strings and Boxed types should be compared using "equals()".(ŞìÁõÿÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ø°´Çúÿÿÿÿ
+W
+java:S1854E":Remove this useless assignment to local variable "status".(• æ®8Â·ŠÇ0
+\
+java:S1854Z":Remove this useless assignment to local variable "status".(é¸”Ïùÿÿÿÿ8Ğä¸Æ0
+W
+java:S1854Y":Remove this useless assignment to local variable "status".(• æ®8ì•ŒÇ0
+R	java:S125ª"<This block of commented-out lines of code should be removed.(÷¹Û³
+B
+java:S1168»"+Return an empty collection instead of null.(¥¹ï
+R	java:S125Ğ"<This block of commented-out lines of code should be removed.(÷¹Û³
+u
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8ñÚÎ0
+R
+java:S1144¡"6Remove this unused private "getMembershipById" method.(©–¯Ôøÿÿÿÿ

@@ -1,0 +1,7 @@
+
+`	java:S1124"FDefine and throw a dedicated exception instead of using a generic one.(βε‘ÿÿÿÿÿ
+G
+java:S2201$",The return value of "contains" must be used.(λΎ²ϊÿÿÿÿ
+D
+java:S11729")Remove this unused method parameter "ex".(ΕΙ›ÿÿÿÿÿ
+N	java:S106F"9Replace this use of System.out or System.err by a logger.(ψΌΖ

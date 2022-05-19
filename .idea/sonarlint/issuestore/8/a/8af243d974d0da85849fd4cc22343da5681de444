@@ -1,0 +1,10 @@
+
+†
+java:S1488R"dImmediately return this expression instead of assigning it to the temporary variable "memberships1".( æ©ûùÿÿÿÿ8Ë‹ˆÎ0
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ø°´Çúÿÿÿÿ
+[
+java:S1155I">Use isEmpty() to check whether the collection is empty or not.(†íÅÓ8ë‹ˆÎ0
+u
+java:S1602R"SRemove useless curly braces around statement and then remove useless return keyword( æ©ûùÿÿÿÿ8ì‹ˆÎ0
+H
+java:S1602e",Remove useless curly braces around statement(ß¯ü&8ñ‹ˆÎ0
