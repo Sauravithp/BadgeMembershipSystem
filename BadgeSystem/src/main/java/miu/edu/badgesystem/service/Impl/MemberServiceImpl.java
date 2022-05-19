@@ -145,7 +145,7 @@ public class MemberServiceImpl implements MemberService {
                 });
 
         MemberResponseDTO memberResponseDTO = ModelMapperUtils.map(foundMember, MemberResponseDTO.class);
-        memberResponseDTO.setRoles(memberRolesRepository.getRolesByMemberId(id));
+        memberResponseDTO.setRoles(memberRolesRepository.getRolesByMemberId(foundMember.getId()));
 
         return memberResponseDTO;
     }
